@@ -9,5 +9,4 @@ class EateryPrjtApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }
