@@ -20,8 +20,8 @@ function App() {
       <>
           <RouterProvider router={root} />
           <div className="App">
-            백엔드에서 받은 데이터: {hello}
-            {error && <p>Error: {error}</p>}
+            백엔드에서 받은 데이터 : {hello}
+            {error && <p>Error : {error}</p>}
           </div>
       </>
   );
