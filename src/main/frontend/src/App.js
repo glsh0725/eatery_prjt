@@ -1,5 +1,7 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
+import { RouterProvider } from 'react-router-dom';
+import root from './router/root';
 
 function App() {
   const [hello, setHello] = useState('');
@@ -15,10 +17,13 @@ function App() {
   }, []);
 
   return (
-      <div className="App">
-        백엔드에서 받은 데이터: {hello}
-        {error && <p>Error: {error}</p>}
-      </div>
+      <>
+          <RouterProvider router={root} />
+          <div className="App">
+            백엔드에서 받은 데이터 : {hello}
+            {error && <p>Error : {error}</p>}
+          </div>
+      </>
   );
 }
 
