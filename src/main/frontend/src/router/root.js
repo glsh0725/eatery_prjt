@@ -7,7 +7,7 @@ const About = lazy(() => import('../pages/About'));
 const FindStore = lazy(() => import('../pages/Find_store'));
 const Ranking = lazy(() => import('../pages/Ranking'));
 const PickCrew = lazy(() => import('../pages/Pick_crew'));
-
+const Sign_up = lazy(() => import('../pages/Sign_up'));
 
 const root = createBrowserRouter([
     {
@@ -47,6 +47,14 @@ const root = createBrowserRouter([
         element: (
             <Suspense fallback={Loading}>
                 <PickCrew />
+            </Suspense>
+        ),
+    },
+    {
+        path: '/sign_up',
+        element: (
+            <Suspense fallback={Loading}>
+                <Sign_up />
             </Suspense>
         ),
     },
