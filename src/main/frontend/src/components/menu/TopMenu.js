@@ -18,7 +18,7 @@ const TopMenu = () => {
                 <div className="top_menu_btn">
                     <button class="menu_btn">회원가입</button>
                     <button class="menu_btn">
-                        <Link to={"/"}>로그인</Link>
+                        <Link to={"/login"}>로그인</Link>
                     </button>
                 </div>
             </div>
