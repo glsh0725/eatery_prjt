@@ -3,12 +3,12 @@ import './TopMenu.css';
 
 const TopMenu = () => {
     return (
-        <nav className="top_nav">
-            <div className="top_first">
-                <div className="top_menu">
+        <nav class="top_nav">
+            <div class="top_first">
+                <div class="top_menu">
                     <ul>
                         <li>
-                            <Link className="logo" to={'/'}>다이닝픽</Link>
+                            <Link class="logo" to={'/'}>다이닝픽</Link>
                         </li>
                         <li>
                             <input type="text" placeholder="검색창 구현예정" className="search_box" />
@@ -16,11 +16,13 @@ const TopMenu = () => {
                     </ul>
                 </div>
                 <div className="top_menu_btn">
-                    <button className="menu_btn">회원가입</button>
-                    <button className="menu_btn">로그인</button>
+                    <button class="menu_btn">회원가입</button>
+                    <button class="menu_btn">
+                        <Link to={"/"}>로그인</Link>
+                    </button>
                 </div>
             </div>
-            <div className="second_menu">
+            <div class="second_menu">
                 <ul>
                     <li>
                         <Link to={"/about"}>다이닝픽 소개</Link>

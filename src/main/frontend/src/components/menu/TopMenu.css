@@ -54,7 +54,8 @@
 }
 
 .top_nav .top_first .top_menu_btn .menu_btn:hover {
-    background-color: #fff882;
+    background-color: #1b1b1b;
+    color: #ffffff;
 }
 
 .top_nav .second_menu {

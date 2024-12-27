@@ -1,0 +1,68 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    margin-top: -30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.container .intro {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.container .intro .intro_img {
+    width: 50%;
+}
+
+.container .intro .intro_img img {
+    width: 100%;
+    border-radius: 20px;
+}
+
+.container .intro .intro_text {
+    width: 50%;
+    padding: 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+.container .contact {
+    background-color: #1b1b1b;
+    color: white;
+    padding: 30px;
+    border-radius: 8px;
+    text-align: center;
+    width: 100%;
+}
+
+.container .contact h2 {
+    margin-bottom: 20px;
+}
+
+.container .contact p {
+    font-size: 18px;
+    font-weight: 100;
+    margin-bottom: 20px;
+}
+
+.container .contact .contact_btn {
+    background-color: #99ff00;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.container .contact .contact_btn:hover {
+    background-color: #ffec59;
+}
