@@ -7,21 +7,11 @@ const Login = () => {
       <DiningLayout>
         <form className="login-form">
           <h1>로그인</h1>
-          <div className="form-group">
-            <input type="text" id="id" placeholder="아이디" />
-          </div>
-          <div className="form-group">
-            <input
-                type="text"
-                id="password"
-                placeholder="비밀번호"
-            />
-          </div>
-          <div className="form-group">
-            <input type="checkbox" id="confirm-password" /> 아이디 저장
-          </div>
+          <input className="input-field" type="text" id="id" placeholder="아이디" />
+          <input className="input-field" type="text" id="password" placeholder="비밀번호"/>
+          <input className="label" type="checkbox" id="confirm-password"/> 아이디 저장
           <button className="login-button">로그인</button>
-          <div className="form-group">회원가입</div>
+          <div className="label">회원가입</div>
           <div className="label">아이디/비밀번호찾기</div>
           <div className="display">
             <button type="submit" className="signup-button">
@@ -36,4 +26,4 @@ const Login = () => {
   );
 };
 
-export default Login; // <-- 여기에서 Login을 export 합니다.
+export default Login;

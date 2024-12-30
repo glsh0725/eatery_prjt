@@ -27,8 +27,13 @@ body {
 }
 
 .form-group {
-  margin-bottom: 15px;
+  display: flex;
   width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
 }
 
 .form-group label {
@@ -39,11 +44,12 @@ body {
 }
 
 .input-field {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
 }
 
 .input-field:focus {
@@ -60,7 +66,7 @@ body {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  width: 100%;
+  width: 50%;
   margin-top: 20px;
 }
 
@@ -89,14 +95,22 @@ body {
 .form-group .label {
   margin-top: 10px;
   text-align: center;
-  font-size: 14px;
 }
 
 .form-group .label a {
   color: #1b1b1b;
   text-decoration: none;
+  font-size: 4px;
 }
 
 .form-group .label a:hover {
   text-decoration: underline;
+}
+.label{
+    cursor:pointer;
+    margin-top: 20px;
+    font-size: 16px;
+}
+.label:hover{
+    background-color: #3572EF;
 }
