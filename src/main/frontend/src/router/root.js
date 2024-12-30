@@ -10,6 +10,7 @@ const PickCrew = lazy(() => import('../pages/Pick_crew'));
 const Sign_up = lazy(() => import('../pages/Sign_up'));
 const Login =lazy(() => import('../pages/Login'));
 
+
 const root = createBrowserRouter([
     {
         path: '',
