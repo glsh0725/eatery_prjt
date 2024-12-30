@@ -1,88 +1,102 @@
 body {
-  font-family: 'Arial', sans-serif;
-  background-color: #fff8e1;
-  color: #333;
   margin: 0;
   padding: 0;
+  font-family: Arial, sans-serif;
 }
 
-main {
-  margin-top:120px;
-  margin-left:650px;
-  max-width: 600px;
-  padding: 20px;
-  transform: translate(-50%, -50%); /* 중앙 정렬 */
-}
-
-.signup-form {
-  background-color: #fff;
+/* 로그인 폼 스타일 */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+  margin-top: 50px;
   border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #fff;
 }
 
-.signup-form h1 {
-  text-align: center;
+.login-form h1 {
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
   margin-bottom: 20px;
-  color: #1b1b1b;
 }
 
 .form-group {
-  margin-bottom: 10px;
-  text-align: center;
+  margin-bottom: 15px;
+  width: 100%;
 }
 
-input[type="text"],
-input[type="password"],
-input[type="email"] {
-  width: 50%;
-  padding: 10px;
-  border: 1px solid #ffc107;
-  border-radius: 5px;
+.form-group label {
   font-size: 14px;
-}
-
-input[type="checkbox"],
-input[type="radio"] {
-  margin-right: 10px;
-}
-
-input[type="radio"] {
-margin-left:20px;
-}
-
-/* .error-message {
-  color: #d32f2f;
-  font-size: 12px;
-  margin-top: 5px;
+  color: #333;
+  margin-bottom: 5px;
   display: block;
-} */
+}
 
-.signup-button {
-  width: 60%;
+.input-field {
+  width: 100%;
   padding: 10px;
-  background-color: #ffc107;
-  color: #1b1b1b;
   font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.input-field:focus {
+  border-color: #66afe9;
+  outline: none;
+}
+
+.login-button {
+  background-color: #1b1b1b;
+  color: white;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
   border: none;
-  border-radius: 50px;
+  border-radius: 5px;
   cursor: pointer;
-  margin-block:5px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.login-button:hover {
+  background-color: #99ff00;
+}
+
+/* 카카오, 구글 로그인 버튼 스타일 */
+.signup-button {
+  background-color: #ffcd00;
+  color: black;
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
 }
 
 .signup-button:hover {
-  background-color: #ffa000;
+  background-color: #ff9d00;
 }
 
-.login-button{
-  border: 1px solid #ffc107;
-  border-radius: 5px;
-  width: 25.8%;
-  padding: 10px;
+/* 추가 링크 스타일 */
+.form-group .label {
   margin-top: 10px;
-  margin-bottom: 10px;
-  border-radius: 1em;
-  font-family: Pretendard;
   text-align: center;
+  font-size: 14px;
+}
+
+.form-group .label a {
+  color: #1b1b1b;
+  text-decoration: none;
+}
+
+.form-group .label a:hover {
+  text-decoration: underline;
 }

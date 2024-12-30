@@ -2,37 +2,38 @@ import React from "react";
 import DiningLayout from "../layouts/DiningLayout";
 import "../css/Login.css";
 
-const login = () => {
-    const contextPath = "";
+const Login = () => {
   return (
-    <DiningLayout>
-        <form class="signup-form">
+      <DiningLayout>
+        <form className="login-form">
           <h1>로그인</h1>
-          <div class="form-group">
-            아이디
-            <input type="text" id="id" placeholder="아이디를 입력하세요" />
-            비밀번호
-            <input
-              type="text"
-              id="password"
-              placeholder="비밀번호를 입력하세요"
-            />
-            <input type="checkbox" id="confirm-password" /> 아이디 기억
+          <div className="form-group">
+            <input type="text" id="id" placeholder="아이디" />
           </div>
-          <button class="login-button">로그인</button>
-          <div class="form-group">회원가입</div>
-          <div class="label">아아디/비밀번호찾기</div>
-          <div class="display">
-            <button type="submit" class="signup-button">
+          <div className="form-group">
+            <input
+                type="text"
+                id="password"
+                placeholder="비밀번호"
+            />
+          </div>
+          <div className="form-group">
+            <input type="checkbox" id="confirm-password" /> 아이디 저장
+          </div>
+          <button className="login-button">로그인</button>
+          <div className="form-group">회원가입</div>
+          <div className="label">아이디/비밀번호찾기</div>
+          <div className="display">
+            <button type="submit" className="signup-button">
               카카오 아이디로 로그인
             </button>
-            <button type="submit" class="signup-button">
+            <button type="submit" className="signup-button">
               구글계정으로 로그인
             </button>
           </div>
         </form>
-    </DiningLayout>
+      </DiningLayout>
   );
-}
+};
 
-export default Login;
+export default Login; // <-- 여기에서 Login을 export 합니다.

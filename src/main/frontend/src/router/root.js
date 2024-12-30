@@ -8,7 +8,8 @@ const FindStore = lazy(() => import('../pages/Find_store'));
 const Ranking = lazy(() => import('../pages/Ranking'));
 const PickCrew = lazy(() => import('../pages/Pick_crew'));
 const Sign_up = lazy(() => import('../pages/Sign_up'));
-const Login = lazy(() => import('../pages/Login'));
+const Login =lazy(() => import('../pages/Login'));
+
 const root = createBrowserRouter([
     {
         path: '',
@@ -62,7 +63,7 @@ const root = createBrowserRouter([
         path: '/login',
         element: (
             <Suspense fallback={Loading}>
-                <login />
+                <Login />
             </Suspense>
         ),
     },

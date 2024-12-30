@@ -16,7 +16,9 @@ const TopMenu = () => {
                     </ul>
                 </div>
                 <div className="top_menu_btn">
-                    <button class="menu_btn">회원가입</button>
+                    <Link to="/sign_up">
+                        <button className="menu_btn">회원가입</button>
+                    </Link>
                     <button class="menu_btn">
                         <Link to={"/login"}>로그인</Link>
                     </button>
