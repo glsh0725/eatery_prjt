@@ -1,6 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";  // Link 컴포넌트를 import
 import DiningLayout from "../layouts/DiningLayout";
-import "../css/login.css";
+import "../css/Login.css";
 
 const Login = () => {
     return (
@@ -8,13 +9,16 @@ const Login = () => {
             <form className="login-form">
                 <h1>로그인</h1>
                 <input className="input-field" type="text" id="id" placeholder="아이디" />
-                <input className="input-field" type="text" id="password" placeholder="비밀번호"/>
+                <input className="input-field" type="password" id="password" placeholder="비밀번호"/>
                 <div className="label">
                     <input type="checkbox" id="confirm-password"/> 아이디 저장
                 </div>
                 <button className="login-button">로그인</button>
                 <div className="label">회원가입</div>
-                <div className="label">아이디/비밀번호찾기</div>
+                {/* Link 컴포넌트를 사용하여 Find_userinfo로 이동 */}
+                <div className="label">
+                    <Link to="/find_userinfo">아이디/비밀번호찾기</Link>
+                </div>
                 <div className="display">
                     <button type="submit" className="signup-button">
                         카카오 아이디로 로그인
