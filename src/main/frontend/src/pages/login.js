@@ -10,8 +10,13 @@ const Login = () => {
           <input className="input-field" type="text" id="id" placeholder="아이디" />
           <input className="input-field" type="text" id="password" placeholder="비밀번호"/>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
           <div className="label">
             <input type="checkbox" id="confirm-password"/> 아이디 저장
+=======
+          <div>
+            <input className="label" type="checkbox" id="confirm-password"/> 아이디 저장
+>>>>>>> Stashed changes
 =======
           <div>
             <input className="label" type="checkbox" id="confirm-password"/> 아이디 저장
