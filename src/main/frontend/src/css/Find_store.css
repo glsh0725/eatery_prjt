@@ -1,0 +1,178 @@
+.container {
+    margin-top: -30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+
+.container .intro {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.container .intro .intro_img {
+    width: 50%;
+}
+
+.container .intro .intro_img img {
+    width: 100%;
+    border-radius: 20px;
+}
+
+.container .intro .intro_text {
+    width: 50%;
+    padding: 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+.container .contact {
+    background-color: #1b1b1b;
+    color: white;
+    padding: 30px;
+    border-radius: 8px;
+    text-align: center;
+    width: 100%;
+}
+
+.container .contact h2 {
+    margin-bottom: 20px;
+}
+
+.container .contact p {
+    font-size: 18px;
+    font-weight: 100;
+    margin-bottom: 20px;
+}
+
+.container .contact .contact_btn {
+    background-color: #99ff00;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.container .contact .contact_btn:hover {
+    background-color: #ffec59;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: -50px;
+}
+
+.header .search {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+.header .search input {
+    padding: 20px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.tags {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 50px;
+    margin-bottom: -30px;
+}
+
+.tags .tag {
+    background-color: #ffec59;
+    padding: 15px 40px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #333;
+}
+
+.tags .tag.active {
+    background-color: #f57224;
+    color: white;
+}
+
+.cardall {
+    display:flex;
+    margin-top: 40px;
+    padding: 10px;
+}
+
+.box{
+    border: 1px solid #1b1b1b;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+}
+
+.box:hover{
+    transform: scale(1.05);
+}
+
+.card {
+    width: 100%;
+    height: 150px;
+    display: flex;
+    gap: 10%;
+    font-size: 14px;
+    color: #333;
+    background-color: #FFF;
+    margin-bottom: 100px;
+}
+
+.cardtwo {
+    width: 100%;
+    display: flex;
+    height: 150px;
+    gap: 10%;
+    font-size: 14px;
+    color: #333;
+    background-color: #FFF;
+    margin-bottom: 100px;
+}
+
+.restaurant-info {
+  margin-top: 200px;
+  text-align: center;
+}
+
+.restaurant-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-left: 20px;
+}
+
+.rating {
+  font-size: 1rem;
+  color: #888;
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.previous, .next {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.previous:hover, .next:hover {
+  background-color: #45a049;
+}

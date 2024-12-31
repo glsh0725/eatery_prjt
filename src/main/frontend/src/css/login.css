@@ -6,12 +6,13 @@
   align-items: center;
   padding: 40px;
   margin-top: 50px;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
   border-radius: 8px;
   width: 40%;
   margin-left: auto;
   margin-right: auto;
   background-color: #fff;
+
 }
 
 .login-form h1 {
