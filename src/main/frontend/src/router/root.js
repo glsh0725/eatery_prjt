@@ -4,13 +4,13 @@ const { createBrowserRouter } = require('react-router-dom');
 const Loading = <div>Loading....</div>;
 const Main = lazy(() => import('../pages/Main'));
 const About = lazy(() => import('../pages/About'));
+const Login = lazy(() => import('../pages/Login'));
 const FindStore = lazy(() => import('../pages/Find_store'));
 const Ranking = lazy(() => import('../pages/Ranking'));
 const PickCrew = lazy(() => import('../pages/Pick_crew'));
 const Sign_up = lazy(() => import('../pages/Sign_up'));
-const Login =lazy(() => import('../pages/Login'));
-
-
+const Userinfo = lazy(() => import('../pages/Userinfo'));
+const Find_userinfo = lazy(() => import('../pages/Find_userinfo'));
 
 const root = createBrowserRouter([
     {
@@ -18,6 +18,14 @@ const root = createBrowserRouter([
         element: (
             <Suspense fallback={Loading}>
                 <Main />
+            </Suspense>
+        ),
+    },
+    {
+        path: '/login',
+        element: (
+            <Suspense fallback={Loading}>
+                <Login />
             </Suspense>
         ),
     },
@@ -62,10 +70,18 @@ const root = createBrowserRouter([
         ),
     },
     {
-        path: '/login',
+        path: '/userinfo',
         element: (
             <Suspense fallback={Loading}>
-                <Login />
+                <Userinfo />
+            </Suspense>
+        ),
+    },
+    {
+        path: '/find_userinfo',
+        element: (
+            <Suspense fallback={Loading}>
+                <Find_userinfo />
             </Suspense>
         ),
     },
