@@ -1,0 +1,123 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.userinfo_form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+}
+
+.userinfo_form .form_title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.input_userinfo {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    position: relative;
+}
+
+.input_userinfo:focus {
+    border-color: #66afe9;
+    outline: none;
+}
+
+.btn_userinfo {
+    background-color: #1b1b1b;
+    color: white;
+    padding: 8px 8px;
+    font-size: 15px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    position: absolute;
+    top: 30%;
+    right: -20px;
+    /*left: 200px;*/
+    transform: translateY(-45%);
+    width: auto;
+}
+
+.btn_userinfo:hover {
+    background-color: #99ff00;
+}
+
+.btn_save_button {
+    background-color: #1b1b1b;
+    color: white;
+    padding: 8px 8px;
+    font-size: 15px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    /*position: absolute;*/
+}
+.btn_save_button:hover {
+    background-color: #99ff00;
+}
+.radio_agree {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.radio_agree label {
+    font-size: 14px;
+    color: #333;
+    margin-right: 10px;
+}
+
+.terms {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    font-size: 14px;
+    color: #333;
+}
+
+.terms label {
+    font-size: 14px;
+    color: #333;
+}
+
+.terms a {
+    text-decoration: underline;
+    cursor: pointer;
+    color: #1b1b1b;
+}
+
+.terms a:hover {
+    color: #99ff00;
+}
+
+.delete_account {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #e74c3c;
+    cursor: pointer;
+}
+
+.delete_account:hover {
+    text-decoration: underline;
+    color: #c0392b;
+}
+
+.form_item {
+    margin-bottom: 20px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+}

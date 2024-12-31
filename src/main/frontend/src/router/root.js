@@ -9,7 +9,7 @@ const Ranking = lazy(() => import('../pages/Ranking'));
 const PickCrew = lazy(() => import('../pages/Pick_crew'));
 const Sign_up = lazy(() => import('../pages/Sign_up'));
 const Login =lazy(() => import('../pages/Login'));
-
+const Userinfo = lazy(() => import('../pages/Userinfo'));
 
 
 const root = createBrowserRouter([
@@ -66,6 +66,14 @@ const root = createBrowserRouter([
         element: (
             <Suspense fallback={Loading}>
                 <Login />
+            </Suspense>
+        ),
+    },
+    {
+        path: '/userinfo',
+        element: (
+            <Suspense fallback={Loading}>
+                <Userinfo />
             </Suspense>
         ),
     },
