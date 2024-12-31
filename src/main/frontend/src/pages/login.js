@@ -1,6 +1,6 @@
 import React from "react";
 import DiningLayout from "../layouts/DiningLayout";
-import "../css/Login.css";
+import "../css/login.css";
 
 const Login = () => {
     return (
