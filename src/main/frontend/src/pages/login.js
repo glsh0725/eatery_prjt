@@ -9,8 +9,13 @@ const Login = () => {
           <h1>로그인</h1>
           <input className="input-field" type="text" id="id" placeholder="아이디" />
           <input className="input-field" type="text" id="password" placeholder="비밀번호"/>
+<<<<<<< Updated upstream
           <div className="label">
             <input type="checkbox" id="confirm-password"/> 아이디 저장
+=======
+          <div>
+            <input className="label" type="checkbox" id="confirm-password"/> 아이디 저장
+>>>>>>> Stashed changes
           </div>
           <button className="login-button">로그인</button>
           <div className="label">회원가입</div>
