@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import DiningLayout from "../layouts/DiningLayout";
 import "../css/Userinfo.css";
 
 const Userinfo = () => {
@@ -31,6 +32,7 @@ const Userinfo = () => {
     };
 
     return (
+        <DiningLayout>
         <div className="userinfo_form">
             <form onSubmit={handleSubmit}>
                 <p className="form_title">회원정보 수정</p>
@@ -139,6 +141,7 @@ const Userinfo = () => {
                 </div>
             </form>
         </div>
+        </DiningLayout>
     );
 };
 

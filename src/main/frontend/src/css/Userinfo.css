@@ -43,7 +43,7 @@ body {
     border-radius: 5px;
     cursor: pointer;
     position: absolute;
-    top: 30%;
+    top: 40%;
     right: -20px;
     /*left: 200px;*/
     transform: translateY(-45%);
@@ -52,6 +52,7 @@ body {
 
 .btn_userinfo:hover {
     background-color: #99ff00;
+    color: #333;
 }
 
 .btn_save_button {
@@ -67,6 +68,7 @@ body {
 }
 .btn_save_button:hover {
     background-color: #99ff00;
+    color: #333;
 }
 .radio_agree {
     display: flex;

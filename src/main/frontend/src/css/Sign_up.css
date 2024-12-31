@@ -69,6 +69,7 @@ body {
 
 .btn_sign_up:hover {
     background-color: #99ff00;
+    color: #333;
 }
 
 .container .intro {
@@ -126,6 +127,7 @@ body {
 
 .container .contact .contact_btn:hover {
     background-color: #ffec59;
+    color: #333;
 }
 
 u {
