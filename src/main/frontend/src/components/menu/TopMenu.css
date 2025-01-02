@@ -1,5 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
 .top_nav {
     border-bottom: 1px solid #7c7c7c;
+    font-family: 'Jua', cursive;
+    font-size: 1.2rem;
 }
 
 .top_nav .top_first {
@@ -40,6 +44,8 @@
 .top_nav .top_first .top_menu_btn {
     display: flex;
     align-items: center;
+    font-family: 'Jua', cursive;
+    font-size: 1.2rem;
 }
 
 .top_nav .top_first .top_menu_btn .menu_btn {
@@ -48,9 +54,11 @@
     border: none;
     background-color: transparent;
     border-radius: 5px;
-    font-size: 15px;
+    /*font-size: 15px;*/
     font-weight: bold;
     cursor: pointer;
+    font-family: 'Jua', cursive;
+    font-size: 1.2rem;
 }
 
 .top_nav .top_first .top_menu_btn .menu_btn:hover {

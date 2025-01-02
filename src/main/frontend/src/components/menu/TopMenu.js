@@ -3,9 +3,9 @@ import './TopMenu.css';
 
 const TopMenu = () => {
     return (
-        <nav class="top_nav">
-            <div class="top_first">
-                <div class="top_menu">
+        <nav className="top_nav">
+            <div className="top_first">
+                <div className="top_menu">
                     <ul>
                         <li>
                             <Link class="logo" to={'/'}>다이닝픽</Link>
@@ -19,12 +19,12 @@ const TopMenu = () => {
                     <Link to="/sign_up">
                         <button className="menu_btn">회원가입</button>
                     </Link>
-                    <button class="menu_btn">
-                        <Link to={"/login"}>로그인</Link>
-                    </button>
+                    <Link to="/login">
+                        <button className="menu_btn">로그인</button>
+                    </Link>
                 </div>
             </div>
-            <div class="second_menu">
+            <div className="second_menu">
                 <ul>
                     <li>
                         <Link to={"/about"}>다이닝픽 소개</Link>
