@@ -83,20 +83,21 @@
 }
 
 .tags {
+    margin-left:20px;
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
     margin-top: 50px;
     margin-bottom: -30px;
+    width: clamp(60rem, calc(10rem + 1vw), 1rem);
 }
 
 .tags .tag {
     background-color: #ffec59;
-    padding: 15px 40px;
-    border-radius: 20px;
+    padding: 14px 50px;
+    border-radius: 2em;
     cursor: pointer;
-    font-size: 14px;
-    color: #333;
+    font-size: 15px;
 }
 
 .tags .tag.active {
@@ -104,17 +105,17 @@
     color: white;
 }
 
-.cardall {
-    display:flex;
-    margin-top: 40px;
-    padding: 10px;
-}
-
 .box{
     border: 1px solid #1b1b1b;
-    width: 100%;
-    height: 100%;
-    padding: 20px;
+    width: clamp(11rem, calc(10rem + 2vw), 1rem);
+    min-height: 120px; /* 최소 높이 설정 */
+    padding: 35px;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 .1rem 1rem rgba(0, 0, 0, 0.1);
+    border-radius: 1em;
+    background: white;
+    cursor:pointer;
 }
 
 .box:hover{
@@ -122,36 +123,43 @@
 }
 
 .card {
-    width: 100%;
-    height: 150px;
     display: flex;
-    gap: 10%;
+    gap: 5%;
     font-size: 14px;
     color: #333;
     background-color: #FFF;
     margin-bottom: 100px;
 }
 
+.cardall {
+   margin-top:70px;
+   display: flex;
+   height: 150px;
+   font-size: 14px;
+   color: #333;
+   background-color: #FFF;
+   margin-bottom: 100px;
+}
+
 .cardtwo {
-    width: 100%;
-    display: flex;
-    height: 150px;
-    gap: 10%;
-    font-size: 14px;
-    color: #333;
-    background-color: #FFF;
-    margin-bottom: 100px;
+   display: flex;
+   height: 150px;
+   font-size: 14px;
+   color: #333;
+   background-color: #FFF;
+   margin-bottom: 100px;
 }
 
 .restaurant-info {
   margin-top: 200px;
+  margin-left: 20px;
   text-align: center;
 }
 
 .restaurant-name {
   font-size: 1.2rem;
   font-weight: bold;
-  margin-left: 20px;
+  margin-left: -480px;
 }
 
 .rating {
@@ -162,7 +170,8 @@
 .pagination {
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
+  margin-top: 10px;
+  gap: 40px;
 }
 
 .previous, .next {
