@@ -102,20 +102,21 @@
 
 .tags .tag.active {
     background-color: #f57224;
-    color: white;
+    color: #fff;
 }
 
 .box{
-    border: 1px solid #1b1b1b;
-    width: clamp(11rem, calc(10rem + 2vw), 1rem);
-    min-height: 120px; /* 최소 높이 설정 */
-    padding: 35px;
+    border: 1px solid #fff;
+    width: clamp(9rem, calc(10rem + 2vw), 1rem);
+    min-height: 100px; /* 최소 높이 설정 */
+    padding: 33px;
     flex-direction: column;
     overflow: hidden;
     box-shadow: 0 .1rem 1rem rgba(0, 0, 0, 0.1);
     border-radius: 1em;
-    background: white;
+    background: #fff;
     cursor:pointer;
+    background-color:#fff;
 }
 
 .box:hover{
@@ -124,64 +125,102 @@
 
 .card {
     display: flex;
-    gap: 5%;
-    font-size: 14px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 100%;
+    margin: 0 10px;
+    padding: 5px;
+    border: none;
+    border-radius:1em;
+    border: solid 1px #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.card .restaurant-info {
+    text-align: center;
+    background-color: #fff;
+    border-radius:10em;
+    height: 100%;
+    width:45%;
+    margin-top:13px;
+}
+
+.card .restaurant-name {
+    font-size: 1.3rem;
+    font-weight: bold;
+    border-radius:3em;
     color: #333;
-    background-color: #FFF;
-    margin-bottom: 100px;
 }
 
-.cardall {
-   margin-top:70px;
-   display: flex;
-   height: 150px;
-   font-size: 14px;
-   color: #333;
-   background-color: #FFF;
-   margin-bottom: 100px;
+.card .rating {
+    font-size: 1rem;
+    color: #888;
+    width:100%;
 }
 
-.cardtwo {
-   display: flex;
-   height: 150px;
-   font-size: 14px;
-   color: #333;
-   background-color: #FFF;
-   margin-bottom: 100px;
+.card .rating:hover {
+    color: #007BFF; /* Blue on hover */
 }
 
-.restaurant-info {
-  margin-top: 200px;
-  margin-left: 20px;
-  text-align: center;
+/* Container for all cards */
+.cardall{
+    position: absolute;
+    top:410px;
+    border: solid 1px #fff;
+    border-radius: 15px;
+    padding: 50px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    width: 75%;
+    height: 210px;
+    margin: -20px;
 }
-
-.restaurant-name {
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin-left: -480px;
+.cardtwo{
+     position: absolute;
+     top:830px;
+     left:110px;
+     border-radius: 15px;
+     padding: 60px;
+     border: solid 1px #fff;
+     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+     display: flex;
+     width: 75%;
+     height: 200px;
+     margin: -20px;
 }
-
-.rating {
-  font-size: 1rem;
-  color: #888;
+.group-title {
+    position: absolute;
+    font-size: 2rem;
+    font-weight: bold;
+    top: -30px;
+    text-align: center;
+    color: #333;
 }
 
 .pagination {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-  gap: 40px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 180px;
 }
 
 .previous, .next {
-  padding: 10px 20px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  cursor: pointer;
+    margin-top: 200px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .previous:hover, .next:hover {
-  background-color: #45a049;
+    background-color: #45a049;
 }

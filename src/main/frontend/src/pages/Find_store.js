@@ -32,8 +32,10 @@ const Find_store = () => {
           <div className="tag">기념일</div>
           <div className="tag">코스요리</div>
         </div>
-
         <div className="cardall">
+        <div className="select">
+        <h3 className="group-title">혼밥</h3>
+        </div>
           <div className="card">
             <Box num={1} name="신상 맛집" message="비밀번호 찾기를 클릭했습니다!" />
               <div className="restaurant-info">
@@ -54,7 +56,6 @@ const Find_store = () => {
               <span className="restaurant-name">평점</span>
                <span className="rating">4.7/5</span>
             </div>
-
           </div>
           <div className="card">
             <Box num={4} name="신상 맛집" message="카카오 로그인을 클릭했습니다!" />
@@ -64,8 +65,20 @@ const Find_store = () => {
             </div>
           </div>
         </div>
+    </div>
+    <div className="pagination">
+      <button className="previous">이전</button>
+      <button className="previous">다음</button>
+    </div>
 
-        <div className="cardtwo">
+   <div className="pagination">
+      <button className="previous">이전</button>
+      <button className="previous">다음</button>
+    </div>
+       <div className="cardtwo">
+           <div className="select">
+           <h3 className="group-title">혼밥</h3>
+           </div>
           <div className="card">
             <Box num={5} name="카카오로그인" message="카카오 로그인을 클릭했습니다!" />
             <div className="restaurant-info">
@@ -95,11 +108,6 @@ const Find_store = () => {
             </div>
           </div>
         </div>
-        <div className="pagination">
-          <button className="previous">이전</button>
-          <button className="next">다음</button>
-        </div>
-      </div>
     </DiningLayout>
   );
 };
