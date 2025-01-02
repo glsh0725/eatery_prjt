@@ -1,3 +1,10 @@
+@font-face {
+    font-family: 'Ownglyph_ParkDaHyun';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2411-3@1.0/Ownglyph_ParkDaHyun.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .container {
     margin-top: -30px;
     display: flex;
@@ -67,6 +74,7 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: -50px;
+    font-family: 'Ownglyph_ParkDaHyun';
 }
 
 .header .search {
@@ -80,6 +88,7 @@
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 4px;
+
 }
 
 .tags {
@@ -90,6 +99,7 @@
     margin-top: 50px;
     margin-bottom: -30px;
     width: clamp(60rem, calc(10rem + 1vw), 1rem);
+    font-family: 'Ownglyph_ParkDaHyun';
 }
 
 .tags .tag {
@@ -97,7 +107,7 @@
     padding: 14px 50px;
     border-radius: 2em;
     cursor: pointer;
-    font-size: 15px;
+    font-size: 20px;
 }
 
 .tags .tag.active {
@@ -113,10 +123,10 @@
     flex-direction: column;
     overflow: hidden;
     box-shadow: 0 .1rem 1rem rgba(0, 0, 0, 0.1);
-    border-radius: 1em;
     background: #fff;
     cursor:pointer;
     background-color:#fff;
+    font-family: 'Ownglyph_ParkDaHyun';
 }
 
 .box:hover{
@@ -146,10 +156,10 @@
 .card .restaurant-info {
     text-align: center;
     background-color: #fff;
-    border-radius:10em;
+    border-radius:5em;
     height: 100%;
-    width:45%;
-    margin-top:13px;
+    width:100%;
+    margin-top:-10px;
 }
 
 .card .restaurant-name {
@@ -157,6 +167,7 @@
     font-weight: bold;
     border-radius:3em;
     color: #333;
+    font-family: 'Ownglyph_ParkDaHyun';
 }
 
 .card .rating {
@@ -187,7 +198,7 @@
      top:830px;
      left:110px;
      border-radius: 15px;
-     padding: 60px;
+     padding: 100px;
      border: solid 1px #fff;
      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
      display: flex;
@@ -197,11 +208,12 @@
 }
 .group-title {
     position: absolute;
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight: bold;
     top: -30px;
     text-align: center;
     color: #333;
+    font-family: 'Ownglyph_ParkDaHyun';
 }
 
 .pagination {
@@ -219,8 +231,11 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-family: 'Ownglyph_ParkDaHyun';
+    font-size: 20px;
 }
 
 .previous:hover, .next:hover {
     background-color: #45a049;
+
 }
