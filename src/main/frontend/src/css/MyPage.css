@@ -1,0 +1,90 @@
+/* 기본 스타일 초기화 */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* 컨테이너 스타일 */
+.mypage-container {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 20px;
+}
+
+/* 제목 스타일 */
+.mypage-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+/* 프로필 섹션 스타일 */
+.profile-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.profile-left, .profile-right {
+    flex: 1;
+}
+
+/* 프로필 사진 스타일 */
+.profile-picture {
+    width: 200px;
+    height: 200px;
+    border: 2px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    font-size: 16px;
+    font-weight: bold;
+    color: #666;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+/* 티어 스타일 */
+.profile-tier {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #666;
+}
+
+/* 프로필 오른쪽 정보 스타일 */
+.profile-right p {
+    margin: 10px 0;
+    font-size: 16px;
+    text-align: left;
+}
+
+.profile-right select {
+    padding: 5px;
+    font-size: 14px;
+}
+
+/* 버튼 스타일 */
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.action-btn {
+    padding: 10px 20px;
+    background-color: #ff6600;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.action-btn:hover {
+    background-color: #ffa500;
+}

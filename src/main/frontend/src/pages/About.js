@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Modal } from "../components/modal/Modal";
+import React, {useState} from "react";
+import {Modal} from "../components/modal/Modal";
 import DiningLayout from '../layouts/DiningLayout';
 import '../css/About.css'
 
@@ -8,12 +8,13 @@ const About = () => {
 
     return (
         <DiningLayout>
-            <div class="container">
-                <div class="intro">
-                    <div class="intro_img">
-                        <img src="https://cdn.pixabay.com/photo/2024/08/04/15/47/ai-generated-8944735_1280.jpg" alt="meat" />
+            <div className="container">
+                <div className="intro">
+                    <div className="intro_img">
+                        <img src="https://cdn.pixabay.com/photo/2024/08/04/15/47/ai-generated-8944735_1280.jpg"
+                             alt="meat"/>
                     </div>
-                    <div class="intro_text">
+                    <div className="intro_text">
                         <h1>다이닝픽이란...</h1>
                         <p>
                             손쉽게 레스토랑을 찾고 손쉽게 먹고 싶은 음식을 찾고 <br/>
@@ -23,19 +24,19 @@ const About = () => {
                     </div>
                 </div>
 
-                <div class="contact">
+                <div className="contact">
                     <h2>기업 문의</h2>
                     <p>
                         우리와 함께 성장할 기회를 찾고 있나요? <br/>
                         아래 버튼을 클릭하여 문의해 주세요!
                     </p>
-                    <button class="contact_btn"
+                    <button className="contact_btn"
                             onClick={() => {
                                 setOpenModal(true);
                                 document.body.style = "overflow: hidden";
                             }}> 기업 문의하기
                     </button>
-                     {openModal ? <Modal openModal={openModal} setOpenModal={setOpenModal} /> : null}
+                    {openModal ? <Modal openModal={openModal} setOpenModal={setOpenModal}/> : null}
                 </div>
             </div>
         </DiningLayout>
