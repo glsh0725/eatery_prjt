@@ -11,6 +11,7 @@ const PickCrew = lazy(() => import('../pages/Pick_crew'));
 const Sign_up = lazy(() => import('../pages/Sign_up'));
 const Userinfo = lazy(() => import('../pages/Userinfo'));
 const Find_userinfo = lazy(() => import('../pages/Find_userinfo'));
+const MyPage = lazy(() => import('../pages/MyPage'));
 
 const root = createBrowserRouter([
     {
@@ -82,6 +83,14 @@ const root = createBrowserRouter([
         element: (
             <Suspense fallback={Loading}>
                 <Find_userinfo />
+            </Suspense>
+        ),
+    },
+    {
+        path: '/myPage',
+        element: (
+            <Suspense fallback={Loading}>
+                <MyPage />
             </Suspense>
         ),
     },
