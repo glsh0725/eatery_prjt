@@ -72,32 +72,61 @@
 .header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: -50px;
+    margin-bottom: -80px;
+    font-size:30px;
     font-family: 'Ownglyph_ParkDaHyun';
-}
 
+}
 .header .search {
     display: flex;
     align-items: center;
-    gap: 50px;
 }
-
-.header .search input {
-    padding: 20px;
-    font-size: 16px;
-    border: 1px solid #ccc;
+.header ,.region{
+     margin-top:50px;
+     width: 10%;
+     height: 55px;
+     border-radius: 1em;
+     background-color: #A7E6FF;
+     font-family: 'Ownglyph_ParkDaHyun';
+     font-size: 35px;
+     color:white;
+     border:none;
+     cursor:pointer;
+}
+.header ,.search input{
+    background-color: #3ABEF9;
+    width: 121%;
+    height: 100px;
+    border: 1px solid #f9f9f9;
     border-radius: 4px;
-
+    display: flex;
+    margin-top:-11.5px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+h4{
+   margin-top: 5px;
+   font-weight:bold;
+   font-size: 40px;
+   font-family: 'Ownglyph_ParkDaHyun';
+   align-items:center;
+   color: white;
 }
 
+h3{
+   ddisplay: inline-block;
+   font-weight:bold;
+   font-size: 20px;
+   font-family: 'Ownglyph_ParkDaHyun';
+}
 .tags {
     margin-left:20px;
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
-    margin-top: 50px;
-    margin-bottom: -30px;
+    margin-top: 120px;
+    margin-bottom: -110px;
     width: clamp(60rem, calc(10rem + 1vw), 1rem);
     font-family: 'Ownglyph_ParkDaHyun';
 }
@@ -177,41 +206,40 @@
 }
 
 .card .rating:hover {
-    color: #007BFF; /* Blue on hover */
+    color: #007BFF;
 }
 
-/* Container for all cards */
+.all{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top:150px;
+
+}
+
 .cardall{
-    position: absolute;
-    top:410px;
     border: solid 1px #fff;
     border-radius: 15px;
     padding: 50px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     display: flex;
-    width: 75%;
-    height: 210px;
-    margin: -20px;
 }
+
 .cardtwo{
-     position: absolute;
-     top:830px;
-     left:110px;
+     margin-top: 40px;
      border-radius: 15px;
      padding: 50px;
      border: solid 1px #fff;
      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
      display: flex;
-     width: 75%;
-     height: 200px;
-     margin: -20px;
 }
+
 .group-title {
-    position: absolute;
+    position:absolute;
     font-size: 2.5rem;
     font-weight: bold;
-    top: -30px;
-    left: 5px;
+    left: 100px;
+    margin-top: -50px;
     text-align: center;
     color: #333;
     font-family: 'Ownglyph_ParkDaHyun';
@@ -221,7 +249,7 @@
     display: flex;
     justify-content: center;
     gap: 10px;
-    margin-top: 180px;
+    margin-top: -180px;
 }
 
 .previous, .next {
@@ -238,5 +266,4 @@
 
 .previous:hover, .next:hover {
     background-color: #45a049;
-
 }

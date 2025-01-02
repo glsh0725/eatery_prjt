@@ -17,7 +17,7 @@ const Login = () => {
                 <div className="label">
                     <Link to="/Sign_up">회원가입</Link>
                 </div>
-                {/* Link 컴포넌트를 사용하여 Find_userinfo로 이동 */}
+
                 <div className="label">
                     <Link to="/find_userinfo">아이디/비밀번호찾기</Link>
                 </div>
@@ -33,5 +33,4 @@ const Login = () => {
         </DiningLayout>
     );
 };
-
 export default Login;

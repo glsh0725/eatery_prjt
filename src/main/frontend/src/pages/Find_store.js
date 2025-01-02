@@ -1,20 +1,21 @@
+import React, { useState } from 'react';
 import DiningLayout from '../layouts/DiningLayout';
 import Box from '../components/find_store/Find';
 import Tags from '../components/find_store/Find';
 import "../css/Find_store.css";
 
+
 const Find_store = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const openModal = () => setIsModalOpen(true); // 모달 열기
+  const closeModal = () => setIsModalOpen(false); // 모달 닫기
+
   return (
     <DiningLayout>
       <div className="container">
         <div className="header">
-          <div className="search">
-            <h4>방문시간 선택</h4>
-            <input type="time" />
-            <h4>현재 보고있는 지역은</h4>
-            <input type="text" placeholder="현재 지역" />
-            <h4>입니다.</h4>
-          </div>
+           <button className="region" onClick={openModal}>지역선택</button>
+          <h4>현재지역은 서울 입니다</h4>
         </div>
         <div className="tags">
           <div className="tag active">전체</div>
@@ -32,82 +33,96 @@ const Find_store = () => {
           <div className="tag">기념일</div>
           <div className="tag">코스요리</div>
         </div>
-        <div className="cardall">
-        <div className="select">
-        <h3 className="group-title">혼밥</h3>
-        </div>
-          <div className="card">
-            <Box num={1} name="신상 맛집" message="비밀번호 찾기를 클릭했습니다!" />
+
+        {/* All Cards Section */}
+        <div className="all">
+          {/* 혼밥 그룹 */}
+          <div className="cardall">
+            <div className="select">
+              <h3 className="group-title">혼밥</h3>
+            </div>
+            <div className="card">
+              <Box num={1} name="신상 맛집" message="비밀번호 찾기를 클릭했습니다!" />
               <div className="restaurant-info">
                 <span className="restaurant-name">평점</span>
                 <span className="rating">4.5/5</span>
               </div>
-          </div>
-          <div className="card">
-            <Box num={2} name="신상 맛집" message="비밀번호 찾기를 클릭했습니다!" />
-            <div className="restaurant-info">
-              <span className="restaurant-name">평점</span>
-              <span className="rating">4.2/5</span>
+            </div>
+            <div className="card">
+              <Box num={2} name="신상 맛집" message="비밀번호 찾기를 클릭했습니다!" />
+              <div className="restaurant-info">
+                <span className="restaurant-name">평점</span>
+                <span className="rating">4.2/5</span>
+              </div>
+            </div>
+            <div className="card">
+              <Box num={3} name="신상 맛집" message="비밀번호 찾기를 클릭했습니다!" />
+              <div className="restaurant-info">
+                <span className="restaurant-name">평점</span>
+                <span className="rating">4.7/5</span>
+              </div>
+            </div>
+            <div className="card">
+              <Box num={4} name="신상 맛집" message="카카오 로그인을 클릭했습니다!" />
+              <div className="restaurant-info">
+                <span className="restaurant-name">평점</span>
+                <span className="rating">4.3/5</span>
+              </div>
             </div>
           </div>
-          <div className="card">
-            <Box num={3} name="신상 맛집" message="비밀번호 찾기를 클릭했습니다!" />
-            <div className="restaurant-info">
-              <span className="restaurant-name">평점</span>
-               <span className="rating">4.7/5</span>
-            </div>
-          </div>
-          <div className="card">
-            <Box num={4} name="신상 맛집" message="카카오 로그인을 클릭했습니다!" />
-            <div className="restaurant-info">
-              <span className="restaurant-name">평점</span>
-              <span className="rating">4.3/5</span>
-            </div>
-          </div>
-        </div>
-    </div>
-    <div className="pagination">
-      <button className="previous">이전</button>
-      <button className="previous">다음</button>
-    </div>
-
-   <div className="pagination">
-      <button className="previous">이전</button>
-      <button className="previous">다음</button>
-    </div>
-       <div className="cardtwo">
-           <div className="select">
-           <h3 className="group-title">혼밥</h3>
+           <div className="pagination">
+             <button className="previous">이전</button>
+             <button className="next">다음</button>
            </div>
-          <div className="card">
-            <Box num={5} name="카카오로그인" message="카카오 로그인을 클릭했습니다!" />
-            <div className="restaurant-info">
-              <span className="restaurant-name">평점</span>
-              <span className="rating">4.0/5</span>
+
+          <div className="cardtwo">
+            <div className="select">
+              <h3 className="group-title">데이트</h3>
             </div>
-          </div>
-          <div className="card">
-            <Box num={6} name="카카오로그인" message="카카오 로그인을 클릭했습니다!" />
-            <div className="restaurant-info">
-              <span className="restaurant-name">평점</span>
-              <span className="rating">4.8/5</span>
+            <div className="card">
+              <Box num={5} name="카카오로그인" message="카카오 로그인을 클릭했습니다!" />
+              <div className="restaurant-info">
+                <span className="restaurant-name">평점</span>
+                <span className="rating">4.0/5</span>
+              </div>
             </div>
-          </div>
-          <div className="card">
-            <Box num={7} name="카카오로그인" message="카카오 로그인을 클릭했습니다!" />
-            <div className="restaurant-info">
-              <span className="restaurant-name">평점</span>
-              <span className="rating">4.1/5</span>
+            <div className="card">
+              <Box num={6} name="카카오로그인" message="카카오 로그인을 클릭했습니다!" />
+              <div className="restaurant-info">
+                <span className="restaurant-name">평점</span>
+                <span className="rating">4.8/5</span>
+              </div>
             </div>
-          </div>
-          <div className="card">
-            <Box num={8} name="카카오로그인" message="카카오 로그인을 클릭했습니다!" />
-            <div className="restaurant-info">
-              <span className="restaurant-name">평점</span>
-              <span className="rating">4.6/5</span>
+            <div className="card">
+              <Box num={7} name="카카오로그인" message="카카오 로그인을 클릭했습니다!" />
+              <div className="restaurant-info">
+                <span className="restaurant-name">평점</span>
+                <span className="rating">4.1/5</span>
+              </div>
+            </div>
+            <div className="card">
+              <Box num={8} name="카카오로그인" message="카카오 로그인을 클릭했습니다!" />
+              <div className="restaurant-info">
+                <span className="restaurant-name">평점</span>
+                <span className="rating">4.6/5</span>
+              </div>
             </div>
           </div>
         </div>
+        <div className="pagination">
+          <button className="previous">이전</button>
+          <button className="next">다음</button>
+        </div>
+      </div>
+        {isModalOpen && (
+            <div className="modal-overlay">
+              <div className="modal-content">
+                <button className="close-btn" onClick={closeModal}>×</button>
+                <h2>지역 선택</h2>
+                <p>여기에 원하는 내용을 추가하세요.</p>
+              </div>
+            </div>
+          )}
     </DiningLayout>
   );
 };
