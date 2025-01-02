@@ -14,7 +14,21 @@
   background-color: #fff;
 
 }
+.saveIdlabel {
+  margin-top: 20px;
+  font-size: 16px;
+  text-decoration: none;
 
+}
+/* 로그인 페이지 링크 스타일 */
+.login-form .label a {
+  color: inherit; /* 부모의 색상 상속, 원하는 색상으로 변경 가능 */
+  text-decoration: none; /* 언더라인 제거 */
+}
+
+.login-form .label a:hover {
+  text-decoration: none; /* 호버 시에도 언더라인 제거 */
+}
 .login-form h1 {
   font-size: 28px;
   font-weight: bold;
@@ -93,20 +107,15 @@
   text-align: center;
 }
 
-.form-group .label a {
-  color: #1b1b1b;
-  text-decoration: none;
-  font-size: 4px;
-}
+/*.form-group .label a {*/
+/*  color: #1b1b1b;*/
+/*  text-decoration: none;*/
+/*  font-size: 4px;*/
+/*}*/
 
-.form-group .label a:hover {
-  text-decoration: underline;
-}
 .label{
     cursor:pointer;
     margin-top: 20px;
     font-size: 16px;
-}
-.label:hover{
-    background-color: #3572EF;
+    text-decoration: none;
 }
