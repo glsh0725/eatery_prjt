@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+* {
+    font-family: 'Jua', sans-serif;
+}
+
+body {
+    background-color: #f9f9f9;
+}
+
+.ranking-container {
+    padding: 20px;
+    text-align: center;
+}
+
+.ranking-section {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.ranking-box {
+    width: 32%; /* 박스 폭 */
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #fff;
+    height: 600px;
+    overflow-y: auto; /* 내용만 스크롤 */
+    position: relative;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: #333;
+}
+
+.ranking-box h2 {
+    margin: 0;
+    padding: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #1b1b1b;
+    background-color: #f8d859; /* 부드러운 노란색 */
+    position: sticky; /* 제목 고정 */
+    top: 0; /* 상단에 고정 */
+    z-index: 10; /* 내용 위에 표시되도록 설정 */
+    border-bottom: 1px solid #ddd;
+    text-transform: uppercase; /* 대문자로 표시 */
+}
+
+.ranking-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 10px 0;
+}
+
+.ranking-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px;
+    border-bottom: 1px solid #f0f0f0;
+    background-color: #fafafa; /* 항목 배경 */
+    transition: background-color 0.3s ease; /* 호버 애니메이션 */
+}
+
+.ranking-item:hover {
+    background-color: #f8f8f8; /* 호버 시 더 밝게 */
+}
+
+.ranking-rank {
+    font-weight: bold;
+    font-size: 18px;
+    margin-right: 10px;
+    width: 30px;
+    text-align: center;
+    color: #333;
+}
+
+.profile-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* 동그란 프로필 이미지 */
+    margin-right: 10px;
+    object-fit: cover; /* 이미지를 동그란 영역에 맞추기 */
+    border: 2px solid #f8d859; /* 프로필 이미지 테두리 */
+}
+
+.ranking-user {
+    flex-grow: 1;
+    text-align: left;
+    color: #555;
+}
+
+.ranking-item:last-child {
+    border-bottom: none;
+}
+
+.load-more-btn {
+    width: 100%;
+    padding: 15px 0;
+    margin-top: 10px;
+    background-color: #f57224;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 0 0 10px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.load-more-btn:hover {
+    background-color: #f78f4b;
+}
+
+.load-more-btn:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+}
