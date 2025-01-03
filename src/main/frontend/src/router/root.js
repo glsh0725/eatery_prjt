@@ -1,4 +1,5 @@
 import { Suspense, lazy } from 'react';
+import UserProfile from "../pages/UserProfile";
 const { createBrowserRouter } = require('react-router-dom');
 
 const Loading = <div>Loading....</div>;
@@ -91,6 +92,14 @@ const root = createBrowserRouter([
         element: (
             <Suspense fallback={Loading}>
                 <MyPage />
+            </Suspense>
+        ),
+    },
+    {
+        path: '/userprofile',
+        element: (
+            <Suspense fallback={Loading}>
+                <UserProfile />
             </Suspense>
         ),
     },
