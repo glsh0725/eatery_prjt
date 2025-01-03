@@ -6,17 +6,14 @@ import "../css/Find_store.css";
 
 
 const Find_store = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const openModal = () => setIsModalOpen(true); // 모달 열기
-  const closeModal = () => setIsModalOpen(false); // 모달 닫기
+  const [showModal, setShowModal] = useState(false);
+
+  const openModal = () => setShowModal(true);
+  const closeModal = () => setShowModal(false);
 
   return (
     <DiningLayout>
       <div className="container">
-        <div className="header">
-           <button className="region" onClick={openModal}>지역선택</button>
-          <h4>현재지역은 서울 입니다</h4>
-        </div>
         <div className="tags">
           <div className="tag active">전체</div>
           <div className="tag">혼밥</div>
@@ -114,17 +111,84 @@ const Find_store = () => {
           <button className="next">다음</button>
         </div>
       </div>
-        {isModalOpen && (
-            <div className="modal-overlay">
-              <div className="modal-content">
-                <button className="close-btn" onClick={closeModal}>×</button>
-                <h2>지역 선택</h2>
-                <p>여기에 원하는 내용을 추가하세요.</p>
-              </div>
-            </div>
-          )}
-    </DiningLayout>
-  );
-};
+            <div className="container">
+                  <div className="header">
+                    <button className="region" onClick={openModal}>
+                      지역선택
+                    </button>
+                    <h4>현재지역은 서울 입니다</h4>
+                  </div>
+                  {showModal && (
+                     <div className="modal-overlay" onClick={closeModal}>
+                        <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                          <div className="modal-header">
+                            <h5>지역 선택</h5>
+                            <button className="close-button" onClick={closeModal}>
+                               X
+                            </button>
+                          </div>
 
+                          <div className="modal-body">
+                            <div className="region-selection">
+                              <div className="region-column">
+                                <h5>광역시도</h5>
+                                <ul>
+                                  <li>서울</li>
+                                  <li>강원</li>
+                                  <li>경기</li>
+                                  <li>경남</li>
+                                  <li>경북</li>
+                                  <li>광주</li>
+                                  <li>대구</li>
+                                  <li>대전</li>
+                                  <li>부산</li>
+                                  <li>세종</li>
+                                  <li>울산</li>
+                                  <li>인천</li>
+                                  <li>전남</li>
+                                  <li>전북</li>
+                                  <li>제주</li>
+                                  <li>충남</li>
+                                  <li>충북</li>
+                                </ul>
+                              </div>
+                              {/* 시군구 Column */}
+                              <div className="region-column">
+                                <h5>시군구</h5>
+                                <ul>
+                                  <li>전체</li>
+                                  <li>천안</li>
+                                  <li>공주</li>
+                                  <li>당진</li>
+                                  <li>태안</li>
+                                  <li>서산</li>
+                                  <li>아산</li>
+                                  <li>부여</li>
+                                  <li>보령</li>
+                                  <li>안면도</li>
+                                  <li>불당동</li>
+                                </ul>
+                              </div>
+                              <div className="region-column">
+                                <h5>읍면동</h5>
+                                <ul>
+                                  <li>선택 없음</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Modal Footer */}
+                          <div className="modal-footer">
+                            <button className="complete-button" onClick={closeModal}>
+                              선택 완료
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                    </div>
+              </DiningLayout>
+            );
+          };
 export default Find_store;

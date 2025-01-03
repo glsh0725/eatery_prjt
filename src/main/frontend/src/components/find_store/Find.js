@@ -22,4 +22,14 @@ function Find(props) {
 //  );
 //}
 
+document.querySelectorAll('.region-column ul li').forEach((item) => {
+  item.addEventListener('click', function () {
+    document.querySelectorAll('.region-column ul li.selected').forEach((selectedItem) => {
+      selectedItem.classList.remove('selected');
+    });
+
+    this.classList.add('selected');
+  });
+});
+
 export default Find;
