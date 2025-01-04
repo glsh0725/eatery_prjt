@@ -19,10 +19,6 @@ function App() {
     return (
         <>
             <RouterProvider router={root} />
-            <div className="App">
-                백엔드 데이터 : {hello}
-                {error && <p>Error : {error}</p>}
-            </div>
         </>
     );
 }
