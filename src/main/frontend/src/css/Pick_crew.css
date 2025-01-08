@@ -1,28 +1,70 @@
-.pick {
-    margin-top: -30px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px;
+.myc_container {
+    margin: 0px 25px;
+    border: 1px solid #1b1b1b;
+    border-radius: 20px;
+    height: 250px;
 }
-
-/* ... (나머지 CSS 스타일, 기존 CSS 코드에서 클래스 이름만 변경) */
-.pcik_header{
+.myc_container .my_top {
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
-    margin-bottom: -80px;
-    font-size:30px;
-    font-family: 'Ownglyph_ParkDaHyun';
-
 }
-/* ... (나머지 CSS 스타일, 기존 CSS 코드에서 클래스 이름만 변경) */
-.pcik_title {
-    position:absolute;
-    font-size: 2.5rem;
-    font-weight: bold;
-    left: 100px;
-    margin-top: -50px;
+.myc_container .my_top .my_crew {
+    position: relative;
+    margin: 0;
+    top: 15px;
+    left: 15px;
+    font-size: 35px;
+}
+.myc_container .my_top .crew_btn {
+    position: relative;
+    margin: 0px;
+    right: 20px;
+    cursor: pointer;
+}
+.myc_container .my_top .crew_btn .btn {
+    margin-left: 5px;
+    cursor: pointer;
+}
+.myc_container .my_info {
+    position: relative;
+    font-size: 20px;
+    top: 150px;
+    left: 15px;
+    font-weight: 100;
+}
+.bottom_menu {
+    position: relative;
+    margin: 0px;
+    top: 20px;
+}
+.bottom_menu .pick_search {
+    float: right;
+    margin-right: 30px;
+}
+.bottom_menu .bm_con .bm_category {
+    display: flex;
+    align-items: center;
+}
+.bottom_menu .bm_con .bm_title {
+    font-size: 35px;
+    margin-left: 30px;
+}
+.bottom_menu .bm_con {
+    display: flex;
+    flex-direction: row;
+}
+.bottom_menu .bm_con .bm_category li {
+    float: left;
+    list-style: none;
+    text-decoration: none;
+    margin-right: 20px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 100;
     text-align: center;
-    color: #333;
-    font-family: 'Ownglyph_ParkDaHyun';
+}
+.bottom_menu .bm_con .bm_crewlist {
+    display: flex;
+    flex-direction: col;
 }
