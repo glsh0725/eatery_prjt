@@ -17,7 +17,7 @@ function Pick_crew() {
                         <button type="button" class="mc_btn">만들기</button>
                     </div>
                 </div>
-                <img class="mc_img" src="https://cdn.pixabay.com/photo/2022/05/23/20/33/hot-air-balloon-7217175_1280.jpg" />
+                <img class="mc_img" src="https://cdn.pixabay.com/photo/2019/01/06/21/54/cookies-3918049_1280.jpg" />
                 <p class="my_info">나의 음식 정보 공유 그룹을 확인하세요.</p>
             </div>
             <div class="bottom_menu">
@@ -39,15 +39,16 @@ function Pick_crew() {
                         <button onClick={() => handleBtn(7)}
                             class={`bm_btn ${selBtn === 7 ? 'active' : ''}`}>비건</button>
                 </div>
-                <div class="bm_crewlist">
-                    <card>
-                        크루모집 1
-                    </card>
-                    <card>
-                        크루모집 2
-                    </card>
-                    <card>
-                        크루모집 3
+                <div class="bm_cardlist">
+                    <card class="cl_card">
+                        <img src="https://cdn.pixabay.com/photo/2023/09/26/20/05/tomatoes-8278168_1280.jpg" />
+                        <div class="txt_right">
+                            <div class="txt_title">맛집탐방</div>
+                            <ul class="txt_elem">
+                                <li>좋아요 23</li>
+                                <li>참여인원 33</li>
+                            </ul>
+                        </div>
                     </card>
                 </div>
             </div>
