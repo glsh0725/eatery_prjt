@@ -40,7 +40,7 @@ public class RestaurantCrawler {
             driver.get(kakaoMapUrl);
 
             // 요소 로드 대기
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
 
             // "장소 더보기" 버튼을 클릭
             WebElement moreButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#info\\.search\\.place\\.more")));
@@ -50,7 +50,7 @@ public class RestaurantCrawler {
             System.out.println("장소 더보기 버튼을 클릭했습니다.");
             Thread.sleep(2000);
 
-            int maxPagesToCrawl = 2; // 최대 크롤링할 페이지 수
+            int maxPagesToCrawl = 1; // 최대 크롤링할 페이지 수
             int currentPage = 1;
 
             while (currentPage <= maxPagesToCrawl) {
@@ -109,19 +109,27 @@ public class RestaurantCrawler {
                         breakTime = breakTimeBuilder.length() > 0 ? breakTimeBuilder.toString() : "휴게시간 정보 없음";
 
                         // 휴무일 데이터 파싱
+                        List<WebElement> moreButtonForOffDaysList = driver.findElements(By.cssSelector(".list_operation .btn_more"));
+
+                        // 더보기 버튼이 존재하고 표시되는 경우에만 클릭
+                        if (!moreButtonForOffDaysList.isEmpty() && moreButtonForOffDaysList.get(0).isDisplayed()) {
+                            WebElement moreButtonForOffDays = moreButtonForOffDaysList.get(0);
+                            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", moreButtonForOffDays);
+                        }
+
+                        // 휴무일 데이터를 가져오기
                         List<WebElement> offDayElements = driver.findElements(By.cssSelector(".displayOffdayList .list_operation li"));
                         if (!offDayElements.isEmpty()) {
-                            WebElement offDayElement = offDayElements.get(0);
-                            if (offDayElement.getText().contains("더보기")) {
-                                WebElement moreButtonForOffDays = offDayElement.findElement(By.cssSelector("a"));
-                                ((JavascriptExecutor) driver).executeScript("arguments[0].click();", moreButtonForOffDays);
-                                Thread.sleep(1000);
+                            StringBuilder offDaysBuilder = new StringBuilder();
+                            for (WebElement element : offDayElements) {
+                                if (offDaysBuilder.length() > 0) {
+                                    offDaysBuilder.append(", ");
+                                }
+                                offDaysBuilder.append(element.getText());
                             }
-                            String rawOffDays = offDayElement.getText();
-                            if (rawOffDays.contains("닫기")) {
-                                rawOffDays = rawOffDays.replace("닫기", "").trim();
-                            }
-                            offDays = rawOffDays.isEmpty() ? "휴무일 정보 없음" : rawOffDays;
+                            offDays = offDaysBuilder.toString();
+                        } else {
+                            offDays = "휴무일 정보 없음";
                         }
 
                         driver.close();
