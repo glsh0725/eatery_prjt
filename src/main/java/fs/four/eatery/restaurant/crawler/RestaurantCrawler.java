@@ -9,12 +9,18 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.net.URL;
 import java.time.Duration;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class RestaurantCrawler {
+
+    private static int photoCounter = 1;
 
     public static void main(String[] args) {
         Logger seleniumLogger = Logger.getLogger("org.openqa.selenium");
@@ -66,6 +72,7 @@ public class RestaurantCrawler {
                     String openingHours = "운영시간 정보 없음";
                     String breakTime = "휴게시간 정보 없음";
                     String offDays = "휴무일 정보 없음";
+                    String photoName = "default.jpg";
                     String moreViewLink = "상세보기 링크 없음";
 
                     name = place.findElement(By.cssSelector(".link_name")).getText();
@@ -122,14 +129,41 @@ public class RestaurantCrawler {
                         if (!offDayElements.isEmpty()) {
                             StringBuilder offDaysBuilder = new StringBuilder();
                             for (WebElement element : offDayElements) {
-                                if (offDaysBuilder.length() > 0) {
-                                    offDaysBuilder.append(", ");
-                                }
                                 offDaysBuilder.append(element.getText());
                             }
                             offDays = offDaysBuilder.toString();
                         } else {
                             offDays = "휴무일 정보 없음";
+                        }
+
+                        // 사진 다운로드 추가
+                        try {
+                            List<WebElement> photoElements = driver.findElements(By.cssSelector(".cont_photo .link_photo"));
+                            if (!photoElements.isEmpty()) {
+                                WebElement firstPhoto = photoElements.get(0);
+                                String photoUrl = firstPhoto.getAttribute("style").replaceAll(".*url\\(\"?(.*?)\"?\\).*", "$1");
+
+                                // 프로토콜 추가
+                                if (!photoUrl.startsWith("http")) {
+                                    photoUrl = "http:" + photoUrl;
+                                }
+
+                                // 파일 이름 생성
+                                photoName = "restaurant" + photoCounter + ".jpg";
+                                String photoPath = "src/main/resources/static/images/" + photoName;
+
+                                // 파일 존재 여부 확인
+                                File file = new File(photoPath);
+                                if (!file.exists()) {
+                                    downloadPhoto(photoUrl, photoPath);
+                                }
+
+                                photoCounter++;
+                            } else {
+                                photoName = "default.jpg";
+                            }
+                        } catch (Exception e) {
+                            System.out.println("사진 다운로드 실패: " + e.getMessage());
                         }
 
                         driver.close();
@@ -141,6 +175,7 @@ public class RestaurantCrawler {
                     System.out.println("운영시간: " + openingHours);
                     System.out.println("휴게시간: " + breakTime);
                     System.out.println("휴무일: " + offDays);
+                    System.out.println("사진 이름: " + photoName);
                     System.out.println("---------------------------");
                 }
 
@@ -173,6 +208,22 @@ public class RestaurantCrawler {
             e.printStackTrace();
         } finally {
             driver.quit();
+        }
+    }
+
+    // 사진 다운로드 메서드
+    private static void downloadPhoto(String photoUrl, String outputFilePath) {
+        try {
+            try (BufferedInputStream in = new BufferedInputStream(new URL(photoUrl).openStream());
+                 FileOutputStream fileOutputStream = new FileOutputStream(outputFilePath)) {
+                byte[] dataBuffer = new byte[1024];
+                int bytesRead;
+                while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
+                    fileOutputStream.write(dataBuffer, 0, bytesRead);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("사진 다운로드 실패: " + e.getMessage());
         }
     }
 }
