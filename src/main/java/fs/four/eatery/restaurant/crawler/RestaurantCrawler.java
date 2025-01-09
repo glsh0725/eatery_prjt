@@ -72,7 +72,7 @@ public class RestaurantCrawler {
                     String phoneNumber = "전화번호";
                     String homepage = "홈페이지";
                     String parkingInfo = "주차";
-                    String openingHours = "영업시간";
+                    String openTime = "영업시간";
                     String breakTime = "휴게시간";
                     String offDays = "휴무일";
                     String tags = "태그";
@@ -142,7 +142,7 @@ public class RestaurantCrawler {
 
                         // 영업시간과 휴게시간 처리
                         List<WebElement> operationTimeElements = driver.findElements(By.cssSelector(".list_operation li"));
-                        StringBuilder openingHoursBuilder = new StringBuilder();
+                        StringBuilder openTimeBuilder = new StringBuilder();
                         StringBuilder breakTimeBuilder = new StringBuilder();
 
                         for (WebElement element : operationTimeElements) {
@@ -158,15 +158,15 @@ public class RestaurantCrawler {
                                     }
                                     breakTimeBuilder.append(timeValue);
                                 } else {
-                                    if (openingHoursBuilder.length() > 0) {
-                                        openingHoursBuilder.append("");
+                                    if (openTimeBuilder.length() > 0) {
+                                        openTimeBuilder.append("");
                                     }
-                                    openingHoursBuilder.append(timeValue);
+                                    openTimeBuilder.append(timeValue);
                                 }
                             }
                         }
 
-                        openingHours = openingHoursBuilder.length() > 0 ? openingHoursBuilder.toString() : "영업시간 정보 없음";
+                        openTime = openTimeBuilder.length() > 0 ? openTimeBuilder.toString() : "영업시간 정보 없음";
                         breakTime = breakTimeBuilder.length() > 0 ? breakTimeBuilder.toString() : "휴게시간 정보 없음";
 
                         // 휴무일 데이터 파싱
@@ -228,7 +228,7 @@ public class RestaurantCrawler {
                     System.out.println("주소: " + address);
                     System.out.println("전화번호: " + phoneNumber);
                     System.out.println("홈페이지: " + homepage);
-                    System.out.println("영업시간: " + openingHours);
+                    System.out.println("영업시간: " + openTime);
                     System.out.println("휴게시간: " + breakTime);
                     System.out.println("휴무일: " + offDays);
                     System.out.println("태그: " + tags);
