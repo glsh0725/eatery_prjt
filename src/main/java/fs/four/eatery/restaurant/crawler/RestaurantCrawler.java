@@ -67,13 +67,17 @@ public class RestaurantCrawler {
 
                 System.out.println("===== 검색 결과 (페이지 " + currentPage + ") =====");
                 for (WebElement place : placeItems) {
-                    String name = "이름 없음";
-                    String address = "주소 없음";
-                    String openingHours = "운영시간 정보 없음";
-                    String breakTime = "휴게시간 정보 없음";
-                    String offDays = "휴무일 정보 없음";
-                    String photoName = "default.jpg";
-                    String moreViewLink = "상세보기 링크 없음";
+                    String name = "이름";
+                    String address = "주소";
+                    String phoneNumber = "전화번호";
+                    String homepage = "홈페이지";
+                    String parkingInfo = "주차";
+                    String openingHours = "영업시간";
+                    String breakTime = "휴게시간";
+                    String offDays = "휴무일";
+                    String tags = "태그";
+                    String photoName = "이미지명";
+                    String moreViewLink = "상세보기 링크";
 
                     name = place.findElement(By.cssSelector(".link_name")).getText();
                     moreViewLink = place.findElement(By.cssSelector(".moreview")).getAttribute("href");
@@ -86,7 +90,57 @@ public class RestaurantCrawler {
                         address = wait.until(ExpectedConditions.presenceOfElementLocated(
                                 By.cssSelector(".txt_address"))).getText();
 
-                        // 운영시간과 휴게시간 처리
+                        // 전화번호 가져오기
+                        try {
+                            WebElement phoneElement = driver.findElement(By.cssSelector(".num_contact .txt_contact"));
+                            phoneNumber = phoneElement.getText();
+                        } catch (Exception e) {
+                            phoneNumber = "전화번호 없음";
+                        }
+
+                        // 홈페이지 가져오기
+                        try {
+                            WebElement homepageElement = driver.findElement(By.cssSelector(".location_present .link_homepage"));
+                            homepage = homepageElement.getText();
+                        } catch (Exception e) {
+                            homepage = "홈페이지 없음";
+                        }
+
+                        // 태그 가져오기
+                        try {
+                            List<WebElement> tagElements = driver.findElements(By.cssSelector(".tag_g .link_tag"));
+                            StringBuilder tagsBuilder = new StringBuilder();
+                            for (WebElement tag : tagElements) {
+                                if (tagsBuilder.length() > 0) {
+                                    tagsBuilder.append(", ");
+                                }
+                                tagsBuilder.append(tag.getText().replace("#", ""));
+                            }
+                            tags = tagsBuilder.length() > 0 ? tagsBuilder.toString() : "";
+                        } catch (Exception e) {
+                            tags = "";
+                        }
+
+                        // 시설 정보에서 주차 정보 가져오기
+                        try {
+                            List<WebElement> facilityElements = driver.findElements(By.cssSelector(".list_facility li"));
+                            if (facilityElements.isEmpty()) {
+                                parkingInfo = "주차 정보 없음";
+                            } else {
+                                boolean parkingAvailable = false;
+                                for (WebElement facility : facilityElements) {
+                                    if (facility.getText().contains("주차")) {
+                                        parkingAvailable = true;
+                                        break;
+                                    }
+                                }
+                                parkingInfo = parkingAvailable ? "주차 가능" : "주차 불가";
+                            }
+                        } catch (Exception e) {
+                            parkingInfo = "주차 정보 없음";
+                        }
+
+                        // 영업시간과 휴게시간 처리
                         List<WebElement> operationTimeElements = driver.findElements(By.cssSelector(".list_operation li"));
                         StringBuilder openingHoursBuilder = new StringBuilder();
                         StringBuilder breakTimeBuilder = new StringBuilder();
@@ -112,7 +166,7 @@ public class RestaurantCrawler {
                             }
                         }
 
-                        openingHours = openingHoursBuilder.length() > 0 ? openingHoursBuilder.toString() : "운영시간 정보 없음";
+                        openingHours = openingHoursBuilder.length() > 0 ? openingHoursBuilder.toString() : "영업시간 정보 없음";
                         breakTime = breakTimeBuilder.length() > 0 ? breakTimeBuilder.toString() : "휴게시간 정보 없음";
 
                         // 휴무일 데이터 파싱
@@ -172,9 +226,13 @@ public class RestaurantCrawler {
 
                     System.out.println("식당 이름: " + name);
                     System.out.println("주소: " + address);
-                    System.out.println("운영시간: " + openingHours);
+                    System.out.println("전화번호: " + phoneNumber);
+                    System.out.println("홈페이지: " + homepage);
+                    System.out.println("영업시간: " + openingHours);
                     System.out.println("휴게시간: " + breakTime);
                     System.out.println("휴무일: " + offDays);
+                    System.out.println("태그: " + tags);
+                    System.out.println("주차 정보: " + parkingInfo);
                     System.out.println("사진 이름: " + photoName);
                     System.out.println("---------------------------");
                 }
