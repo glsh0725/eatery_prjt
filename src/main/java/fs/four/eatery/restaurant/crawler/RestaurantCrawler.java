@@ -230,7 +230,7 @@ public class RestaurantCrawler {
 
                                 // 파일 이름 생성
                                 photoName = "restaurant" + photoCounter + ".jpg";
-                                String photoPath = "src/main/resources/static/images/" + photoName;
+                                String photoPath = "src/main/resources/static/images/restaurant/" + photoName;
 
                                 // 파일 존재 여부 확인
                                 File file = new File(photoPath);
