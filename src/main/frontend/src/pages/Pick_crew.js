@@ -50,6 +50,26 @@ function Pick_crew() {
                             </ul>
                         </div>
                     </card>
+                    <card class="cl_card">
+                        <img src="https://cdn.pixabay.com/photo/2019/08/15/09/00/pilaf-4407500_1280.jpg" />
+                        <div class="txt_right">
+                            <div class="txt_title">초딩입맛</div>
+                            <ul class="txt_elem">
+                                <li>좋아요 13</li>
+                                <li>참여인원 13</li>
+                            </ul>
+                        </div>
+                    </card>
+                    <card class="cl_card">
+                        <img src="https://cdn.pixabay.com/photo/2018/12/03/01/04/mandu-3852527_1280.jpg" />
+                        <div class="txt_right">
+                            <div class="txt_title">진중한 맛집</div>
+                            <ul class="txt_elem">
+                                <li>좋아요 33</li>
+                                <li>참여인원 13</li>
+                            </ul>
+                        </div>
+                    </card>
                 </div>
             </div>
         </DiningLayout>
