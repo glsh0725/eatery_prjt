@@ -28,7 +28,7 @@ public class RestaurantCrawler {
     @Autowired
     private RestaurantDAO restaurantDAO;
 
-    private static int photoCounter = 2701;
+    private static int photoCounter = 4050;
 
     public void run() {
         Logger seleniumLogger = Logger.getLogger("org.openqa.selenium");
@@ -47,7 +47,7 @@ public class RestaurantCrawler {
         WebDriver driver = new ChromeDriver(options);
 
         try {
-            String query = "대구 식당";
+            String query = "울산광역시 식당";
             String kakaoMapUrl = "https://map.kakao.com/?q=" + query;
 
             // 카카오맵 열기
