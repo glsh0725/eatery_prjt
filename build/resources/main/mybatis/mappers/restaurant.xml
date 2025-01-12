@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fs.four.eatery.restaurant.dao.RestaurantDAO">
+    <select id="isRestaurantExist" parameterType="String" resultType="boolean">
+        SELECT COUNT(1)
+        FROM RESTAURANT
+        WHERE NAME = #{name}
+    </select>
+    <insert id="insertRestaurantData">
+        INSERT INTO RESTAURANT (
+            NAME, ADDRESS, OLD_ADDRESS, CATEGORY, PHONE_NUMBER, HOMEPAGE, OPEN_TIME,
+            BREAK_TIME, OFF_DAYS, TAGS, PARKING_INFO, PHOTO_NAME, LIKE_COUNT, VIEW_COUNT, REVIEW_COUNT
+        ) VALUES (
+                     #{name}, #{address}, #{oldAddress}, #{category}, #{phoneNumber}, #{homepage}, #{openTime},
+                     #{breakTime}, #{offDays}, #{tags}, #{parkingInfo}, #{photoName}, 0, 0, 0
+                 )
+    </insert>
+</mapper>

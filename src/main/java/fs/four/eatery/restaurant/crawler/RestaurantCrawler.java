@@ -1,5 +1,7 @@
 package fs.four.eatery.restaurant.crawler;
 
+import fs.four.eatery.restaurant.dao.RestaurantDAO;
+import fs.four.eatery.restaurant.vo.RestaurantVO;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -8,6 +10,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -18,11 +22,15 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+@Component
 public class RestaurantCrawler {
+
+    @Autowired
+    private RestaurantDAO restaurantDAO;
 
     private static int photoCounter = 1;
 
-    public static void main(String[] args) {
+    public void run() {
         Logger seleniumLogger = Logger.getLogger("org.openqa.selenium");
         seleniumLogger.setLevel(Level.OFF);
 
@@ -56,7 +64,7 @@ public class RestaurantCrawler {
             System.out.println("장소 더보기 버튼을 클릭했습니다.");
             Thread.sleep(2000);
 
-            int maxPagesToCrawl = 1; // 최대 크롤링할 페이지 수
+            int maxPagesToCrawl = 2; // 최대 크롤링할 페이지 수
             int currentPage = 1;
 
             while (currentPage <= maxPagesToCrawl) {
@@ -69,6 +77,8 @@ public class RestaurantCrawler {
                 for (WebElement place : placeItems) {
                     String name = "이름";
                     String address = "주소";
+                    String oldAddress = "지번";
+                    String category = "카테고리";
                     String phoneNumber = "전화번호";
                     String homepage = "홈페이지";
                     String parkingInfo = "주차";
@@ -90,12 +100,28 @@ public class RestaurantCrawler {
                         address = wait.until(ExpectedConditions.presenceOfElementLocated(
                                 By.cssSelector(".txt_address"))).getText();
 
+                        // 지번 가져오기
+                        try {
+                            WebElement oldAddressElement = driver.findElement(By.cssSelector(".txt_addrnum"));
+                            oldAddress = oldAddressElement.getText().replace("지번", "").trim();
+                        } catch (Exception e) {
+                            oldAddress = "지번 정보 없음";
+                        }
+
+                        // 카테고리 가져오기
+                        try {
+                            WebElement categoryElement = driver.findElement(By.cssSelector(".location_evaluation .txt_location"));
+                            category = categoryElement.getText().replace("분류: ", "").trim();
+                        } catch (Exception e) {
+                            category = "카테고리 정보 없음";
+                        }
+
                         // 전화번호 가져오기
                         try {
                             WebElement phoneElement = driver.findElement(By.cssSelector(".num_contact .txt_contact"));
                             phoneNumber = phoneElement.getText();
                         } catch (Exception e) {
-                            phoneNumber = "전화번호 없음";
+                            phoneNumber = "전화번호 정보 없음";
                         }
 
                         // 홈페이지 가져오기
@@ -103,7 +129,7 @@ public class RestaurantCrawler {
                             WebElement homepageElement = driver.findElement(By.cssSelector(".location_present .link_homepage"));
                             homepage = homepageElement.getText();
                         } catch (Exception e) {
-                            homepage = "홈페이지 없음";
+                            homepage = "홈페이지 정보 없음";
                         }
 
                         // 태그 가져오기
@@ -121,7 +147,7 @@ public class RestaurantCrawler {
                             tags = "";
                         }
 
-                        // 시설 정보에서 주차 정보 가져오기
+                        // 주차 정보 가져오기
                         try {
                             List<WebElement> facilityElements = driver.findElements(By.cssSelector(".list_facility li"));
                             if (facilityElements.isEmpty()) {
@@ -204,7 +230,7 @@ public class RestaurantCrawler {
 
                                 // 파일 이름 생성
                                 photoName = "restaurant" + photoCounter + ".jpg";
-                                String photoPath = "src/main/resources/static/images/" + photoName;
+                                String photoPath = "src/main/resources/static/images/restaurant/" + photoName;
 
                                 // 파일 존재 여부 확인
                                 File file = new File(photoPath);
@@ -220,12 +246,40 @@ public class RestaurantCrawler {
                             System.out.println("사진 다운로드 실패: " + e.getMessage());
                         }
 
+                        // RestaurantVO 객체 생성
+                        RestaurantVO restaurantVO = new RestaurantVO();
+                        restaurantVO.setName(name);
+                        restaurantVO.setAddress(address);
+                        restaurantVO.setOldAddress(oldAddress);
+                        restaurantVO.setCategory(category);
+                        restaurantVO.setPhoneNumber(phoneNumber);
+                        restaurantVO.setHomepage(homepage);
+                        restaurantVO.setOpenTime(openTime);
+                        restaurantVO.setBreakTime(breakTime);
+                        restaurantVO.setOffDays(offDays);
+                        restaurantVO.setTags(tags);
+                        restaurantVO.setParkingInfo(parkingInfo);
+                        restaurantVO.setPhotoName(photoName);
+                        restaurantVO.setLikeCount(0);
+                        restaurantVO.setViewCount(0);
+                        restaurantVO.setReviewCount(0);
+
+                        // 중복 체크 후 데이터베이스에 저장
+                        if (!restaurantDAO.isRestaurantExist(restaurantVO.getName())) {
+                            restaurantDAO.insertRestaurantData(restaurantVO);
+                            System.out.println("새로운 데이터 저장: " + restaurantVO.getName());
+                        } else {
+                            System.out.println("중복된 데이터, 저장하지 않음: " + restaurantVO.getName());
+                        }
+
                         driver.close();
                         driver.switchTo().window(tabs.get(0));
                     }
 
                     System.out.println("식당 이름: " + name);
                     System.out.println("주소: " + address);
+                    System.out.println("지번: " + oldAddress);
+                    System.out.println("카테고리: " + category);
                     System.out.println("전화번호: " + phoneNumber);
                     System.out.println("홈페이지: " + homepage);
                     System.out.println("영업시간: " + openTime);
