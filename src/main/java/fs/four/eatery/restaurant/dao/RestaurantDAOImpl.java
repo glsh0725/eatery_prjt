@@ -5,6 +5,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class RestaurantDAOImpl implements RestaurantDAO {
 
@@ -20,6 +22,11 @@ public class RestaurantDAOImpl implements RestaurantDAO {
 
     @Override
     public boolean isRestaurantExist(String name) {
-        return sqlSession.selectOne(NAMESPACE + ".isRestaurantExist", name) != null;
+        return sqlSession.selectOne(NAMESPACE + ".isRestaurantExist", name);
+    }
+
+    @Override
+    public List<RestaurantVO> getAllRestaurants() {
+        return sqlSession.selectList(NAMESPACE + ".getAllRestaurants");
     }
 }

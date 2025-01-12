@@ -5,413 +5,93 @@
     font-style: normal;
 }
 
-.container {
-    margin-top: -30px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px;
-}
-
-.container .intro {
-    width: 100%;
+.find-store-container {
+    font-family: 'Ownglyph_ParkDaHyun', sans-serif;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 40px;
+    position: relative;
 }
 
-.container .intro .intro_img {
-    width: 50%;
-}
-
-.container .intro .intro_img img {
-    width: 100%;
-    border-radius: 20px;
-}
-
-.container .intro .intro_text {
-    width: 50%;
-    padding: 10px;
-    font-size: 16px;
-    color: #333;
-}
-
-.container .contact {
-    background-color: #1b1b1b;
-    color: white;
-    padding: 30px;
-    border-radius: 8px;
-    text-align: center;
-    width: 100%;
-}
-
-.container .contact h2 {
-    margin-bottom: 20px;
-}
-
-.container .contact p {
-    font-size: 18px;
-    font-weight: 100;
-    margin-bottom: 20px;
-}
-
-.container .contact .contact_btn {
-    background-color: #99ff00;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-.container .contact .contact_btn:hover {
-    background-color: #ffec59;
-}
-
-.header {
+.restaurant-list {
     display: flex;
-    justify-content: space-between;
-    margin-bottom: -80px;
-    font-size:30px;
-    font-family: 'Ownglyph_ParkDaHyun';
-
-}
-.header .search {
-    display: flex;
-    align-items: center;
-}
-.header ,.region{
-     margin-top:50px;
-     width: 10%;
-     height: 55px;
-     border-radius: 1em;
-     background-color: #A7E6FF;
-     font-family: 'Ownglyph_ParkDaHyun';
-     font-size: 35px;
-     color:white;
-     border:none;
-     cursor:pointer;
-}
-.header ,.search input{
-    background-color: #3ABEF9;
-    width: 121%;
-    height: 100px;
-    border: 1px solid #f9f9f9;
-    border-radius: 4px;
-    display: flex;
-    margin-top:-1059px;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-h4{
-   margin-top: 5px;
-   font-weight:bold;
-   font-size: 40px;
-   font-family: 'Ownglyph_ParkDaHyun';
-   align-items:center;
-   color: white;
-}
-
-h3{
-   ddisplay: inline-block;
-   font-weight:bold;
-   font-size: 20px;
-   font-family: 'Ownglyph_ParkDaHyun';
-}
-.tags {
-    display: flex;
-    gap: 10px;
     flex-wrap: wrap;
-    margin-top: 120px;
-    margin-bottom: -110px;
-    width: clamp(60rem, calc(10rem + 1vw), 1rem);
+    gap: 20px;
+    justify-content: center;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.left-arrow,
+.right-arrow {
+    display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Ownglyph_ParkDaHyun';
-}
-
-.tags .tag {
-    background-color: #ffec59;
-    padding: 14px 40px;
-    border-radius: 2em;
+    width: 50px;
+    height: 50px;
+    background-color: #ffe0b2;
+    border-radius: 50%;
+    font-size: 24px;
+    line-height: 1;
+    color: #ff5722;
     cursor: pointer;
-    font-size: 20px;
-
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    user-select: none;
 }
 
-.tags .tag.active {
-    background-color: #f57224;
-    color: #fff;
+.left-arrow {
+    left: 10px;
 }
 
-.box{
-    border: 1px solid #fff;
-    width: clamp(9rem, calc(10rem + 2vw), 1rem);
-    min-height: 100px; /* 최소 높이 설정 */
-    padding: 33px;
-    flex-direction: column;
-    overflow: hidden;
-    box-shadow: 0 .1rem 1rem rgba(0, 0, 0, 0.1);
-    background: #fff;
-    cursor:pointer;
-    background-color:#fff;
-    font-family: 'Ownglyph_ParkDaHyun';
+.right-arrow {
+    right: 10px;
 }
 
-.box:hover{
-    transform: scale(1.05);
+.left-arrow:hover,
+.right-arrow:hover {
+    background-color: #ffa726;
+    color: white;
 }
 
-.card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 100%;
-    margin: 0 10px;
-    padding: 5px;
-    border: none;
-    border-radius:1em;
-    border: solid 1px #fff;
+.restaurant-card {
+    padding: 15px;
+    width: calc(25% - 20px);
+    box-sizing: border-box;
+    border-radius: 4px;
+    background-color: #fff2e9;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.card:hover {
-    transform: scale(1.05);
+.restaurant-card:hover {
+    transform: translateY(-5px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
-.card .restaurant-info {
-    text-align: center;
-    background-color: #fff;
-    border-radius:5em;
-    height: 100%;
-    width:100%;
-    margin-top:-10px;
+.restaurant-card img {
+    width: 100%;
+    height: 170px;
+    object-fit: fill;
+    border-radius: 4px;
 }
 
-.card .restaurant-name {
-    font-size: 1.3rem;
-    font-weight: bold;
-    border-radius:3em;
-    color: #333;
-    font-family: 'Ownglyph_ParkDaHyun';
+.restaurant-card h2 {
+    font-size: 24px;
+    margin: 5px 0;
+    color: #ff5722;
 }
 
-.card .rating {
-    font-size: 1rem;
-    color: #888;
-    width:100%;
-}
-
-.card .rating:hover {
-    color: #007BFF;
-}
-
-.all{
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top:150px;
-}
-
-.cardall{
-    border: solid 1px #fff;
-    border-radius: 15px;
-    padding: 50px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-}
-
-.cardtwo{
-     margin-top: 40px;
-     border-radius: 15px;
-     padding: 50px;
-     border: solid 1px #fff;
-     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-     display: flex;
-}
-
-.group-title {
-    position:absolute;
-    font-size: 2.5rem;
-    font-weight: bold;
-    left: 100px;
-    margin-top: -50px;
-    text-align: center;
-    color: #333;
-    font-family: 'Ownglyph_ParkDaHyun';
-}
-
-.pagination {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: -180px;
-}
-
-.previous, .next {
-    margin-top: 200px;
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-family: 'Ownglyph_ParkDaHyun';
+.restaurant-card h3 {
     font-size: 20px;
+    margin: 5px 0;
+    color: #f6be5c;
 }
 
-.previous:hover, .next:hover {
-    background-color: #45a049;
-}
-
-/* 모달 스타일 */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  font-family: 'Ownglyph_ParkDaHyun';
-  font-size:30px;
-}
-
-.modal-content {
-  width: 600px;
-  max-height: 80vh;
-  background-color: #FFF;
-  padding: 20px;
-  border-radius: 10px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
-
-.modal-body {
-  flex: 1;
-  overflow-y: auto;
-}
-
-.modal-body::-webkit-scrollbar {
-  width: 8px;
-}
-
-.modal-body::-webkit-scrollbar-thumb {
-  background: #007bff;
-  border-radius: 4px;
-}
-
-.modal-body::-webkit-scrollbar-thumb:hover {
-  background: #0056b3;
-}
-
-.modal-body::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-.close-btn,
-.close-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: none;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-.close-btn:hover,
-.close-button:hover {
-  color: red;
-}
-
-.region-selection {
-  display: flex;
-  gap: 20px;
-}
-
-.region-column {
-  flex: 1;
-}
-.modal-header h5 {
-  font-size: 40px;
-  color:#1b1b1b;
-  margin-top:-10px;
-}
-.modal-header{
-    text-align: center;
-    align-items: center;
-    background-color: #f9f9f9;
-    border-top: 3px solid #1b1b1b;
-    border: solid 1px #fff;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    padding: 10px 0;
-    height:30px;
-}
-
-.region-column h5 {
-  font-size: 30px;
-  margin-bottom: 5px;
-  margin-top: 10px;
-  border: solid 1px #fff;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.region-column ul li {
-  padding: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.region-column ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.region-column ul li:hover {
-  background-color: #0056b3;
-  color: white;
-}
-
-.region-column ul li.selected {
-  background-color: #0056b3;
-  color: white;
-  font-weight: bold;
-}
-
-.complete-button-container {
-    padding: 10px 0;
-}
-
-.complete-button {
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: #FFF;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-family: 'Ownglyph_ParkDaHyun';
-  font-size:22px;
-}
-
-.complete-button:hover {
-  background-color: #0056b3;
-}
-.modal-footer{
-    text-align: center;
-    align-items: center;
-    background-color: #f9f9f9;
-    border-top: 3px solid #1b1b1b;
-    border: solid 1px #fff;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+.restaurant-card p {
+    margin: 5px 0;
+    font-size: 20px;
+    color: #484848;
 }
