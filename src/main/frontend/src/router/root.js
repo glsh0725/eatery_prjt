@@ -13,6 +13,7 @@ const Sign_up = lazy(() => import('../pages/Sign_up'));
 const Userinfo = lazy(() => import('../pages/Userinfo'));
 const Find_userinfo = lazy(() => import('../pages/Find_userinfo'));
 const MyPage = lazy(() => import('../pages/MyPage'));
+const RestaurantDetail = lazy(() => import('../components/find_store/RestaurantDetail'));
 
 const root = createBrowserRouter([
     {
@@ -44,6 +45,14 @@ const root = createBrowserRouter([
         element: (
             <Suspense fallback={Loading}>
                 <FindStore />
+            </Suspense>
+        ),
+    },
+    {
+        path: '/restaurant/:name',
+        element: (
+            <Suspense fallback={<div>Loading...</div>}>
+                <RestaurantDetail />
             </Suspense>
         ),
     },

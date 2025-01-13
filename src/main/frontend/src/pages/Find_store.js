@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import regions from "../data/regions.json";
 import DiningLayout from "../layouts/DiningLayout";
 import "../css/Find_store.css";
@@ -14,8 +15,11 @@ const Find_store = () => {
     const [isRegionModalOpen, setIsRegionModalOpen] = useState(false);
     const [selectedProvince, setSelectedProvince] = useState(null);
     const [selectedCity, setSelectedCity] = useState(null);
+    const [selectedArea, setSelectedArea] = useState(null);
     const [isSelectCompleteActive, setIsSelectCompleteActive] = useState(false);
     const itemsPerPage = 8;
+
+    const navigate = useNavigate();
 
     const tags = [
         "전체", "가족모임", "데이트", "상견례", "회식", "카페", "친목모임",
@@ -48,6 +52,10 @@ const Find_store = () => {
         }
     };
 
+    const handleCardClick = (restaurantName) => {
+        navigate(`/restaurant/${restaurantName}`);
+    };
+
     const handleTimeChange = (event) => {
         setSelectedTime(event.target.value);
     };
@@ -63,6 +71,7 @@ const Find_store = () => {
         setIsRegionModalOpen(false);
         setSelectedProvince(null);
         setSelectedCity(null);
+        setSelectedArea(null);
         setIsSelectCompleteActive(false);
     };
 
@@ -71,6 +80,7 @@ const Find_store = () => {
         setIsRegionModalOpen(false);
         setSelectedProvince(null);
         setSelectedCity(null);
+        setSelectedArea(null);
         setSelectedRegion("전체");
         setIsSelectCompleteActive(false);
     };
@@ -104,9 +114,17 @@ const Find_store = () => {
     const filteredRestaurants = restaurants.filter((restaurant) => {
         const matchesTag = selectedTag === "전체" || restaurant.tags?.includes(selectedTag);
         const matchesTime = isTimeWithinRange(restaurant.openTime, selectedTime);
-        const matchesRegion = selectedRegion === "전체" ||
-            restaurant.address?.includes(selectedRegion) ||
-            restaurant.oldAddress?.includes(selectedRegion.split(" ").pop());
+
+        const matchesRegion =
+            selectedRegion === "전체" ||
+            (restaurant.address && restaurant.address.includes(selectedRegion)) ||
+            (restaurant.oldAddress && restaurant.oldAddress.includes(selectedRegion)) ||
+            (restaurant.oldAddress && restaurant.oldAddress.includes(selectedRegion.split(" ").pop())) ||
+            selectedRegion.split(" ").every((word) =>
+                (restaurant.address && restaurant.address.includes(word)) ||
+                (restaurant.oldAddress && restaurant.oldAddress.includes(word))
+            );
+
         return matchesTag && matchesTime && matchesRegion;
     });
 
@@ -158,7 +176,11 @@ const Find_store = () => {
                 <div className="restaurant-list">
                     {error && <p className="error-message">오류: {error}</p>}
                     {currentItems.map((restaurant, index) => (
-                        <div key={index} className="restaurant-card">
+                        <div
+                            key={index}
+                            className="restaurant-card"
+                            onClick={() => handleCardClick(restaurant.name)}
+                        >
                             <img
                                 src={`/images/restaurant/${restaurant.photoName || "default.jpg"}`}
                                 alt={restaurant.name}
@@ -185,13 +207,22 @@ const Find_store = () => {
                             <button className="close-modal" onClick={closeModal}>
                                 X
                             </button>
-                            {!selectedProvince && (
-                                <div>
+                            <h2 className="modal-title">지역 선택</h2>
+                            <div className="region-title">
+                                <span>광역시도</span>
+                                <span>시군구</span>
+                                <span>읍면동</span>
+                            </div>
+                            <div className="region-selection">
+                                <div className="region-column">
                                     {Object.keys(regions).map((province) => (
                                         <button
                                             key={province}
+                                            className={`region-button ${selectedProvince === province ? "active" : ""}`}
                                             onClick={() => {
                                                 setSelectedProvince(province);
+                                                setSelectedCity(null);
+                                                setSelectedArea(null);
                                                 handleRegionSelection(province);
                                             }}
                                         >
@@ -199,36 +230,38 @@ const Find_store = () => {
                                         </button>
                                     ))}
                                 </div>
-                            )}
-                            {selectedProvince && !selectedCity && (
-                                <div>
-                                    {Object.keys(regions[selectedProvince]).map((city) => (
-                                        <button
-                                            key={city}
-                                            onClick={() => {
-                                                setSelectedCity(city);
-                                                handleRegionSelection(`${selectedProvince} ${city}`);
-                                            }}
-                                        >
-                                            {city}
-                                        </button>
-                                    ))}
+                                <div className="region-column">
+                                    {selectedProvince &&
+                                        Object.keys(regions[selectedProvince]).map((city) => (
+                                            <button
+                                                key={city}
+                                                className={`region-button ${selectedCity === city ? "active" : ""}`}
+                                                onClick={() => {
+                                                    setSelectedCity(city);
+                                                    setSelectedArea(null);
+                                                    handleRegionSelection(`${selectedProvince} ${city}`);
+                                                }}
+                                            >
+                                                {city}
+                                            </button>
+                                        ))}
                                 </div>
-                            )}
-                            {selectedCity && (
-                                <div>
-                                    {regions[selectedProvince][selectedCity].map((area) => (
-                                        <button
-                                            key={area}
-                                            onClick={() =>
-                                                handleRegionSelection(`${selectedProvince} ${selectedCity} ${area}`)
-                                            }
-                                        >
-                                            {area}
-                                        </button>
-                                    ))}
+                                <div className="region-column">
+                                    {selectedCity &&
+                                        regions[selectedProvince][selectedCity].map((area) => (
+                                            <button
+                                                key={area}
+                                                className={`region-button ${selectedArea === area ? "active" : ""}`}
+                                                onClick={() => {
+                                                    setSelectedArea(area);
+                                                    handleRegionSelection(`${selectedProvince} ${selectedCity} ${area}`);
+                                                }}
+                                            >
+                                                {area}
+                                            </button>
+                                        ))}
                                 </div>
-                            )}
+                            </div>
                             <button
                                 className={`select-complete ${isSelectCompleteActive ? "active" : ""}`}
                                 onClick={handleRegionComplete}

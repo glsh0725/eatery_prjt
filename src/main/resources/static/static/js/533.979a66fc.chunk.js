@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkfrontend=self.webpackChunkfrontend||[]).push([[533],{533:(e,n,s)=>{s.r(n),s.d(n,{default:()=>a});s(43);var t=s(988),r=s(579);const a=()=>{const{id:e}=(0,t.g)();return(0,r.jsxs)("div",{children:[(0,r.jsx)("h1",{children:"Restaurant Detail"}),(0,r.jsxs)("p",{children:["Restaurant ID: ",e]})]})}}}]);
+//# sourceMappingURL=533.979a66fc.chunk.js.map

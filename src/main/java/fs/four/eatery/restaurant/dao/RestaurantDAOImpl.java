@@ -29,4 +29,9 @@ public class RestaurantDAOImpl implements RestaurantDAO {
     public List<RestaurantVO> getAllRestaurants() {
         return sqlSession.selectList(NAMESPACE + ".getAllRestaurants");
     }
+
+    @Override
+    public RestaurantVO findRestaurantByName(String name) {
+        return sqlSession.selectOne(NAMESPACE + ".findRestaurantByName", name);
+    }
 }

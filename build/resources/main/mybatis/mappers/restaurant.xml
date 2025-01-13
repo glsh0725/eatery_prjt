@@ -8,6 +8,7 @@
         FROM RESTAURANT
         WHERE NAME = #{name}
     </select>
+
     <insert id="insertRestaurantData">
         INSERT INTO RESTAURANT (
             NAME, ADDRESS, OLD_ADDRESS, CATEGORY, PHONE_NUMBER, HOMEPAGE, OPEN_TIME,
@@ -17,6 +18,7 @@
                      #{breakTime}, #{offDays}, #{tags}, #{parkingInfo}, #{photoName}, 0, 0, 0
                  )
     </insert>
+
     <resultMap id="restaurantResultMap" type="fs.four.eatery.restaurant.vo.RestaurantVO">
         <result property="name" column="NAME"/>
         <result property="address" column="ADDRESS"/>
@@ -40,5 +42,13 @@
                BREAK_TIME, OFF_DAYS, TAGS, PARKING_INFO, PHOTO_NAME,
                LIKE_COUNT, VIEW_COUNT, REVIEW_COUNT
         FROM RESTAURANT
+    </select>
+
+    <select id="findRestaurantByName" parameterType="string" resultMap="restaurantResultMap">
+        SELECT NAME, ADDRESS, OLD_ADDRESS, CATEGORY, PHONE_NUMBER, HOMEPAGE, OPEN_TIME,
+               BREAK_TIME, OFF_DAYS, TAGS, PARKING_INFO, PHOTO_NAME,
+               LIKE_COUNT, VIEW_COUNT, REVIEW_COUNT
+        FROM RESTAURANT
+        WHERE NAME = #{name}
     </select>
 </mapper>

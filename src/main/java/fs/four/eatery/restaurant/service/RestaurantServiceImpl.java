@@ -17,4 +17,9 @@ public class RestaurantServiceImpl implements RestaurantService {
     public List<RestaurantVO> getAllRestaurants() {
         return restaurantDAO.getAllRestaurants();
     }
+
+    @Override
+    public RestaurantVO getRestaurantByName(String name) {
+        return restaurantDAO.findRestaurantByName(name);
+    }
 }

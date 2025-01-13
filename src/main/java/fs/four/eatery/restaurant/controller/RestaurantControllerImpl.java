@@ -17,4 +17,9 @@ public class RestaurantControllerImpl implements RestaurantController {
     public List<RestaurantVO> getAllRestaurants() {
         return restaurantService.getAllRestaurants();
     }
+
+    @Override
+    public RestaurantVO getRestaurantByName(String name) {
+        return restaurantService.getRestaurantByName(name);
+    }
 }
