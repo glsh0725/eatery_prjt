@@ -17,4 +17,28 @@
                      #{breakTime}, #{offDays}, #{tags}, #{parkingInfo}, #{photoName}, 0, 0, 0
                  )
     </insert>
+    <resultMap id="restaurantResultMap" type="fs.four.eatery.restaurant.vo.RestaurantVO">
+        <result property="name" column="NAME"/>
+        <result property="address" column="ADDRESS"/>
+        <result property="oldAddress" column="OLD_ADDRESS"/>
+        <result property="category" column="CATEGORY"/>
+        <result property="phoneNumber" column="PHONE_NUMBER"/>
+        <result property="homepage" column="HOMEPAGE"/>
+        <result property="openTime" column="OPEN_TIME"/>
+        <result property="breakTime" column="BREAK_TIME"/>
+        <result property="offDays" column="OFF_DAYS"/>
+        <result property="tags" column="TAGS"/>
+        <result property="parkingInfo" column="PARKING_INFO"/>
+        <result property="photoName" column="PHOTO_NAME"/>
+        <result property="likeCount" column="LIKE_COUNT"/>
+        <result property="viewCount" column="VIEW_COUNT"/>
+        <result property="reviewCount" column="REVIEW_COUNT"/>
+    </resultMap>
+
+    <select id="getAllRestaurants" resultMap="restaurantResultMap">
+        SELECT NAME, ADDRESS, OLD_ADDRESS, CATEGORY, PHONE_NUMBER, HOMEPAGE, OPEN_TIME,
+               BREAK_TIME, OFF_DAYS, TAGS, PARKING_INFO, PHOTO_NAME,
+               LIKE_COUNT, VIEW_COUNT, REVIEW_COUNT
+        FROM RESTAURANT
+    </select>
 </mapper>

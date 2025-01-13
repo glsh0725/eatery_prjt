@@ -18,7 +18,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.net.URL;
 import java.time.Duration;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -207,11 +209,17 @@ public class RestaurantCrawler {
                         // 휴무일 데이터를 가져오기
                         List<WebElement> offDayElements = driver.findElements(By.cssSelector(".displayOffdayList .list_operation li"));
                         if (!offDayElements.isEmpty()) {
-                            StringBuilder offDaysBuilder = new StringBuilder();
+                            Set<String> uniqueOffDays = new LinkedHashSet<>();
                             for (WebElement element : offDayElements) {
-                                offDaysBuilder.append(element.getText());
+                                String text = element.getText()
+                                        .replaceAll("\\s*닫기\\s*", "")
+                                        .replaceAll("\\s+", " ")
+                                        .trim();
+                                if (!text.isEmpty()) {
+                                    uniqueOffDays.add(text);
+                                }
                             }
-                            offDays = offDaysBuilder.toString();
+                            offDays = String.join(", ", uniqueOffDays);
                         } else {
                             offDays = "휴무일 정보 없음";
                         }
