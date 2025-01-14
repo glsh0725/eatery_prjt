@@ -49,7 +49,7 @@ const root = createBrowserRouter([
         ),
     },
     {
-        path: '/restaurant/:name',
+        path: '/find_store/:name',
         element: (
             <Suspense fallback={<div>Loading...</div>}>
                 <RestaurantDetail />

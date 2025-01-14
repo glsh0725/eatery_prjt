@@ -53,7 +53,7 @@ const Find_store = () => {
     };
 
     const handleCardClick = (restaurantName) => {
-        navigate(`/restaurant/${restaurantName}`);
+        navigate(`/find_store/${restaurantName}`);
     };
 
     const handleTimeChange = (event) => {
@@ -107,7 +107,7 @@ const Find_store = () => {
         if (startHour <= endHour) {
             return selectedHour >= startHour && selectedHour <= endHour;
         } else {
-            return selectedHour >= startHour || selectedHour <= endHour;  // 시간대가 다음날까지 걸치는 경우
+            return selectedHour >= startHour || selectedHour <= endHour;
         }
     };
 

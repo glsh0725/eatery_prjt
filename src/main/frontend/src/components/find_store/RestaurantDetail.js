@@ -25,8 +25,31 @@ const RestaurantDetail = () => {
     return (
         <div>
             <h1>{restaurant.name}</h1>
-            <p>주소: {restaurant.address}</p>
+            <p>영업시간: {restaurant.openTime}</p>
+            <p>휴무일: {restaurant.offDays}</p>
+            <p>휴게시간: {restaurant.breakTime}</p>
+            <p>주소: {restaurant.address} (지번: {restaurant.oldAddress})</p>
             <p>전화번호: {restaurant.phoneNumber}</p>
+            {restaurant.homepage && restaurant.homepage !== "홈페이지 정보 없음" ? (
+                <p>
+                    홈페이지:{" "}
+                    <a
+                        href={
+                            restaurant.homepage.startsWith("http")
+                                ? restaurant.homepage
+                                : `https://${restaurant.homepage}`
+                        }
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        {restaurant.homepage}
+                    </a>
+                </p>
+            ) : (
+                <p>홈페이지: {restaurant.homepage || "정보 없음"}</p>
+            )}
+            <p>주차: {restaurant.parkingInfo}</p>
+            <p>관련 태그: {restaurant.tags}</p>
         </div>
     );
 };
