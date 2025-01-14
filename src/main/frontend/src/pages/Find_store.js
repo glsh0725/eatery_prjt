@@ -86,7 +86,7 @@ const Find_store = () => {
     };
 
     const isTimeWithinRange = (openTime, selectedTime) => {
-        if (!openTime || selectedTime === "전체") {
+        if (!openTime || openTime === "영업시간 정보 없음" || selectedTime === "전체") {
             return true;
         }
 
@@ -107,7 +107,7 @@ const Find_store = () => {
         if (startHour <= endHour) {
             return selectedHour >= startHour && selectedHour <= endHour;
         } else {
-            return selectedHour >= startHour || selectedHour <= endHour;
+            return selectedHour >= startHour || selectedHour <= endHour;  // 시간대가 다음날까지 걸치는 경우
         }
     };
 
@@ -118,12 +118,8 @@ const Find_store = () => {
         const matchesRegion =
             selectedRegion === "전체" ||
             (restaurant.address && restaurant.address.includes(selectedRegion)) ||
-            (restaurant.oldAddress && restaurant.oldAddress.includes(selectedRegion)) ||
-            (restaurant.oldAddress && restaurant.oldAddress.includes(selectedRegion.split(" ").pop())) ||
-            selectedRegion.split(" ").every((word) =>
-                (restaurant.address && restaurant.address.includes(word)) ||
-                (restaurant.oldAddress && restaurant.oldAddress.includes(word))
-            );
+            (restaurant.address && selectedRegion.split(" ").slice(0, -1).every((word) => restaurant.address.includes(word)) &&
+                restaurant.oldAddress?.includes(selectedRegion.split(" ").pop()));
 
         return matchesTag && matchesTime && matchesRegion;
     });
