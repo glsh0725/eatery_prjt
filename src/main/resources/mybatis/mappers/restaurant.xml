@@ -6,49 +6,53 @@
     <select id="isRestaurantExist" parameterType="String" resultType="boolean">
         SELECT COUNT(1)
         FROM RESTAURANT
-        WHERE NAME = #{name}
+        WHERE RES_NAME = #{name}
     </select>
 
     <insert id="insertRestaurantData">
         INSERT INTO RESTAURANT (
-            NAME, ADDRESS, OLD_ADDRESS, CATEGORY, PHONE_NUMBER, HOMEPAGE, OPEN_TIME,
-            BREAK_TIME, OFF_DAYS, TAGS, PARKING_INFO, PHOTO_NAME, LIKE_COUNT, VIEW_COUNT, REVIEW_COUNT
+            RES_NAME, RES_ADDRESS, RES_OLD_ADDRESS, RES_CATEGORY, RES_PHONE_NUMBER, RES_HOMEPAGE, RES_OPEN_TIME,
+            RES_BREAK_TIME, RES_OFF_DAYS, RES_TAGS, RES_PARKING_INFO, RES_PHOTO_NAME, RES_MENU_NAME, RES_SCORE_NUMBER,
+            RES_LIKE_COUNT, RES_VIEW_COUNT, RES_REVIEW_COUNT
         ) VALUES (
                      #{name}, #{address}, #{oldAddress}, #{category}, #{phoneNumber}, #{homepage}, #{openTime},
-                     #{breakTime}, #{offDays}, #{tags}, #{parkingInfo}, #{photoName}, 0, 0, 0
+                     #{breakTime}, #{offDays}, #{tags}, #{parkingInfo}, #{photoName}, #{menuName}, #{scoreNumber},
+                     0, 0, 0
                  )
     </insert>
 
     <resultMap id="restaurantResultMap" type="fs.four.eatery.restaurant.vo.RestaurantVO">
-        <result property="name" column="NAME"/>
-        <result property="address" column="ADDRESS"/>
-        <result property="oldAddress" column="OLD_ADDRESS"/>
-        <result property="category" column="CATEGORY"/>
-        <result property="phoneNumber" column="PHONE_NUMBER"/>
-        <result property="homepage" column="HOMEPAGE"/>
-        <result property="openTime" column="OPEN_TIME"/>
-        <result property="breakTime" column="BREAK_TIME"/>
-        <result property="offDays" column="OFF_DAYS"/>
-        <result property="tags" column="TAGS"/>
-        <result property="parkingInfo" column="PARKING_INFO"/>
-        <result property="photoName" column="PHOTO_NAME"/>
-        <result property="likeCount" column="LIKE_COUNT"/>
-        <result property="viewCount" column="VIEW_COUNT"/>
-        <result property="reviewCount" column="REVIEW_COUNT"/>
+        <result property="name" column="RES_NAME"/>
+        <result property="address" column="RES_ADDRESS"/>
+        <result property="oldAddress" column="RES_OLD_ADDRESS"/>
+        <result property="category" column="RES_CATEGORY"/>
+        <result property="phoneNumber" column="RES_PHONE_NUMBER"/>
+        <result property="homepage" column="RES_HOMEPAGE"/>
+        <result property="openTime" column="RES_OPEN_TIME"/>
+        <result property="breakTime" column="RES_BREAK_TIME"/>
+        <result property="offDays" column="RES_OFF_DAYS"/>
+        <result property="tags" column="RES_TAGS"/>
+        <result property="parkingInfo" column="RES_PARKING_INFO"/>
+        <result property="photoName" column="RES_PHOTO_NAME"/>
+        <result property="menuName" column="RES_MENU_NAME"/>
+        <result property="scoreNumber" column="RES_SCORE_NUMBER"/>
+        <result property="likeCount" column="RES_LIKE_COUNT"/>
+        <result property="viewCount" column="RES_VIEW_COUNT"/>
+        <result property="reviewCount" column="RES_REVIEW_COUNT"/>
     </resultMap>
 
     <select id="getAllRestaurants" resultMap="restaurantResultMap">
-        SELECT NAME, ADDRESS, OLD_ADDRESS, CATEGORY, PHONE_NUMBER, HOMEPAGE, OPEN_TIME,
-               BREAK_TIME, OFF_DAYS, TAGS, PARKING_INFO, PHOTO_NAME,
-               LIKE_COUNT, VIEW_COUNT, REVIEW_COUNT
+        SELECT RES_NAME, RES_ADDRESS, RES_OLD_ADDRESS, RES_CATEGORY, RES_PHONE_NUMBER, RES_HOMEPAGE, RES_OPEN_TIME,
+               RES_BREAK_TIME, RES_OFF_DAYS, RES_TAGS, RES_PARKING_INFO, RES_PHOTO_NAME, RES_MENU_NAME, RES_SCORE_NUMBER,
+               RES_LIKE_COUNT, RES_VIEW_COUNT, RES_REVIEW_COUNT
         FROM RESTAURANT
     </select>
 
     <select id="findRestaurantByName" parameterType="string" resultMap="restaurantResultMap">
-        SELECT NAME, ADDRESS, OLD_ADDRESS, CATEGORY, PHONE_NUMBER, HOMEPAGE, OPEN_TIME,
-               BREAK_TIME, OFF_DAYS, TAGS, PARKING_INFO, PHOTO_NAME,
-               LIKE_COUNT, VIEW_COUNT, REVIEW_COUNT
+        SELECT RES_NAME, RES_ADDRESS, RES_OLD_ADDRESS, RES_CATEGORY, RES_PHONE_NUMBER, RES_HOMEPAGE, RES_OPEN_TIME,
+               RES_BREAK_TIME, RES_OFF_DAYS, RES_TAGS, RES_PARKING_INFO, RES_PHOTO_NAME, RES_MENU_NAME, RES_SCORE_NUMBER,
+               RES_LIKE_COUNT, RES_VIEW_COUNT, RES_REVIEW_COUNT
         FROM RESTAURANT
-        WHERE NAME = #{name}
+        WHERE RES_NAME = #{name}
     </select>
 </mapper>

@@ -26,12 +26,25 @@ const RestaurantDetail = () => {
     return (
         <div className="restaurant-detail">
             <div className="top-section">
-                <div className="image-box">이미지</div>
+                <div className="image-box">
+                    <a
+                        href={`/images/menu/${restaurant.menuName}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <img
+                            src={restaurant.menuName === "default.jpg"
+                                ? "/images/default.jpg"
+                                : `/images/menu/${restaurant.menuName}`}
+                            alt={restaurant.name}
+                        />
+                    </a>
+                </div>
                 <div className="map-box">지도</div>
             </div>
             <div className="title-and-actions">
                 <h2>
-                    {restaurant.name} <span className="rating">{restaurant.rating || "5.0"}</span>
+                    {restaurant.name} <span className="rating">{restaurant.scoreNumber}</span>
                 </h2>
                 <div className="actions">
                     <span>⭐ 즐겨찾기</span>

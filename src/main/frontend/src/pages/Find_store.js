@@ -178,12 +178,14 @@ const Find_store = () => {
                             onClick={() => handleCardClick(restaurant.name)}
                         >
                             <img
-                                src={`/images/restaurant/${restaurant.photoName || "default.jpg"}`}
+                                src={restaurant.photoName === 'default.jpg'
+                                    ? '/images/default.jpg'
+                                    : `/images/restaurant/${restaurant.photoName}`}
                                 alt={restaurant.name}
                             />
                             <h2>{restaurant.name}</h2>
                             <p>대표메뉴: {restaurant.category || "정보 없음"}</p>
-                            <h3>⭐ </h3>
+                            <h3>⭐{restaurant.scoreNumber} </h3>
                         </div>
                     ))}
                 </div>

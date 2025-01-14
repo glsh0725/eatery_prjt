@@ -89,9 +89,12 @@ public class RestaurantCrawler {
                     String offDays = "휴무일";
                     String tags = "태그";
                     String photoName = "이미지명";
+                    String menuName = "메뉴 이미지명";
+                    String scoreNumber = "평점";
                     String moreViewLink = "상세보기 링크";
 
                     name = place.findElement(By.cssSelector(".link_name")).getText();
+                    scoreNumber = place.findElement(By.cssSelector(".rating .num")).getText();
                     moreViewLink = place.findElement(By.cssSelector(".moreview")).getAttribute("href");
 
                     if (!moreViewLink.equals("상세보기 링크 없음")) {
@@ -246,13 +249,40 @@ public class RestaurantCrawler {
                                     downloadPhoto(photoUrl, photoPath);
                                 }
 
-                                photoCounter++;
                             } else {
                                 photoName = "default.jpg";
                             }
                         } catch (Exception e) {
                             System.out.println("사진 다운로드 실패: " + e.getMessage());
                         }
+
+                        // 메뉴 사진 다운로드
+                        try {
+                            List<WebElement> photoElements = driver.findElements(By.cssSelector(".cont_menu .view_menu"));
+                            if (!photoElements.isEmpty()) {
+                                WebElement firstPhoto = photoElements.get(0);
+                                String photoUrl = firstPhoto.getAttribute("style").replaceAll(".*url\\(\"?(.*?)\"?\\).*", "$1");
+
+                                if (!photoUrl.startsWith("http")) {
+                                    photoUrl = "http:" + photoUrl;
+                                }
+
+                                menuName = "menu" + photoCounter + ".jpg";
+                                String photoPath = "src/main/resources/static/images/menu/" + menuName;
+
+                                File file = new File(photoPath);
+                                if (!file.exists()) {
+                                    downloadPhoto(photoUrl, photoPath);
+                                }
+
+                            } else {
+                                menuName = "default.jpg";
+                            }
+                        } catch (Exception e) {
+                            System.out.println("메뉴 사진 다운로드 실패: " + e.getMessage());
+                        }
+
+                        photoCounter++;
 
                         // RestaurantVO 객체 생성
                         RestaurantVO restaurantVO = new RestaurantVO();
@@ -271,6 +301,8 @@ public class RestaurantCrawler {
                         restaurantVO.setLikeCount(0);
                         restaurantVO.setViewCount(0);
                         restaurantVO.setReviewCount(0);
+                        restaurantVO.setScoreNumber(scoreNumber);
+                        restaurantVO.setMenuName(menuName);
 
                         // 중복 체크 후 데이터베이스에 저장
                         if (!restaurantDAO.isRestaurantExist(restaurantVO.getName())) {
@@ -296,6 +328,8 @@ public class RestaurantCrawler {
                     System.out.println("태그: " + tags);
                     System.out.println("주차 정보: " + parkingInfo);
                     System.out.println("사진 이름: " + photoName);
+                    System.out.println("평점: " + scoreNumber);
+                    System.out.println("메뉴 이름: " + menuName);
                     System.out.println("---------------------------");
                 }
 
