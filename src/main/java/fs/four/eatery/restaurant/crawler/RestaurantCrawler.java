@@ -27,7 +27,7 @@ public class RestaurantCrawler {
     @Autowired
     private RestaurantDAO restaurantDAO;
 
-    private static int photoCounter = 341;
+    private static int photoCounter = 1781;
 
     public void run() {
         Logger seleniumLogger = Logger.getLogger("org.openqa.selenium");
@@ -38,7 +38,7 @@ public class RestaurantCrawler {
 
         // Chrome 옵션 설정
         ChromeOptions options = new ChromeOptions();
-//        options.addArguments("--headless");
+        options.addArguments("--headless");
         options.addArguments("--disable-gpu");
         options.setExperimentalOption("excludeSwitches", List.of("enable-logging"));
 
@@ -46,7 +46,7 @@ public class RestaurantCrawler {
         WebDriver driver = new ChromeDriver(options);
 
         try {
-            String query = "서울시 서 식당";
+            String query = "부산시 식당";
             String kakaoMapUrl = "https://map.kakao.com/?q=" + query;
 
             // 카카오맵 열기
@@ -63,7 +63,7 @@ public class RestaurantCrawler {
             System.out.println("장소 더보기 버튼을 클릭했습니다.");
             Thread.sleep(2000);
 
-            int maxPagesToCrawl = 10; // 최대 크롤링할 페이지 수
+            int maxPagesToCrawl = 30; // 최대 크롤링할 페이지 수
             int currentPage = 1;
 
             while (currentPage <= maxPagesToCrawl) {
