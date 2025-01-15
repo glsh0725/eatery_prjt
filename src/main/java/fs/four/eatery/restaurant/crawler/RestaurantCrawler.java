@@ -2,10 +2,7 @@ package fs.four.eatery.restaurant.crawler;
 
 import fs.four.eatery.restaurant.dao.RestaurantDAO;
 import fs.four.eatery.restaurant.vo.RestaurantVO;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -30,7 +27,7 @@ public class RestaurantCrawler {
     @Autowired
     private RestaurantDAO restaurantDAO;
 
-    private static int photoCounter = 1;
+    private static int photoCounter = 341;
 
     public void run() {
         Logger seleniumLogger = Logger.getLogger("org.openqa.selenium");
@@ -41,7 +38,7 @@ public class RestaurantCrawler {
 
         // Chrome 옵션 설정
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless");
+//        options.addArguments("--headless");
         options.addArguments("--disable-gpu");
         options.setExperimentalOption("excludeSwitches", List.of("enable-logging"));
 
@@ -49,7 +46,7 @@ public class RestaurantCrawler {
         WebDriver driver = new ChromeDriver(options);
 
         try {
-            String query = "식당";
+            String query = "서울시 서 식당";
             String kakaoMapUrl = "https://map.kakao.com/?q=" + query;
 
             // 카카오맵 열기
@@ -66,7 +63,7 @@ public class RestaurantCrawler {
             System.out.println("장소 더보기 버튼을 클릭했습니다.");
             Thread.sleep(2000);
 
-            int maxPagesToCrawl = 2; // 최대 크롤링할 페이지 수
+            int maxPagesToCrawl = 10; // 최대 크롤링할 페이지 수
             int currentPage = 1;
 
             while (currentPage <= maxPagesToCrawl) {
@@ -90,17 +87,40 @@ public class RestaurantCrawler {
                     String tags = "태그";
                     String photoName = "이미지명";
                     String menuName = "메뉴 이미지명";
-                    String scoreNumber = "평점";
+                    String scoreNumber = "0";
                     String moreViewLink = "상세보기 링크";
 
                     name = place.findElement(By.cssSelector(".link_name")).getText();
-                    scoreNumber = place.findElement(By.cssSelector(".rating .num")).getText();
+                    try {
+                        WebElement scoreElement = place.findElement(By.cssSelector(".rating .num"));
+                        if (scoreElement != null && !scoreElement.getText().isEmpty()) {
+                            scoreNumber = scoreElement.getText();
+                        }
+                    } catch (Exception e) {
+                        // 평점 요소가 없거나 오류 발생 시 기본값 0 유지
+                    }
                     moreViewLink = place.findElement(By.cssSelector(".moreview")).getAttribute("href");
 
                     if (!moreViewLink.equals("상세보기 링크 없음")) {
                         ((JavascriptExecutor) driver).executeScript("window.open('" + moreViewLink + "', '_blank');");
                         List<String> tabs = List.copyOf(driver.getWindowHandles());
                         driver.switchTo().window(tabs.get(1));
+
+                        try {
+                            // 알림창이 뜬 경우
+                            WebDriverWait alertWait = new WebDriverWait(driver, Duration.ofSeconds(1));
+                            Alert alert = alertWait.until(ExpectedConditions.alertIsPresent());
+
+                            alert.accept();
+                            System.out.println("알림창이 뜨고 닫혔습니다. 페이지 작업을 건너뜁니다.");
+
+                            driver.close();
+                            driver.switchTo().window(tabs.get(0));
+
+                            continue;
+                        } catch (Exception e) {
+                            // 알림창이 없거나 다른 예외가 발생하면 무시하고 계속 진행
+                        }
 
                         address = wait.until(ExpectedConditions.presenceOfElementLocated(
                                 By.cssSelector(".txt_address"))).getText();
