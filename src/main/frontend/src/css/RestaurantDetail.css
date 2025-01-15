@@ -43,8 +43,7 @@
     width: 45%;
     min-height: 270px;
     flex: 1;
-    border: 2px solid #ffa726;
-    padding: 20px;
+    border: none;
     text-align: center;
     background-color: #fff;
     border-radius: 10px;

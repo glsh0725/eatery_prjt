@@ -34,7 +34,22 @@ const RestaurantDetail = () => {
                         alt={restaurant.name}
                     />
                 </div>
-                <div className="map-box">지도</div>
+                <div className="map-box"
+                     style={{width: "100%", height: "320px", overflow: "hidden", position: "relative", paddingRight: "10px"}}>
+                    <iframe
+                        src={`https://map.naver.com/v5/search/${encodeURIComponent(restaurant.address)}`}
+                        width="190%"
+                        height="100%"
+                        style={{
+                            border: "none",
+                            position: "absolute",
+                            top: 0,
+                            left: "-90%",
+                        }}
+                        allowFullScreen
+                        title="Naver Map"
+                    ></iframe>
+                </div>
             </div>
             <div className="title-and-actions">
                 <h2>
