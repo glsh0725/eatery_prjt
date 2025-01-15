@@ -27,18 +27,12 @@ const RestaurantDetail = () => {
         <div className="restaurant-detail">
             <div className="top-section">
                 <div className="image-box">
-                    <a
-                        href={`/images/menu/${restaurant.menuName}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        <img
-                            src={restaurant.menuName === "default.jpg"
-                                ? "/images/default.jpg"
-                                : `/images/menu/${restaurant.menuName}`}
-                            alt={restaurant.name}
-                        />
-                    </a>
+                    <img
+                        src={restaurant.menuName === "default.jpg"
+                            ? "/images/default.jpg"
+                            : `/images/menu/${restaurant.menuName}`}
+                        alt={restaurant.name}
+                    />
                 </div>
                 <div className="map-box">지도</div>
             </div>
