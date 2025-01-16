@@ -4,5 +4,5 @@ import fs.four.eatery.user.vo.UserVO;
 
 public interface UserService {
 
-    public int addUser(UserVO user) throws Exception;
+    public void registerUser(UserVO userVO) throws Exception;
 }

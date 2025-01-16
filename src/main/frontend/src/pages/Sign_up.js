@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import DiningLayout from "../layouts/DiningLayout";
 import "../css/Sign_up.css";
+import axios from 'axios';
 
 const Sign_up = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -9,6 +10,9 @@ const Sign_up = () => {
     const [termsAgree, setTermsAgree] = useState(false); // 이용약관 동의 상태
     const [password, setPassword] = useState("");
     const [passwordConfirm, setPasswordConfirm] = useState("");
+    const [memberId, setMemberId] = useState(""); // 아이디 상태 추가
+    const [nickname, setNickname] = useState(""); // 닉네임 상태 추가
+    const [email, setEmail] = useState(""); // 이메일 상태 추가
     const [errorMessage, setErrorMessage] = useState(""); // 오류 메시지 상태
     const contextPath = "";
 
@@ -23,69 +27,70 @@ const Sign_up = () => {
         setModalContent("");
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+   const handleSubmit = async (e) => {
+       e.preventDefault(); // 기본 제출 동작 방지
 
-        // 비밀번호 일치 확인
-        if (password !== passwordConfirm) {
-            setErrorMessage("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
-            return;
-        }
+       const formData = new FormData(e.target); // 폼 데이터 가져오기
 
-        // 이메일 수신 동의 확인
-        if (!emailAgree) {
-            setErrorMessage("이메일 수신 동의를 선택해야 합니다.");
-            return;
-        }
+       try {
+           const response = await fetch(`${contextPath}/sign_up`, {
+               method: 'POST',
+               body: formData,
+           });
 
-        // 이용약관 동의 확인
-        if (!termsAgree) {
-            setErrorMessage("이용약관 및 개인정보 취급방침에 동의해야 합니다.");
-            return;
-        }
-
-        // 모든 조건이 맞으면 폼 제출
-        setErrorMessage(""); // 에러 메시지 초기화
-        alert("회원가입이 완료되었습니다!");
-        // 여기서 실제 회원가입 요청을 서버에 보냄 (서버 API 호출)
-        // 예: axios.post("/sign_up", { /* 폼 데이터 */ })
-    };
+           if (response.ok) {
+               // 성공 시, 다른 페이지로 리디렉션하거나 메시지 표시
+               window.location.href = "/signup-success"; // 예시
+           } else {
+               const result = await response.json();
+               setErrorMessage(result.errorMessage || "회원가입 실패");
+           }
+       } catch (error) {
+           setErrorMessage("서버 오류가 발생했습니다.");
+       }
+   };
 
     return (
         <DiningLayout>
             <form
                 id="signUpForm"
                 className="sign_up_form"
-                action={`${contextPath}/sign_up`}
+                action="${contextPath}/sign_up"
                 onSubmit={handleSubmit}
                 method="post"
             >
                 <p className="sign_up_title">회원가입</p>
 
+                {errorMessage && <p className="error_message">{errorMessage}</p>}
+
                 <input
                     type="text"
-                    name="member_id"
+                    id="mem_id"
+                    name="mem_id"
                     className="input_sign_up"
                     placeholder="아이디"
                     required
                 />
                 <input
                     type="password"
-                    name="member_pw"
+                    id="mem_nickname"
+                    name="mem_pw"
                     className="input_sign_up"
                     placeholder="비밀번호"
                     required
                 />
                 <input
                     type="password"
-                    name="member_pw_confirm"
+                    name="mem_pw_confirm"
+                    id="email"
                     className="input_sign_up"
                     placeholder="비밀번호 확인"
                     required
                 />
                 <input
                     type="text"
-                    name="nickname"
+                    name="mem_nickname"
+                    id="mem_nickname"
                     className="input_sign_up"
                     placeholder="닉네임"
                     required
@@ -93,6 +98,7 @@ const Sign_up = () => {
                 <input
                     type="email"
                     name="email"
+                    id="email"
                     className="input_sign_up"
                     placeholder="이메일"
                     required
@@ -102,9 +108,8 @@ const Sign_up = () => {
                     <label>
                         <input
                             type="radio"
-                            name="email_agree"
-                            value="agree"
-                            onChange={() => setEmailAgree("agree")}
+                            name="email_status"
+                            id="email_status"
                             required
                         />{" "}
                         이메일 수신 동의
@@ -112,9 +117,10 @@ const Sign_up = () => {
                     <label>
                         <input
                             type="radio"
-                            name="email_agree"
-                            value="disagree"
-                            onChange={() => setEmailAgree("disagree")}
+                            name="email_status"
+                            id="email_status"
+                            value="n"
+                            onChange={() => setEmailAgree("n")}
                         />{" "}
                         이메일 수신 거부
                     </label>
@@ -122,7 +128,12 @@ const Sign_up = () => {
 
                 <div className="terms">
                     <label>
-                        <input type="checkbox" name="terms_agree" required />{" "}
+                        <input
+                            type="checkbox"
+                            name="agree_date"
+                            onChange={(e) => setTermsAgree(e.target.checked)} // 상태 업데이트 추가
+                            required
+                        />{" "}
                         <span
                             className="link"
                             onClick={(e) => openModal("terms", e)}
@@ -143,6 +154,7 @@ const Sign_up = () => {
                 <button type="submit" id="signUpButton" className="btn_sign_up">
                     회원가입
                 </button>
+
             </form>
 
             {isModalOpen && (

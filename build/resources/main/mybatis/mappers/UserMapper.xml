@@ -24,10 +24,30 @@
         ]]>
     </select>
 
-        <insert id="insertUser" parameterType="userVO">
-            <![CDATA[
-            insert into MEMBER(MEM_ID, MEM_PW, MEM_NICKNAME, EMAIL, EMAIL_STATUS)
-            values (#{MEM_ID}, #{MEM_PW}, #{MEM_NICKNAME}, #{EMAIL}, #{EMAIL_STATUS})
-        ]]>
-        </insert>
+    <insert id="insertUser" parameterType="fs.four.eatery.user.vo.UserVO">
+        INSERT INTO member (
+        mem_id,
+        mem_pw,
+        mem_nickname,
+        email,
+        email_status,
+        img_name,
+        img_path,
+        created_date,
+        agree_date,
+        role
+        )
+        VALUES (
+        #{mem_id},
+        #{mem_pw},
+        #{mem_nickname},
+        #{email},
+        #{email_status},
+        #{img_name},
+        #{img_path},
+        #{created_date},  <!-- Timestamp 값을 그대로 삽입 -->
+        #{agree_date},    <!-- Timestamp 값을 그대로 삽입 -->
+        1  <!-- 기본 역할 값 예시: 1 -->
+        )
+    </insert>
 </mapper>
