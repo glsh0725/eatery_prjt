@@ -18,19 +18,6 @@ public class UserControllerImpl {
     @Autowired
     private LoginServiceImpl loginService;
 
-//    @PostMapping("/login")
-//    @ResponseBody
-//    public String login(@RequestBody UserVO user, HttpServletResponse response) throws Exception {
-//        UserVO userVO = loginService.login(user);
-//
-//        if (userVO != null) {
-//            String token = JwtUtil.generateToken(userVO.getMem_id(), userVO.getMem_id());
-//            response.setHeader("Authorization", "Bearer " + token);
-//            return "Login successful! Token generated.";
-//        } else {
-//            return "Invalid username or password.";
-//        }
-//    }
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserVO user) {
         UserVO loggedInUser = loginService.login(user.getMem_id(), user.getMem_pw());
