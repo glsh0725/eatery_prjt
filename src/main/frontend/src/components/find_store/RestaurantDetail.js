@@ -35,16 +35,16 @@ const RestaurantDetail = () => {
                     />
                 </div>
                 <div className="map-box"
-                     style={{width: "100%", height: "320px", overflow: "hidden", position: "relative", paddingRight: "10px"}}>
+                     style={{height: "320px", overflow: "hidden", position: "relative"}}>
                     <iframe
                         src={`https://map.naver.com/v5/search/${encodeURIComponent(restaurant.address)}`}
-                        width="190%"
+                        width="230%"
                         height="100%"
                         style={{
                             border: "none",
                             position: "absolute",
                             top: 0,
-                            left: "-90%",
+                            left: "-130%",
                         }}
                         allowFullScreen
                         title="Naver Map"

@@ -43,7 +43,7 @@
 .tag-container {
     display: flex;
     flex-wrap: wrap;
-    margin: 20px 0;
+    margin: 15px 0;
     justify-content: space-between;
     width: 88%;
 }
