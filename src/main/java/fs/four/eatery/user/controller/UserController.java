@@ -1,19 +1,23 @@
 package fs.four.eatery.user.controller;
 
-import fs.four.eatery.user.service.UserService;
 import fs.four.eatery.user.vo.UserVO;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-@RestController
-@RequestMapping("/api")
-public class UserController {
-    @Autowired
-    private UserService userService;
+public interface UserController {
 
-    @Autowired
-    private UserVO userVO;
+    public ModelAndView addUser(@ModelAttribute("info")UserVO userVO,
+                                HttpServletRequest request,
+                                HttpServletResponse response) throws Exception;
 
+    public ModelAndView login(@ModelAttribute("user") UserVO userVO,
+                              RedirectAttributes redirectAttributes,
+                              HttpServletRequest request,
+                              HttpServletResponse response) throws Exception;
 
+    public ModelAndView logout(HttpServletRequest request,
+                               HttpServletResponse response) throws Exception;
 }

@@ -18,9 +18,16 @@
 
     <select id="loginById" parameterType="userVO" resultMap="loginResult">
         <![CDATA[
-            SELECT *
-            FROM member
-            WHERE mem_id=#{mem_id}
+            select *
+            from member
+            order by mem_id desc
         ]]>
     </select>
+
+        <insert id="insertUser" parameterType="userVO">
+            <![CDATA[
+            insert into MEMBER(MEM_ID, MEM_PW, MEM_NICKNAME, EMAIL, EMAIL_STATUS)
+            values (#{MEM_ID}, #{MEM_PW}, #{MEM_NICKNAME}, #{EMAIL}, #{EMAIL_STATUS})
+        ]]>
+        </insert>
 </mapper>
