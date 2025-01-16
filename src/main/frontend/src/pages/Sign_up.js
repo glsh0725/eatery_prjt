@@ -5,6 +5,11 @@ import "../css/Sign_up.css";
 const Sign_up = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalContent, setModalContent] = useState("");
+    const [emailAgree, setEmailAgree] = useState(""); // 이메일 수신 동의 상태
+    const [termsAgree, setTermsAgree] = useState(false); // 이용약관 동의 상태
+    const [password, setPassword] = useState("");
+    const [passwordConfirm, setPasswordConfirm] = useState("");
+    const [errorMessage, setErrorMessage] = useState(""); // 오류 메시지 상태
     const contextPath = "";
 
     const openModal = (content, e) => {
@@ -18,12 +23,41 @@ const Sign_up = () => {
         setModalContent("");
     };
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        // 비밀번호 일치 확인
+        if (password !== passwordConfirm) {
+            setErrorMessage("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+            return;
+        }
+
+        // 이메일 수신 동의 확인
+        if (!emailAgree) {
+            setErrorMessage("이메일 수신 동의를 선택해야 합니다.");
+            return;
+        }
+
+        // 이용약관 동의 확인
+        if (!termsAgree) {
+            setErrorMessage("이용약관 및 개인정보 취급방침에 동의해야 합니다.");
+            return;
+        }
+
+        // 모든 조건이 맞으면 폼 제출
+        setErrorMessage(""); // 에러 메시지 초기화
+        alert("회원가입이 완료되었습니다!");
+        // 여기서 실제 회원가입 요청을 서버에 보냄 (서버 API 호출)
+        // 예: axios.post("/sign_up", { /* 폼 데이터 */ })
+    };
+
     return (
         <DiningLayout>
             <form
                 id="signUpForm"
                 className="sign_up_form"
                 action={`${contextPath}/sign_up`}
+                onSubmit={handleSubmit}
                 method="post"
             >
                 <p className="sign_up_title">회원가입</p>
@@ -70,6 +104,7 @@ const Sign_up = () => {
                             type="radio"
                             name="email_agree"
                             value="agree"
+                            onChange={() => setEmailAgree("agree")}
                             required
                         />{" "}
                         이메일 수신 동의
@@ -79,6 +114,7 @@ const Sign_up = () => {
                             type="radio"
                             name="email_agree"
                             value="disagree"
+                            onChange={() => setEmailAgree("disagree")}
                         />{" "}
                         이메일 수신 거부
                     </label>
