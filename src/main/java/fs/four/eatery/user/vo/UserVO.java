@@ -3,7 +3,7 @@ package fs.four.eatery.user.vo;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
-@Data
+@Component
 public class UserVO {
     private String mem_id;
     private String mem_pw;
