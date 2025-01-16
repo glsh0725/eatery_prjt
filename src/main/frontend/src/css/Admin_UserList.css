@@ -1,0 +1,72 @@
+.adminUserlist-table-container {
+    width: 90%;
+    margin: 20px auto;
+    text-align: center;
+}
+
+.table-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.search-input {
+    width: 200px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.control-button {
+    padding: 8px 12px;
+    margin-left: 5px;
+    background-color: #f8d859;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.control-button:hover {
+    background-color: #f39c12;
+}
+
+.member-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.member-table th,
+.member-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+.member-table th {
+    background-color: #f8d859;
+    color: #333;
+}
+
+.pagination {
+    margin-top: 20px;
+}
+
+.pagination button {
+    margin: 0 5px;
+    padding: 8px 12px;
+    background-color: #f8d859;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.pagination button.active {
+    font-weight: bold;
+    background-color: #f39c12;
+}
+
+.pagination button:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+}
