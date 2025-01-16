@@ -13,6 +13,8 @@ public class RestaurantVO {
     private String tags;           // 태그
     private String parkingInfo;    // 주차 정보
     private String photoName;      // 사진 이름
+    private String menuName;       // 메뉴 이미지 이름
+    private String scoreNumber;       // 평점
     private int likeCount;         // 좋아요 수
     private int viewCount;         // 조회수
     private int reviewCount;       // 리뷰 수
@@ -88,6 +90,18 @@ public class RestaurantVO {
     }
     public void setPhotoName(String photoName) {
         this.photoName = photoName;
+    }
+    public String getMenuName() {
+        return menuName;
+    }
+    public void setMenuName(String menuName) {
+        this.menuName = menuName;
+    }
+    public String getScoreNumber() {
+        return scoreNumber;
+    }
+    public void setScoreNumber(String scoreNum) {
+        this.scoreNumber = scoreNum;
     }
     public int getLikeCount() {
         return likeCount;

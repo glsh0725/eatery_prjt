@@ -2,10 +2,7 @@ package fs.four.eatery.restaurant.crawler;
 
 import fs.four.eatery.restaurant.dao.RestaurantDAO;
 import fs.four.eatery.restaurant.vo.RestaurantVO;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -66,7 +63,7 @@ public class RestaurantCrawler {
             System.out.println("장소 더보기 버튼을 클릭했습니다.");
             Thread.sleep(2000);
 
-            int maxPagesToCrawl = 2; // 최대 크롤링할 페이지 수
+            int maxPagesToCrawl = 1; // 최대 크롤링할 페이지 수
             int currentPage = 1;
 
             while (currentPage <= maxPagesToCrawl) {
@@ -89,15 +86,41 @@ public class RestaurantCrawler {
                     String offDays = "휴무일";
                     String tags = "태그";
                     String photoName = "이미지명";
+                    String menuName = "메뉴 이미지명";
+                    String scoreNumber = "0";
                     String moreViewLink = "상세보기 링크";
 
                     name = place.findElement(By.cssSelector(".link_name")).getText();
+                    try {
+                        WebElement scoreElement = place.findElement(By.cssSelector(".rating .num"));
+                        if (scoreElement != null && !scoreElement.getText().isEmpty()) {
+                            scoreNumber = scoreElement.getText();
+                        }
+                    } catch (Exception e) {
+                        // 평점 요소가 없거나 오류 발생 시 기본값 0 유지
+                    }
                     moreViewLink = place.findElement(By.cssSelector(".moreview")).getAttribute("href");
 
                     if (!moreViewLink.equals("상세보기 링크 없음")) {
                         ((JavascriptExecutor) driver).executeScript("window.open('" + moreViewLink + "', '_blank');");
                         List<String> tabs = List.copyOf(driver.getWindowHandles());
                         driver.switchTo().window(tabs.get(1));
+
+                        try {
+                            // 알림창이 뜬 경우
+                            WebDriverWait alertWait = new WebDriverWait(driver, Duration.ofSeconds(1));
+                            Alert alert = alertWait.until(ExpectedConditions.alertIsPresent());
+
+                            alert.accept();
+                            System.out.println("알림창이 뜨고 닫혔습니다. 페이지 작업을 건너뜁니다.");
+
+                            driver.close();
+                            driver.switchTo().window(tabs.get(0));
+
+                            continue;
+                        } catch (Exception e) {
+                            // 알림창이 없거나 다른 예외가 발생하면 무시하고 계속 진행
+                        }
 
                         address = wait.until(ExpectedConditions.presenceOfElementLocated(
                                 By.cssSelector(".txt_address"))).getText();
@@ -246,13 +269,40 @@ public class RestaurantCrawler {
                                     downloadPhoto(photoUrl, photoPath);
                                 }
 
-                                photoCounter++;
                             } else {
                                 photoName = "default.jpg";
                             }
                         } catch (Exception e) {
                             System.out.println("사진 다운로드 실패: " + e.getMessage());
                         }
+
+                        // 메뉴 사진 다운로드
+                        try {
+                            List<WebElement> photoElements = driver.findElements(By.cssSelector(".cont_menu .view_menu"));
+                            if (!photoElements.isEmpty()) {
+                                WebElement firstPhoto = photoElements.get(0);
+                                String photoUrl = firstPhoto.getAttribute("style").replaceAll(".*url\\(\"?(.*?)\"?\\).*", "$1");
+
+                                if (!photoUrl.startsWith("http")) {
+                                    photoUrl = "http:" + photoUrl;
+                                }
+
+                                menuName = "menu" + photoCounter + ".jpg";
+                                String photoPath = "src/main/resources/static/images/menu/" + menuName;
+
+                                File file = new File(photoPath);
+                                if (!file.exists()) {
+                                    downloadPhoto(photoUrl, photoPath);
+                                }
+
+                            } else {
+                                menuName = "default.jpg";
+                            }
+                        } catch (Exception e) {
+                            System.out.println("메뉴 사진 다운로드 실패: " + e.getMessage());
+                        }
+
+                        photoCounter++;
 
                         // RestaurantVO 객체 생성
                         RestaurantVO restaurantVO = new RestaurantVO();
@@ -271,6 +321,8 @@ public class RestaurantCrawler {
                         restaurantVO.setLikeCount(0);
                         restaurantVO.setViewCount(0);
                         restaurantVO.setReviewCount(0);
+                        restaurantVO.setScoreNumber(scoreNumber);
+                        restaurantVO.setMenuName(menuName);
 
                         // 중복 체크 후 데이터베이스에 저장
                         if (!restaurantDAO.isRestaurantExist(restaurantVO.getName())) {
@@ -296,6 +348,8 @@ public class RestaurantCrawler {
                     System.out.println("태그: " + tags);
                     System.out.println("주차 정보: " + parkingInfo);
                     System.out.println("사진 이름: " + photoName);
+                    System.out.println("평점: " + scoreNumber);
+                    System.out.println("메뉴 이름: " + menuName);
                     System.out.println("---------------------------");
                 }
 

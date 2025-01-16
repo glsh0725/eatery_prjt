@@ -65,7 +65,18 @@ sourceSets {
 	}
 }
 
-processResources { dependsOn "copyReactBuildFiles" }
+//processResources { dependsOn "copyReactBuildFiles" }
+
+// 업데이트된 이미지만 복사하고 기존 이미지 파일을 유지하도록 설정
+processResources {
+	eachFile { fileCopyDetails ->
+		def targetFile = file("$buildDir/resources/main/static/images/${fileCopyDetails.path}")
+		if (targetFile.exists()) {
+			fileCopyDetails.exclude()
+		}
+	}
+	dependsOn "copyReactBuildFiles"
+}
 
 task installReact(type: Exec) {
 	workingDir "$frontendDir"
@@ -95,4 +106,7 @@ task copyReactBuildFiles(type: Copy) {
 	dependsOn "buildReact"
 	from "$frontendDir/build"
 	into "$projectDir/src/main/resources/static"
+	// static/images 하위 폴더 제외
+	exclude("images/restaurant/**")
+	exclude("images/menu/**")
 }

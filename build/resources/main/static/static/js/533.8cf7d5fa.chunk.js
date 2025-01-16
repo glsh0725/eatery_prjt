@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkfrontend=self.webpackChunkfrontend||[]).push([[533],{533:(e,t,a)=>{a.r(t),a.d(t,{default:()=>u});var n=a(43),s=a(988),c=a(722),r=a(579);const u=()=>{const{name:e}=(0,s.g)(),[t,a]=(0,n.useState)(null),[u,h]=(0,n.useState)("");return(0,n.useEffect)((()=>{c.A.get("http://localhost:18080/api/restaurants/".concat(e)).then((e=>a(e.data))).catch((e=>h(e.message)))}),[e]),(0,r.jsx)("div",{children:(0,r.jsx)("h1",{children:t.name})})}}}]);
+//# sourceMappingURL=533.8cf7d5fa.chunk.js.map
