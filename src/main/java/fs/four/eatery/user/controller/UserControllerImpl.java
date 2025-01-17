@@ -1,41 +1,63 @@
 package fs.four.eatery.user.controller;
 
 import fs.four.eatery.user.service.LoginServiceImpl;
+import fs.four.eatery.user.service.UserServiceImpl;
 import fs.four.eatery.user.vo.UserVO;
 import fs.four.eatery.util.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller("userController")
-@RequestMapping("/user")
-public class UserControllerImpl {
+@RequestMapping("/api")
+public class UserControllerImpl implements UserController {
 
     @Autowired
     private LoginServiceImpl loginService;
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody UserVO user) {
-        UserVO loggedInUser = loginService.login(user.getMem_id(), user.getMem_pw());
+    @Autowired
+    private UserServiceImpl userService;
 
-        if (loggedInUser != null) {
-            // 로그인 성공 시 JWT 토큰 발급 (예시로 헤더에 추가)
-            String token = "Bearer exampleToken"; // 실제로 JWT 구현 필요
-            return ResponseEntity.ok().header("Authorization", token).body(loggedInUser);
-        } else {
-            // 로그인 실패
-            return ResponseEntity.status(401).body("아이디 또는 비밀번호가 잘못되었습니다.");
+    @Override
+    @PostMapping("/signup")
+    public ResponseEntity<String> signup(@ModelAttribute UserVO userVO) {
+        try {
+            userService.registerUser(userVO);
+            // 회원가입 성공 시 /login으로 이동하도록 URL 반환
+            return ResponseEntity.ok("http://localhost:18080/login");
+        } catch (Exception e) {
+            return ResponseEntity.status(400).body("회원가입 중 오류가 발생했습니다: " + e.getMessage());
         }
     }
 
+    @Override
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody UserVO user) {
+        try {
+            UserVO loggedInUser = loginService.login(user.getMem_id(), user.getMem_pw());
+
+            if (loggedInUser != null) {
+                // 로그인 성공 시 JWT 토큰 생성
+                String token = JwtUtil.generateToken(loggedInUser.getMem_id(), loggedInUser.getRole());
+                return ResponseEntity.ok()
+                        .header("Authorization", "Bearer " + token)
+                        .body(loggedInUser);
+            } else {
+                return ResponseEntity.status(401).body("아이디 또는 비밀번호가 잘못되었습니다.");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("서버 오류가 발생했습니다. 나중에 다시 시도해 주세요.");
+        }
+    }
+
+    @Override
     @GetMapping("/logout")
     @ResponseBody
     public String logout(HttpServletRequest request) {
-        // JWT는 클라이언트에서 저장하므로, 로그아웃은 클라이언트가 토큰을 삭제하도록 안내합니다.
+        // 클라이언트 토큰 삭제 안내
         return "Logout successful! Please delete your token.";
     }
 }

@@ -18,9 +18,9 @@
 
     <select id="loginById" parameterType="userVO" resultMap="loginResult">
         <![CDATA[
-            select *
-            from member
-            order by mem_id desc
+        SELECT *
+        FROM member
+        ORDER BY mem_id DESC
         ]]>
     </select>
 
@@ -50,4 +50,23 @@
         1  <!-- 기본 역할 값 예시: 1 -->
         )
     </insert>
+
+    <!-- 중복 체크 -->
+    <select id="isIdExist" parameterType="String" resultType="boolean">
+        SELECT CASE WHEN COUNT(1) > 0 THEN 1 ELSE 0 END
+        FROM member
+        WHERE mem_id = #{mem_id}
+    </select>
+
+    <select id="isEmailExist" parameterType="String" resultType="boolean">
+        SELECT CASE WHEN COUNT(1) > 0 THEN 1 ELSE 0 END
+        FROM member
+        WHERE email = #{email}
+    </select>
+
+    <select id="isNicknameExist" parameterType="String" resultType="boolean">
+        SELECT CASE WHEN COUNT(1) > 0 THEN 1 ELSE 0 END
+        FROM member
+        WHERE mem_nickname = #{mem_nickname}
+    </select>
 </mapper>

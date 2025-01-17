@@ -13,10 +13,10 @@ public class JwtUtil {
 
     private static final Key KEY = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
 
-    public static String generateToken(String userId, String role) {
+    public static String generateToken(String userId, int role) {
         return Jwts.builder()
                 .setSubject(userId)
-                .claim("role", role)
+                .claim("role", role) // int 타입으로 role 추가
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(KEY, SignatureAlgorithm.HS256)

@@ -1,23 +1,34 @@
 import React, { useState } from "react";
 import DiningLayout from "../layouts/DiningLayout";
 import "../css/Sign_up.css";
-import axios from 'axios';
+import axios from "axios";
 
 const Sign_up = () => {
+    const [formData, setFormData] = useState({
+        mem_id: "",
+        mem_pw: "",
+        mem_pw_confirm: "",
+        mem_nickname: "",
+        email: "",
+        email_status: "",
+        agree_date: false
+    });
+
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalContent, setModalContent] = useState("");
-    const [emailAgree, setEmailAgree] = useState(""); // 이메일 수신 동의 상태
-    const [termsAgree, setTermsAgree] = useState(false); // 이용약관 동의 상태
-    const [password, setPassword] = useState("");
-    const [passwordConfirm, setPasswordConfirm] = useState("");
-    const [memberId, setMemberId] = useState(""); // 아이디 상태 추가
-    const [nickname, setNickname] = useState(""); // 닉네임 상태 추가
-    const [email, setEmail] = useState(""); // 이메일 상태 추가
-    const [errorMessage, setErrorMessage] = useState(""); // 오류 메시지 상태
-    const contextPath = "";
+    const [errorMessage, setErrorMessage] = useState("");
+    const contextPath = "http://localhost:18080";
+
+    const handleChange = (e) => {
+        const { name, value, type, checked } = e.target;
+        setFormData({
+            ...formData,
+            [name]: type === "checkbox" ? checked : value,
+        });
+    };
 
     const openModal = (content, e) => {
-        e.stopPropagation(); // 이벤트가 체크박스에 전달되지 않도록 막음
+        e.stopPropagation();
         setModalContent(content);
         setIsModalOpen(true);
     };
@@ -27,37 +38,53 @@ const Sign_up = () => {
         setModalContent("");
     };
 
-   const handleSubmit = async (e) => {
-       e.preventDefault(); // 기본 제출 동작 방지
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-       const formData = new FormData(e.target); // 폼 데이터 가져오기
+        if (formData.mem_pw !== formData.mem_pw_confirm) {
+            alert("비밀번호가 일치하지 않습니다.");
+            return;
+        }
 
-       try {
-           const response = await fetch(`${contextPath}/sign_up`, {
-               method: 'POST',
-               body: formData,
-           });
+        try {
+            const { agree_date, ...dataToSend } = formData;
 
-           if (response.ok) {
-               // 성공 시, 다른 페이지로 리디렉션하거나 메시지 표시
-               window.location.href = "/signup-success"; // 예시
-           } else {
-               const result = await response.json();
-               setErrorMessage(result.errorMessage || "회원가입 실패");
-           }
-       } catch (error) {
-           setErrorMessage("서버 오류가 발생했습니다.");
-       }
-   };
+            const response = await axios.post(
+                `${contextPath}/api/signup`,
+                new URLSearchParams(dataToSend).toString(),
+                { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
+            );
+
+            if (response.status === 200) {
+                alert("회원가입이 완료되었습니다!");
+                window.location.href = response.data; // 백엔드에서 보낸 URL로 리다이렉트
+            }
+        } catch (error) {
+            if (error.response && error.response.data) {
+                // 서버에서 반환된 오류 메시지를 기반으로 처리
+                const errorMessage = error.response.data.toLowerCase();
+                if (errorMessage.includes("중복된 아이디")) {
+                    alert("회원가입 실패: 이미 사용 중인 아이디입니다.");
+                } else if (errorMessage.includes("중복된 이메일")) {
+                    alert("회원가입 실패: 이미 사용 중인 이메일입니다.");
+                } else if (errorMessage.includes("중복된 닉네임")) {
+                    alert("회원가입 실패: 이미 사용 중인 닉네임입니다.");
+                } else {
+                    alert(`회원가입 실패: ${error.response.data}`);
+                }
+            } else {
+                // 네트워크 오류 등 서버 외의 문제
+                alert("회원가입 실패: 서버와의 통신 중 오류가 발생했습니다.");
+            }
+        }
+    };
 
     return (
         <DiningLayout>
             <form
                 id="signUpForm"
                 className="sign_up_form"
-                action="${contextPath}/sign_up"
                 onSubmit={handleSubmit}
-                method="post"
             >
                 <p className="sign_up_title">회원가입</p>
 
@@ -69,38 +96,48 @@ const Sign_up = () => {
                     name="mem_id"
                     className="input_sign_up"
                     placeholder="아이디"
+                    value={formData.mem_id}
+                    onChange={handleChange}
                     required
                 />
                 <input
                     type="password"
-                    id="mem_nickname"
+                    id="mem_pw"
                     name="mem_pw"
                     className="input_sign_up"
                     placeholder="비밀번호"
+                    value={formData.mem_pw}
+                    onChange={handleChange}
                     required
                 />
                 <input
                     type="password"
+                    id="mem_pw_confirm"
                     name="mem_pw_confirm"
-                    id="email"
                     className="input_sign_up"
                     placeholder="비밀번호 확인"
+                    value={formData.mem_pw_confirm}
+                    onChange={handleChange}
                     required
                 />
                 <input
                     type="text"
-                    name="mem_nickname"
                     id="mem_nickname"
+                    name="mem_nickname"
                     className="input_sign_up"
                     placeholder="닉네임"
+                    value={formData.mem_nickname}
+                    onChange={handleChange}
                     required
                 />
                 <input
                     type="email"
-                    name="email"
                     id="email"
+                    name="email"
                     className="input_sign_up"
                     placeholder="이메일"
+                    value={formData.email}
+                    onChange={handleChange}
                     required
                 />
 
@@ -109,7 +146,9 @@ const Sign_up = () => {
                         <input
                             type="radio"
                             name="email_status"
-                            id="email_status"
+                            value="y"
+                            checked={formData.email_status === "y"}
+                            onChange={handleChange}
                             required
                         />{" "}
                         이메일 수신 동의
@@ -118,9 +157,9 @@ const Sign_up = () => {
                         <input
                             type="radio"
                             name="email_status"
-                            id="email_status"
                             value="n"
-                            onChange={() => setEmailAgree("n")}
+                            checked={formData.email_status === "n"}
+                            onChange={handleChange}
                         />{" "}
                         이메일 수신 거부
                     </label>
@@ -131,7 +170,8 @@ const Sign_up = () => {
                         <input
                             type="checkbox"
                             name="agree_date"
-                            onChange={(e) => setTermsAgree(e.target.checked)} // 상태 업데이트 추가
+                            checked={formData.agree_date}
+                            onChange={handleChange}
                             required
                         />{" "}
                         <span
@@ -154,12 +194,14 @@ const Sign_up = () => {
                 <button type="submit" id="signUpButton" className="btn_sign_up">
                     회원가입
                 </button>
-
             </form>
 
             {isModalOpen && (
-                <div className="modal">
-                    <div className="modal_content">
+                <div className="modal" onClick={closeModal}>
+                    <div
+                        className="modal_content"
+                        onClick={(e) => e.stopPropagation()}
+                    >
                         <span className="modal_close" onClick={closeModal}>
                             &times;
                         </span>

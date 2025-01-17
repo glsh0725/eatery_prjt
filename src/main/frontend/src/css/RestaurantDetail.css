@@ -2,6 +2,7 @@
     font-family: Arial, sans-serif;
     width: 95%;
     padding: 20px;
+    margin: 0 auto;
 }
 
 .top-section {
@@ -63,6 +64,7 @@
     padding: 20px;
     background-color: #fff;
     border-radius: 10px;
+    flex: 1;
 }
 
 .details p {
@@ -77,6 +79,7 @@
     padding: 20px;
     background-color: #fff;
     border-radius: 10px;
+    flex: 1;
 }
 
 .reviews-header {
@@ -190,7 +193,9 @@
 
 @media screen and (max-width: 750px) {
     .image-box,
-    .map-box,
+    .map-box {
+        width: 100%;
+    }
     .details,
     .reviews-section {
         width: 90%;

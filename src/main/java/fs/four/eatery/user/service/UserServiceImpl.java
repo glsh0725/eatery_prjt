@@ -22,21 +22,30 @@ public class UserServiceImpl implements UserService {
         if (userVO.getMem_id() == null || userVO.getMem_id().isEmpty()) {
             throw new Exception("아이디가 없습니다.");
         }
-        // 나머지 처리
-        userDAO.insertUser(userVO);
 
         try {
-            Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
-            userVO.setCreated_date(currentTimestamp);  // 현재 시간 설정
-            userVO.setAgree_date(currentTimestamp);    // 현재 시간 설정
+            // 중복 체크
+            if (userDAO.isIdExist(userVO.getMem_id())) {
+                throw new Exception("중복된 아이디입니다.");
+            }
 
-            userDAO.insertUser(userVO); // 데이터베이스에 사용자 추가
+            if (userDAO.isEmailExist(userVO.getEmail())) {
+                throw new Exception("중복된 이메일입니다.");
+            }
+
+            if (userDAO.isNicknameExist(userVO.getMem_nickname())) {
+                throw new Exception("중복된 닉네임입니다.");
+            }
+
+            // 현재 시간 설정
+            Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+            userVO.setCreated_date(currentTimestamp);
+            userVO.setAgree_date(currentTimestamp);
+
+            // 회원 추가
+            userDAO.insertUser(userVO);
         } catch (Exception e) {
-            throw new Exception("회원가입 중 오류가 발생했습니다.", e); // 예외 처리
+            throw new Exception("회원가입 중 오류가 발생했습니다: " + e.getMessage());
         }
     }
 }
-
-
-//    @Autowired
-//    private AdminDAO adminDAO;
