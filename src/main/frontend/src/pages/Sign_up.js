@@ -146,8 +146,8 @@ const Sign_up = () => {
                         <input
                             type="radio"
                             name="email_status"
-                            value="y"
-                            checked={formData.email_status === "y"}
+                            value="Y"
+                            checked={formData.email_status === "Y"}
                             onChange={handleChange}
                             required
                         />{" "}
@@ -157,8 +157,8 @@ const Sign_up = () => {
                         <input
                             type="radio"
                             name="email_status"
-                            value="n"
-                            checked={formData.email_status === "n"}
+                            value="N"
+                            checked={formData.email_status === "N"}
                             onChange={handleChange}
                         />{" "}
                         이메일 수신 거부

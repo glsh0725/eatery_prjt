@@ -57,10 +57,18 @@ const TopMenu = () => {
                 <div className="top_menu">
                     <ul>
                         <li>
-                            <Link className="logo" to={"/"}>다이닝픽</Link>
+                            <Link className="logo" to={"/"}>
+                                <img
+                                    src="/images/logo.png"
+                                    alt="로고"
+                                    className="logo_image"
+                                />
+                                다이닝픽
+                            </Link>
                         </li>
-                        <li>
+                        <li className="search_container">
                             <input type="text" placeholder="검색창 구현예정" className="search_box"/>
+                            <img src="/images/search.png" alt="검색" className="search_icon"/>
                         </li>
                     </ul>
                 </div>
@@ -68,7 +76,7 @@ const TopMenu = () => {
                     {!role && (
                         <>
                             <Link to="/sign_up">
-                                <button className="menu_btn">회원가입</button>
+                            <button className="menu_btn">회원가입</button>
                             </Link>
                             <Link to="/login">
                                 <button className="menu_btn">로그인</button>

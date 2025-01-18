@@ -34,18 +34,42 @@
     margin-right: 20px;
 }
 
+.logo_image {
+    width: 45px;
+    height: 45px;
+    margin-right: 5px;
+}
+
 .top_nav .top_first .top_menu ul li .logo {
+    display: flex;
+    align-items: center;
     color: #000000;
     font-weight: bold;
     text-decoration: none;
     font-size: 30px;
     margin-left: -30px;
 }
+
+.search_container {
+    position: relative;
+}
+
 .top_nav .top_first .top_menu .search_box {
-    padding: 8px;
+    padding: 8px 30px 8px 8px;
     width: 200px;
     border-radius: 5px;
     border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.search_icon {
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    transform: translateY(-50%);
+    width: 27px;
+    height: 27px;
+    pointer-events: none;
 }
 
 .top_nav .top_first .top_menu_btn {
@@ -132,7 +156,7 @@
 /* 미디어 쿼리: 768px 이하에서 햄버거 메뉴 활성화 */
 @media (max-width: 768px) {
     .top_nav {
-        height: 135px;
+        height: 142px;
     }
 
     .hamburger {
@@ -177,7 +201,7 @@
 
 @media (max-width: 450px) {
     .top_nav {
-        height: 170px;
+        height: 175px;
     }
 
     .top_nav .top_first .top_menu ul {
