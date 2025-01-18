@@ -8,18 +8,16 @@ import java.util.Date;
 
 public class JwtUtil {
 
-    private static final String SECRET_KEY = "your-256-bit-secret-your-256-bit-secret"; // 변경 필요
+    private static final Key KEY = Keys.secretKeyFor(SignatureAlgorithm.HS512); // 512비트 키 자동 생성
     private static final long EXPIRATION_TIME = 1000 * 60 * 60; // 1시간
 
-    private static final Key KEY = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
-
-    public static String generateToken(String userId, int role) {
+    public static String generateToken(String username, String role) {
         return Jwts.builder()
-                .setSubject(userId)
-                .claim("role", role) // int 타입으로 role 추가
+                .setSubject(username)
+                .claim("role", role)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .signWith(KEY, SignatureAlgorithm.HS256)
+                .signWith(KEY, SignatureAlgorithm.HS512)
                 .compact();
     }
 

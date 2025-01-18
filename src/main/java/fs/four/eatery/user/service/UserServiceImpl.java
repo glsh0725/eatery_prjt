@@ -4,18 +4,20 @@ import java.sql.Timestamp;
 import fs.four.eatery.user.dao.UserDAO;
 import fs.four.eatery.user.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-@Controller
 @Service("userService")
 @Transactional(propagation = Propagation.REQUIRED)
 public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDAO userDAO; // UserDAO 주입
+
+    @Autowired
+    private PasswordEncoder passwordEncoder; // PasswordEncoder 주입
 
     @Override
     public void registerUser(UserVO userVO) throws Exception {
@@ -36,6 +38,10 @@ public class UserServiceImpl implements UserService {
             if (userDAO.isNicknameExist(userVO.getMem_nickname())) {
                 throw new Exception("중복된 닉네임입니다.");
             }
+
+            // 비밀번호 암호화
+            String encodedPassword = passwordEncoder.encode(userVO.getMem_pw());
+            userVO.setMem_pw(encodedPassword);
 
             // 현재 시간 설정
             Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());

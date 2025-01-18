@@ -5,7 +5,7 @@ const DiningLayout = ({ children }) => {
         <>
             <TopMenu />
 
-            <div>
+            <div style={{ marginTop: '160px' }}>
                 <main>
                     <h1>{children}</h1>
                 </main>

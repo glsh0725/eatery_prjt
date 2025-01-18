@@ -19,10 +19,14 @@ const Login = () => {
                 mem_pw: mem_pw,
             });
 
-            if (response.data) {
-                saveToken(response.headers["authorization"]);
+            const token = response.headers["authorization"];
+            if (token) {
+                // Bearer 제거
+                const cleanToken = token.startsWith("Bearer ") ? token.split(" ")[1] : token;
+                saveToken(cleanToken); // 순수 토큰 저장
+                window.dispatchEvent(new Event("login")); // 로그인 이벤트 트리거
                 alert("로그인 성공!");
-                navigate("/"); // 메인 페이지로 이동
+                navigate("/");
             }
         } catch (err) {
             if (err.response && err.response.status === 401) {

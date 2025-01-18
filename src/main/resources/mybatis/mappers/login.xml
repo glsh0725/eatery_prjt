@@ -3,11 +3,11 @@
 
 <mapper namespace="fs.four.eatery.user.dao.LoginDAO">
 
-    <select id="UserLogin" resultType="userVO" parameterType="userVO">
+    <select id="UserLogin" parameterType="String" resultType="fs.four.eatery.user.vo.UserVO">
         <![CDATA[
-        select *
-        from member
-        where mem_id = #{mem_id} and mem_pw = #{mem_pw}
+        SELECT *
+        FROM member
+        WHERE mem_id = #{mem_id}
         ]]>
     </select>
 
