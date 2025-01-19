@@ -3,6 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="fs.four.eatery.restaurant.dao.RestaurantDAO">
+
     <select id="isRestaurantExist" parameterType="String" resultType="boolean">
         SELECT COUNT(1)
         FROM RESTAURANT
@@ -55,4 +56,44 @@
         FROM RESTAURANT
         WHERE RES_NAME = #{name}
     </select>
+
+    <resultMap id="reviewResultMap" type="fs.four.eatery.restaurant.vo.ReviewVO">
+        <result property="reviewNumber" column="REV_NUMBER"/>
+        <result property="restaurantName" column="RES_NAME"/>
+        <result property="memberId" column="MEM_ID"/>
+        <result property="reviewScore" column="REV_SCORE_NUMBER"/>
+        <result property="reviewContent" column="REV_CONTENT"/>
+        <result property="reviewPhotoName" column="REV_PHOTO_NAME"/>
+        <result property="reviewLikes" column="REV_LIKE_COUNT"/>
+    </resultMap>
+
+    <select id="findReviewsByRestaurantName" parameterType="string" resultMap="reviewResultMap">
+        SELECT REV_NUMBER, RES_NAME, MEM_ID, REV_SCORE_NUMBER, REV_CONTENT, REV_PHOTO_NAME, REV_LIKE_COUNT
+        FROM REVIEW
+        WHERE RES_NAME = #{restaurantName}
+        ORDER BY REV_NUMBER DESC
+    </select>
+
+    <insert id="insertReview" parameterType="fs.four.eatery.restaurant.vo.ReviewVO">
+        INSERT INTO REVIEW (
+            REV_NUMBER, RES_NAME, MEM_ID, REV_SCORE_NUMBER, REV_CONTENT, REV_PHOTO_NAME, REV_LIKE_COUNT
+        ) VALUES (
+                     #{reviewNumber}, #{restaurantName}, #{memberId}, #{reviewScore}, #{reviewContent}, #{reviewPhotoName}, #{reviewLikes}
+                 )
+    </insert>
+
+    <delete id="deleteReviewById" parameterType="int">
+        DELETE FROM REVIEW
+        WHERE REV_NUMBER = #{reviewNumber}
+    </delete>
+
+    <update id="updateReview" parameterType="fs.four.eatery.restaurant.vo.ReviewVO">
+        UPDATE REVIEW
+        SET REV_SCORE_NUMBER = #{reviewScore},
+            REV_CONTENT = #{reviewContent},
+            REV_PHOTO_NAME = #{reviewPhotoName},
+            REV_LIKE_COUNT = #{reviewLikes}
+        WHERE REV_NUMBER = #{reviewNumber}
+    </update>
+
 </mapper>

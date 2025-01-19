@@ -1,6 +1,7 @@
 package fs.four.eatery.restaurant.dao;
 
 import fs.four.eatery.restaurant.vo.RestaurantVO;
+import fs.four.eatery.restaurant.vo.ReviewVO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -33,5 +34,10 @@ public class RestaurantDAOImpl implements RestaurantDAO {
     @Override
     public RestaurantVO findRestaurantByName(String name) {
         return sqlSession.selectOne(NAMESPACE + ".findRestaurantByName", name);
+    }
+
+    @Override
+    public List<ReviewVO> findReviewsByRestaurantName(String restaurantName) {
+        return sqlSession.selectList(NAMESPACE + ".findReviewsByRestaurantName", restaurantName);
     }
 }
