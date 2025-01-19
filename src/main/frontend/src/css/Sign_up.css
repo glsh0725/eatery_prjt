@@ -96,6 +96,20 @@ body {
     color: #333;
 }
 
+.sign_up_form .pw_info {
+    display: none;
+}
+
+.sign_up_form .pw_info.showup {
+    display: block;
+    color: red;
+    margin-top: -15px;
+    margin-bottom: 15px;
+    font-size: 20px;
+    width: 30%;
+}
+
+
 .container .contact {
     background-color: #1b1b1b;
     color: white;

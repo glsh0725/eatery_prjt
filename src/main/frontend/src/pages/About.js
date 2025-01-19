@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import {Modal} from "../components/modal/Modal";
+import alert from 'sweetalert2';
 import DiningLayout from '../layouts/DiningLayout';
 import '../css/About.css'
 
@@ -24,7 +25,7 @@ const About = () => {
                     </div>
                 </div>
 
-                <div class="contact">
+                <div class="contacts">
                     <h2>기업 문의</h2>
                     <p>
                         우리와 함께 성장할 기회를 찾고 있나요? <br/>

@@ -1,0 +1,57 @@
+.email-test-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.email-test-content .time-set {
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 20%;
+}
+.email-test-content .time-set .timer-txt {
+    margin: 10px;
+    font-size: 30px;
+    font-weight: lighter;
+}
+
+.email-test-content .time-set .timer {
+    position: absolute;
+    left: 475px;
+    font-size: 30px;
+    font-weight: lighter;
+    color: red;
+}
+
+.email-test-content .input-section .input-with-button {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.email-test-content .input-section .input-with-button .input-box {
+    flex: 1;
+    border: none;
+    padding-left: 10px;
+    font-size: 20px;
+    outline: none;
+    text-align: center;
+}
+
+.email-test-content .input-section .input-with-button .action-btn {
+    background-color: #000000;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.email-test-content .input-section .input-with-button .action-btn:hover {
+    background-color: #ffec59;
+    color: #0e0e0e;
+}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DiningLayout from "../layouts/DiningLayout";
 import "../css/Sign_up.css";
 import axios from "axios";
@@ -18,6 +18,7 @@ const Sign_up = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalContent, setModalContent] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
+    const [pwInfoMessage, setPwInfoMessage] = useState("");
     const contextPath = "http://localhost:18080";
 
     const handleChange = (e) => {
@@ -39,11 +40,28 @@ const Sign_up = () => {
         setModalContent("");
     };
 
+    useEffect(() => {
+        if (formData.mem_pw && formData.mem_pw_confirm) {
+            if (formData.mem_pw === formData.mem_pw_confirm) {
+                setPwInfoMessage("비밀번호가 일치합니다.");
+            } else {
+                setPwInfoMessage("비밀번호가 일치하지 않습니다.");
+            }
+        } else {
+            setPwInfoMessage(""); // 초기화
+        }
+    }, [formData.mem_pw, formData.mem_pw_confirm]);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (formData.mem_pw !== formData.mem_pw_confirm) {
-            alert("비밀번호가 일치하지 않습니다.");
+            await alert.fire({
+                icon: 'error',
+                title: '회원가입 실패',
+                text: '비밀번호가 일치하지 않습니다.',
+                confirmButtonText: '확인',
+            });
             return;
         }
 
@@ -61,6 +79,7 @@ const Sign_up = () => {
                     icon: 'success',
                     title: '회원가입 성공!',
                     text: '다이닝픽 회원이 되신 것을 축하드립니다!',
+                    confirmButtonText: '확인',
                 });
                 window.location.href = response.data; // 백엔드에서 보낸 URL로 리다이렉트
             }
@@ -71,26 +90,30 @@ const Sign_up = () => {
                 if (errorMessage.includes("중복된 아이디")) {
                     await alert.fire({
                         icon: 'error',
-                        title: '회원가입 실패',
+                        title: '중복된 아이디',
                         text: `이미 사용 중인 '${formData.mem_id}'입니다.`,
+                        confirmButtonText: '확인',
                     });
                 } else if (errorMessage.includes("중복된 닉네임")) {
                     await alert.fire({
                         icon: 'error',
-                        title: '회원가입 실패',
+                        title: '중복된 닉네임',
                         text: `이미 사용 중인 '${formData.mem_nickname}'입니다.`,
+                        confirmButtonText: '확인',
                     });
                 } else if (errorMessage.includes("중복된 이메일")) {
                     await alert.fire({
                         icon: 'error',
-                        title: '회원가입 실패',
+                        title: '중복된 이메일',
                         text: `이미 사용 중인 '${formData.email}'입니다.`,
+                        confirmButtonText: '확인',
                     });
                 } else {
                     await alert.fire({
                         icon: 'warning',
                         title: '회원가입 오류',
                         text: `회원가입 실패: ${error.response.data}`,
+                        confirmButtonText: '확인',
                     });
                 }
             } else {
@@ -99,6 +122,7 @@ const Sign_up = () => {
                     icon: 'warning',
                     title: '회원가입 오류',
                     text: '회원가입 실패: 서버와의 통신 중 오류가 발생했습니다.',
+                    confirmButtonText: '확인',
                 });
             }
         }
@@ -145,6 +169,13 @@ const Sign_up = () => {
                     onChange={handleChange}
                     required
                 />
+                <span className={`pw_info ${
+                    formData.mem_pw && formData.mem_pw_confirm
+                        ? formData.mem_pw === formData.mem_pw_confirm
+                            ? "showup"
+                            : "showup"
+                        : ""
+                }`}>{pwInfoMessage}</span>
                 <input
                     type="text"
                     id="mem_nickname"

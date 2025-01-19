@@ -13,8 +13,10 @@ const Ranking = lazy(() => import('../pages/Ranking'));
 const PickCrew = lazy(() => import('../pages/Pick_crew'));
 const Sign_up = lazy(() => import('../pages/Sign_up'));
 const Userinfo = lazy(() => import('../pages/Userinfo'));
+const FindIdPw = lazy(() => import('../pages/Find_IdPw'));
 const Find_userinfo = lazy(() => import('../pages/Find_userinfo'));
 const MyPage = lazy(() => import('../pages/MyPage'));
+const KakaoAuth = lazy(() => import('../pages/KakaoCallback'));
 const RestaurantDetail = lazy(() => import('../components/find_store/RestaurantDetail'));
 
 const root = createBrowserRouter([
@@ -55,6 +57,14 @@ const root = createBrowserRouter([
         element: (
             <Suspense fallback={<div>Loading...</div>}>
                 <RestaurantDetail />
+            </Suspense>
+        ),
+    },
+    {
+        path: '/find_idpw',
+        element: (
+            <Suspense fallback={<div>Loading...</div>}>
+                <FindIdPw />
             </Suspense>
         ),
     },
@@ -127,6 +137,14 @@ const root = createBrowserRouter([
         element: (
             <Suspense fallback={Loading}>
                 <Admin_UserList />
+            </Suspense>
+        ),
+    },
+    {
+        path: '/kakaosucc',
+        element: (
+            <Suspense fallback={Loading}>
+                <KakaoAuth />
             </Suspense>
         ),
     },

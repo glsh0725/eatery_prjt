@@ -1,20 +1,32 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { jwtDecode } from 'jwt-decode';
+import alert from 'sweetalert2';
 import "./TopMenu.css";
 
 const TopMenu = () => {
-    const [role, setRole] = useState(null); // role 값을 저장
-    const [isMenuOpen, setIsMenuOpen] = useState(false); // 햄버거 메뉴 상태
+    const [role, setRole] = useState(null);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [nickname, setNickname] = useState("");
     const navigate = useNavigate();
 
     const fetchRoleFromToken = () => {
         const token = localStorage.getItem("authToken");
         if (token) {
             try {
-                const payload = JSON.parse(atob(token.split(".")[1])); // 토큰 디코딩
-                setRole(parseInt(payload.role, 10)); // role 값 설정
+                const payload = jwtDecode(token);
+                if (payload.exp * 1000 > Date.now()) {
+                    // 토큰이 유효하면 역할 설정
+                    setRole(parseInt(payload.role, 10));
+                    setNickname(payload.mem_nickname);
+                } else {
+                    // 만료된 토큰 처리
+                    localStorage.removeItem("authToken");
+                    setRole(null);
+                }
             } catch (e) {
-                setRole(null); // 디코딩 실패 시 초기화
+                console.error("토큰 디코딩 실패:", e);
+                setRole(null);
             }
         } else {
             setRole(null);
@@ -29,21 +41,25 @@ const TopMenu = () => {
         };
 
         window.addEventListener("login", handleLoginEvent);
-
         return () => {
             window.removeEventListener("login", handleLoginEvent);
         };
     }, []);
 
-    const handleLogout = () => {
+    const handleLogout = async () => {
         localStorage.removeItem("authToken");
         setRole(null);
-        alert("로그아웃되었습니다.");
+        setNickname("");
+        await alert.fire({
+            icon: "success",
+            title: "로그아웃",
+            text: "다음에 또 만나요~",
+        });
         navigate("/");
     };
 
     const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen); // 햄버거 메뉴 열기/닫기
+        setIsMenuOpen(!isMenuOpen);
     };
 
     return (
@@ -58,17 +74,13 @@ const TopMenu = () => {
                     <ul>
                         <li>
                             <Link className="logo" to={"/"}>
-                                <img
-                                    src="/images/logo.png"
-                                    alt="로고"
-                                    className="logo_image"
-                                />
+                                <img src="/images/logo.png" alt="로고" className="logo_image" />
                                 다이닝픽
                             </Link>
                         </li>
                         <li className="search_container">
-                            <input type="text" placeholder="검색창 구현예정" className="search_box"/>
-                            <img src="/images/search.png" alt="검색" className="search_icon"/>
+                            <input type="text" placeholder="검색창 구현예정" className="search_box" />
+                            <img src="/images/search.png" alt="검색" className="search_icon" />
                         </li>
                     </ul>
                 </div>
@@ -76,7 +88,7 @@ const TopMenu = () => {
                     {!role && (
                         <>
                             <Link to="/sign_up">
-                            <button className="menu_btn">회원가입</button>
+                                <button className="menu_btn">회원가입</button>
                             </Link>
                             <Link to="/login">
                                 <button className="menu_btn">로그인</button>
@@ -85,13 +97,16 @@ const TopMenu = () => {
                     )}
                     {role === 1 && (
                         <>
+                            <span className="user_auth">{nickname}님</span>
                             <Link to="/mypage">
                                 <button className="menu_btn">마이페이지</button>
                             </Link>
                             <Link to="/userinfo">
                                 <button className="menu_btn">회원정보</button>
                             </Link>
-                            <button className="menu_btn" onClick={handleLogout}>로그아웃</button>
+                            <button className="menu_btn" onClick={handleLogout}>
+                                로그아웃
+                            </button>
                         </>
                     )}
                     {role === 2 && (
@@ -99,10 +114,13 @@ const TopMenu = () => {
                             <Link to="/admin_userlist">
                                 <button className="menu_btn">관리자페이지</button>
                             </Link>
+                            <span className="user_auth">{nickname}님</span>
                             <Link to="/userinfo">
                                 <button className="menu_btn">회원정보</button>
                             </Link>
-                            <button className="menu_btn" onClick={handleLogout}>로그아웃</button>
+                            <button className="menu_btn" onClick={handleLogout}>
+                                로그아웃
+                            </button>
                         </>
                     )}
                 </div>

@@ -35,7 +35,7 @@ body {
     color: #333;
 }
 
-.container .contact {
+.container .contacts {
     background-color: #1b1b1b;
     color: white;
     padding: 30px;
@@ -44,18 +44,19 @@ body {
     width: 100%;
 }
 
-.container .contact h2 {
+.container .contacts h2 {
     margin-bottom: 20px;
 }
 
-.container .contact p {
+.container .contacts p {
     font-size: 18px;
     font-weight: 100;
     margin-bottom: 20px;
 }
 
-.container .contact .contact_btn {
-    background-color: #99ff00;
+.container .contacts .contact_btn {
+    background-color: #ff6639;
+    color: white;
     border: none;
     padding: 10px 20px;
     font-size: 16px;
@@ -63,6 +64,7 @@ body {
     border-radius: 5px;
 }
 
-.container .contact .contact_btn:hover {
+.container .contacts .contact_btn:hover {
     background-color: #ffec59;
+    color: #0e0e0e;
 }

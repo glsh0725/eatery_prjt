@@ -78,9 +78,9 @@
 }
 
 .modal_contact .modal_container .cancel_contact:hover {
-    background-color: #e83c1e;
+    background-color: #fd5622;
     color: #ffffff;
-    border: 1px solid #e83c1e;
+    border: 1px solid #fd5622;
 }
 
 .modal_contact .modal_container .submit_contact {
