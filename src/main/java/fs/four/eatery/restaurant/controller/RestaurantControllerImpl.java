@@ -2,6 +2,7 @@ package fs.four.eatery.restaurant.controller;
 
 import fs.four.eatery.restaurant.service.RestaurantService;
 import fs.four.eatery.restaurant.vo.RestaurantVO;
+import fs.four.eatery.restaurant.vo.ReviewVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,5 +22,10 @@ public class RestaurantControllerImpl implements RestaurantController {
     @Override
     public RestaurantVO getRestaurantByName(String name) {
         return restaurantService.getRestaurantByName(name);
+    }
+
+    @Override
+    public List<ReviewVO> getReviewsByRestaurantName(String restaurantName) {
+        return restaurantService.getReviewsByRestaurantName(restaurantName);
     }
 }

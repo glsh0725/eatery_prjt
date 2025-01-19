@@ -73,8 +73,10 @@
 }
 
 .reviews-section {
+    position: relative;
     width: 45%;
     height: 40%;
+    min-height: 377px;
     border: 2px solid #ffa726;
     padding: 20px;
     background-color: #fff;
@@ -85,7 +87,7 @@
 .reviews-header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
+    height: 70px;
 }
 
 .reviews-header h3 {
@@ -105,13 +107,13 @@
     font-weight: 700;
 }
 
-.review-list {
+.reviews-section .review-list {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
 }
 
-.review-item {
+.reviews-section .review-item {
     flex: 1;
     max-width: calc(50% - 10px);
     border: 1px solid #ffa726;
@@ -137,11 +139,18 @@
 }
 
 .review-image {
-    border: 1px solid #ddd;
-    background-color: #f9f9f9;
     width: 50px;
     height: 50px;
-    margin: 10px 0;
+    overflow: hidden;
+    border: none;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+.review-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
     border-radius: 5px;
 }
 
@@ -152,7 +161,9 @@
 }
 
 .more-reviews {
-    margin-top: 10px;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
     padding: 10px 20px;
     background-color: #ffa726;
     border: none;
@@ -162,7 +173,6 @@
     cursor: pointer;
     border-radius: 5px;
     display: block;
-    margin-left: auto;
 }
 
 .title-and-actions {
@@ -189,6 +199,143 @@
     font-size: 24px;
     color: orange;
     font-weight: bold;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 10px;
+    width: 80%;
+    padding: 20px;
+    position: relative;
+    overflow-y: auto;
+    max-height: 80vh;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+}
+
+.modal-header h2 {
+    margin: 10px 0;
+}
+
+.modal-body .review-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.modal-body .review-item {
+    display: flex;
+    flex-direction: column;
+    height: 150px;
+    border: 1px solid #ffa726;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.modal-body .review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.modal-body .review-info {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+}
+
+.modal-body .review-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.modal-body .review-content {
+    margin-bottom: 10px;
+    height: 60px;
+}
+
+.modal-body .review-container {
+    display: flex;
+    width: 100%;
+    height: 70px;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: flex-end;
+}
+
+.modal-body .review-image {
+    width: 70px;
+    height: 70px;
+    flex-shrink: 0;
+}
+
+.modal-body .review-image img {
+    object-fit: fill;
+    border-radius: 5px;
+}
+
+.review-footer {
+    width: 100%;
+    display: flex;
+    gap: 15px;
+    font-size: 14px;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.modal-body {
+    margin-top: 20px;
+}
+
+.edit-btn,
+.delete-btn {
+    background: none;
+    border: none;
+    color: black;
+    cursor: pointer;
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+.edit-btn:hover,
+.delete-btn:hover {
+    color: #ff6100;
+}
+
+.report {
+    margin-left: 10px;
+    color: red;
+    cursor: pointer;
+    font-size: 14px;
 }
 
 @media screen and (max-width: 750px) {

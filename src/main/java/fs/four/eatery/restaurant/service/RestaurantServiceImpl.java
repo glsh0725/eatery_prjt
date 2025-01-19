@@ -2,6 +2,7 @@ package fs.four.eatery.restaurant.service;
 
 import fs.four.eatery.restaurant.dao.RestaurantDAO;
 import fs.four.eatery.restaurant.vo.RestaurantVO;
+import fs.four.eatery.restaurant.vo.ReviewVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,5 +22,10 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     public RestaurantVO getRestaurantByName(String name) {
         return restaurantDAO.findRestaurantByName(name);
+    }
+
+    @Override
+    public List<ReviewVO> getReviewsByRestaurantName(String restaurantName) {
+        return restaurantDAO.findReviewsByRestaurantName(restaurantName);
     }
 }

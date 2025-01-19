@@ -1,6 +1,7 @@
 package fs.four.eatery.restaurant.controller;
 
 import fs.four.eatery.restaurant.vo.RestaurantVO;
+import fs.four.eatery.restaurant.vo.ReviewVO;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -12,5 +13,8 @@ public interface RestaurantController {
     List<RestaurantVO> getAllRestaurants();
 
     @GetMapping("/api/restaurants/{name}")
-    RestaurantVO getRestaurantByName(@PathVariable String name);
+    RestaurantVO getRestaurantByName(@PathVariable("name") String name);
+
+    @GetMapping("/api/reviews/{restaurantName}")
+    List<ReviewVO> getReviewsByRestaurantName(@PathVariable("restaurantName") String restaurantName);
 }
