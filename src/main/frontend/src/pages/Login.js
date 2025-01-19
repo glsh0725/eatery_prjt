@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import axios from "axios";
 import { saveToken } from "../utils/auth";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom"; // Link 컴포넌트를 import
+import { Link } from "react-router-dom";
 import DiningLayout from "../layouts/DiningLayout";
 import "../css/Login.css";
+import alert from 'sweetalert2';
 
 const Login = () => {
     const [mem_id, setMem_id] = useState("");
@@ -25,14 +26,30 @@ const Login = () => {
                 const cleanToken = token.startsWith("Bearer ") ? token.split(" ")[1] : token;
                 saveToken(cleanToken); // 순수 토큰 저장
                 window.dispatchEvent(new Event("login")); // 로그인 이벤트 트리거
-                alert("로그인 성공!");
-                navigate("/");
+
+                await alert.fire({
+                    icon: 'success',
+                    title: '로그인 성공!',
+                    text: '다이닝픽 회원님 환영합니다.',
+                });
+
+                navigate("/"); // 로그인 후 홈으로 리다이렉트
             }
         } catch (err) {
             if (err.response && err.response.status === 401) {
-                alert("로그인 실패: 아이디 또는 비밀번호가 잘못되었습니다.");
+                // 로그인 실패 시 알림
+                await alert.fire({
+                    icon: 'error',
+                    title: '로그인 실패',
+                    text: '아이디 또는 비밀번호가 잘못되었습니다.',
+                });
             } else {
-                alert("로그인 실패: 서버와의 통신 중 오류가 발생했습니다.");
+                // 서버 연결 오류 시 알림
+                await alert.fire({
+                    icon: 'error',
+                    title: '로그인 실패',
+                    text: '서버와의 통신 중 오류가 발생했습니다.',
+                });
             }
             console.error("백엔드 연결 에러", err);
         }

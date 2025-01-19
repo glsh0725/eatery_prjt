@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="fs.four.eatery.util.JwtUtilTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2025-01-19T06:01:12" hostname="DESKTOP-K8OTCP4" time="0.263">
+  <properties/>
+  <testcase name="testInvalidToken()" classname="fs.four.eatery.util.JwtUtilTest" time="0.191"/>
+  <testcase name="testGenerateAndValidateToken()" classname="fs.four.eatery.util.JwtUtilTest" time="0.071"/>
+  <system-out><![CDATA[Generated Token: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMTIzIiwibWVtX25pY2tuYW1lIjoibmlja25hbWUiLCJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJjcmVhdGVkX2RhdGUiOjE3MzcyNjY0NzI0NjQsInJvbGUiOjEsImlhdCI6MTczNzI2NjQ3MiwiZXhwIjoxNzM3MjcwMDcyfQ.3f_-8Hh-lZrKcvuSCrO2ZvRR5dQ9qNMjt05u4DkLUUhuWpheYi6_x_JNWdUqvvhi8ZpFiA6LHdPOy_ooMPEVrQ
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

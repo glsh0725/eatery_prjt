@@ -31,12 +31,12 @@ public class UserServiceImpl implements UserService {
                 throw new Exception("중복된 아이디입니다.");
             }
 
-            if (userDAO.isEmailExist(userVO.getEmail())) {
-                throw new Exception("중복된 이메일입니다.");
-            }
-
             if (userDAO.isNicknameExist(userVO.getMem_nickname())) {
                 throw new Exception("중복된 닉네임입니다.");
+            }
+
+            if (userDAO.isEmailExist(userVO.getEmail())) {
+                throw new Exception("중복된 이메일입니다.");
             }
 
             // 비밀번호 암호화

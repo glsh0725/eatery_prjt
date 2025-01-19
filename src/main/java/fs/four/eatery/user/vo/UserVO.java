@@ -19,6 +19,7 @@ public class UserVO extends AdminVO {
     private String img_path;
     private Timestamp created_date;
     private Timestamp agree_date;
+    private String token;
 
     private int role;
 
@@ -104,5 +105,13 @@ public class UserVO extends AdminVO {
 
     public void setRole(int role) {
         this.role = role;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

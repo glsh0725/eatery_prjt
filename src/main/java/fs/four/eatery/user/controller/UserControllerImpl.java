@@ -3,7 +3,6 @@ package fs.four.eatery.user.controller;
 import fs.four.eatery.user.service.LoginServiceImpl;
 import fs.four.eatery.user.service.UserServiceImpl;
 import fs.four.eatery.user.vo.UserVO;
-import fs.four.eatery.util.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +37,7 @@ public class UserControllerImpl implements UserController {
             UserVO loggedInUser = loginService.login(user.getMem_id(), user.getMem_pw());
 
             // JWT 토큰 생성
-            String token = loginService.generateToken(loggedInUser.getMem_id(), loggedInUser.getRole());
+            String token = loginService.generateToken(loggedInUser);
 
             // 클라이언트로 토큰 반환
             return ResponseEntity.ok()

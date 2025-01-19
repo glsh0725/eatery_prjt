@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import DiningLayout from "../layouts/DiningLayout";
 import "../css/Sign_up.css";
 import axios from "axios";
+import alert from 'sweetalert2';
 
 const Sign_up = () => {
     const [formData, setFormData] = useState({
@@ -56,7 +57,11 @@ const Sign_up = () => {
             );
 
             if (response.status === 200) {
-                alert("회원가입이 완료되었습니다!");
+                await alert.fire({
+                    icon: 'success',
+                    title: '회원가입 성공!',
+                    text: '다이닝픽 회원이 되신 것을 축하드립니다!',
+                });
                 window.location.href = response.data; // 백엔드에서 보낸 URL로 리다이렉트
             }
         } catch (error) {
@@ -64,17 +69,37 @@ const Sign_up = () => {
                 // 서버에서 반환된 오류 메시지를 기반으로 처리
                 const errorMessage = error.response.data.toLowerCase();
                 if (errorMessage.includes("중복된 아이디")) {
-                    alert("회원가입 실패: 이미 사용 중인 아이디입니다.");
-                } else if (errorMessage.includes("중복된 이메일")) {
-                    alert("회원가입 실패: 이미 사용 중인 이메일입니다.");
+                    await alert.fire({
+                        icon: 'error',
+                        title: '회원가입 실패',
+                        text: `이미 사용 중인 '${formData.mem_id}'입니다.`,
+                    });
                 } else if (errorMessage.includes("중복된 닉네임")) {
-                    alert("회원가입 실패: 이미 사용 중인 닉네임입니다.");
+                    await alert.fire({
+                        icon: 'error',
+                        title: '회원가입 실패',
+                        text: `이미 사용 중인 '${formData.mem_nickname}'입니다.`,
+                    });
+                } else if (errorMessage.includes("중복된 이메일")) {
+                    await alert.fire({
+                        icon: 'error',
+                        title: '회원가입 실패',
+                        text: `이미 사용 중인 '${formData.email}'입니다.`,
+                    });
                 } else {
-                    alert(`회원가입 실패: ${error.response.data}`);
+                    await alert.fire({
+                        icon: 'warning',
+                        title: '회원가입 오류',
+                        text: `회원가입 실패: ${error.response.data}`,
+                    });
                 }
             } else {
                 // 네트워크 오류 등 서버 외의 문제
-                alert("회원가입 실패: 서버와의 통신 중 오류가 발생했습니다.");
+                await alert.fire({
+                    icon: 'warning',
+                    title: '회원가입 오류',
+                    text: '회원가입 실패: 서버와의 통신 중 오류가 발생했습니다.',
+                });
             }
         }
     };

@@ -31,13 +31,23 @@ public class LoginServiceImpl implements LoginService {
             throw new RuntimeException("아이디 또는 비밀번호가 잘못되었습니다.");
         }
 
+        // 사용자 검증 성공 시 JWT 토큰 생성
+        String token = generateToken(user);
+        user.setToken(token); // UserVO에 토큰 저장
+
         return user;
     }
 
-    public String generateToken(String mem_id, int role) {
+    public String generateToken(UserVO user) {
         try {
             // JWT 토큰 생성
-            String token = JwtUtil.generateToken(mem_id, String.valueOf(role));
+            String token = JwtUtil.generateToken(
+                    user.getMem_id(),
+                    user.getMem_nickname(),
+                    user.getEmail(),
+                    user.getCreated_date(),
+                    user.getRole()
+            );
             return token;
         } catch (Exception e) {
             throw new RuntimeException("토큰 생성 중 오류가 발생했습니다.", e);
