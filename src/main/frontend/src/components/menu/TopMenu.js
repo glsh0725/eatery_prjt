@@ -111,10 +111,10 @@ const TopMenu = () => {
                     )}
                     {role === 2 && (
                         <>
+                            <span className="user_auth">{nickname}님</span>
                             <Link to="/admin_userlist">
                                 <button className="menu_btn">관리자페이지</button>
                             </Link>
-                            <span className="user_auth">{nickname}님</span>
                             <Link to="/userinfo">
                                 <button className="menu_btn">회원정보</button>
                             </Link>

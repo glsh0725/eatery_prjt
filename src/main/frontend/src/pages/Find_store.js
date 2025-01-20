@@ -17,7 +17,7 @@ const Find_store = () => {
     const [selectedCity, setSelectedCity] = useState(null);
     const [selectedArea, setSelectedArea] = useState(null);
     const [isSelectCompleteActive, setIsSelectCompleteActive] = useState(false);
-    const itemsPerPage = 8;
+    const [itemsPerPage, setItemsPerPage] = useState(8);
 
     const navigate = useNavigate();
 
@@ -37,6 +37,17 @@ const Find_store = () => {
                 setError(error.message);
                 console.error("Error fetching restaurants:", error);
             });
+    }, []);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setItemsPerPage(window.innerWidth <= 870 ? 4 : 8);
+        };
+        handleResize();
+        window.addEventListener("resize", handleResize);
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
     }, []);
 
     const handleTagClick = (tag) => {

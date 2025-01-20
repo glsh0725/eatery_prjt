@@ -94,7 +94,7 @@
     transition: background-color 0.2s ease, transform 0.2s ease;
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translateY(50%);
     user-select: none;
 }
 
@@ -313,6 +313,19 @@
         width: calc(33% - 10px);
         box-sizing: border-box;
         text-align: center;
+    }
+
+    .left-arrow {
+        top: 59%;
+        margin-left: -5px;
+        width: 40px;
+        height: 40px;
+    }
+    .right-arrow {
+        top: 59%;
+        margin-right: -5px;
+        width: 40px;
+        height: 40px;
     }
 }
 

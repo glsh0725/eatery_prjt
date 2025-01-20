@@ -1,17 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
 
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Jua', cursive;
-}
-
 /* 컨테이너 스타일 */
 .mypage-container {
     width: 50%;
     margin: 0 auto;
     text-align: center;
     padding-top: 20px;
+    font-family: 'Jua', cursive;
 }
 
 /* 제목 스타일 */
