@@ -122,7 +122,12 @@ const RestaurantDetail = () => {
             </div>
             <div className="title-and-actions">
                 <h2>
-                    {restaurant.name} <span className="rating">{restaurant.scoreNumber}</span>
+                    {restaurant.name}{" "}
+                    <span className="rating">
+                        {reviews.length > 0 && reviews.reduce((sum, review) => sum + review.reviewScore, 0) > 0
+                            ? (reviews.reduce((sum, review) => sum + review.reviewScore, 0) / reviews.length).toFixed(1)
+                            : restaurant.scoreNumber}
+                        </span>
                 </h2>
                 <div className="actions">
                     <span>⭐ 즐겨찾기</span>

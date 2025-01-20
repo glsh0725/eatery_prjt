@@ -12,6 +12,7 @@ public interface RestaurantDAO {
     void insertRestaurantData(RestaurantVO restaurant);
     boolean isRestaurantExist(String name);
     List<RestaurantVO> getAllRestaurants();
+    List<RestaurantVO> getAllRestaurantsWithReviews();
     RestaurantVO findRestaurantByName(@Param("name") String name);
     List<ReviewVO> findReviewsByRestaurantName(@Param("restaurantName") String restaurantName);
 }

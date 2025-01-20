@@ -1,5 +1,7 @@
 package fs.four.eatery.restaurant.vo;
 
+import java.util.List;
+
 public class RestaurantVO {
     private String name;           // 식당 이름
     private String address;        // 주소
@@ -18,6 +20,7 @@ public class RestaurantVO {
     private int likeCount;         // 좋아요 수
     private int viewCount;         // 조회수
     private int reviewCount;       // 리뷰 수
+    private List<ReviewVO> reviews; // 리뷰 리스트 추가
 
     public String getName() {
         return name;
@@ -120,5 +123,11 @@ public class RestaurantVO {
     }
     public void setReviewCount(int reviewCount) {
         this.reviewCount = reviewCount;
+    }
+    public List<ReviewVO> getReviews() {
+        return reviews;
+    }
+    public void setReviews(List<ReviewVO> reviews) {
+        this.reviews = reviews;
     }
 }

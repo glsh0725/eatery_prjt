@@ -12,4 +12,6 @@ public interface RestaurantService {
     RestaurantVO getRestaurantByName(String name);
 
     List<ReviewVO> getReviewsByRestaurantName(String restaurantName);
+
+    List<RestaurantVO> getAllRestaurantsWithReviews();
 }

@@ -29,7 +29,7 @@ const Find_store = () => {
     const times = ["전체", ...Array.from({ length: 24 }, (_, i) => `${i + 1}시`)];
 
     useEffect(() => {
-        axios.get("http://localhost:18080/api/restaurants")
+        axios.get("http://localhost:18080/api/restaurants-with-reviews")
             .then((response) => {
                 setRestaurants(response.data);
             })
@@ -129,15 +129,33 @@ const Find_store = () => {
         const matchesRegion =
             selectedRegion === "전체" ||
             (restaurant.address && restaurant.address.includes(selectedRegion)) ||
-            (restaurant.address && selectedRegion.split(" ").slice(0, -1).every((word) => restaurant.address.includes(word)) &&
+            (restaurant.address &&
+                selectedRegion
+                    .split(" ")
+                    .slice(0, -1)
+                    .every((word) => restaurant.address.includes(word)) &&
                 restaurant.oldAddress?.includes(selectedRegion.split(" ").pop()));
 
         return matchesTag && matchesTime && matchesRegion;
     });
 
+    const sortedRestaurants = filteredRestaurants.sort((a, b) => {
+        const aAverageScore =
+            a.reviews?.length > 0
+                ? a.reviews.reduce((sum, review) => sum + review.reviewScore, 0) / a.reviews.length
+                : parseFloat(a.scoreNumber || 0);
+
+        const bAverageScore =
+            b.reviews?.length > 0
+                ? b.reviews.reduce((sum, review) => sum + review.reviewScore, 0) / b.reviews.length
+                : parseFloat(b.scoreNumber || 0);
+
+        return bAverageScore - aAverageScore;
+    });
+
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = filteredRestaurants.slice(indexOfFirstItem, indexOfLastItem);
+    const currentItems = sortedRestaurants.slice(indexOfFirstItem, indexOfLastItem);
 
     return (
         <DiningLayout>
@@ -196,7 +214,16 @@ const Find_store = () => {
                             />
                             <h2>{restaurant.name}</h2>
                             <p>대표메뉴: {restaurant.category || "정보 없음"}</p>
-                            <h3>⭐{restaurant.scoreNumber} </h3>
+                            <h3>
+                                ⭐
+                                {restaurant.reviews?.length > 0 &&
+                                restaurant.reviews.reduce((sum, review) => sum + review.reviewScore, 0) > 0
+                                    ? (
+                                        restaurant.reviews.reduce((sum, review) => sum + review.reviewScore, 0) /
+                                        restaurant.reviews.length
+                                    ).toFixed(1)
+                                    : restaurant.scoreNumber}
+                            </h3>
                         </div>
                     ))}
                 </div>

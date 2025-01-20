@@ -40,4 +40,9 @@ public class RestaurantDAOImpl implements RestaurantDAO {
     public List<ReviewVO> findReviewsByRestaurantName(String restaurantName) {
         return sqlSession.selectList(NAMESPACE + ".findReviewsByRestaurantName", restaurantName);
     }
+
+    @Override
+    public List<RestaurantVO> getAllRestaurantsWithReviews() {
+        return sqlSession.selectList(NAMESPACE + ".getAllRestaurantsWithReviews");
+    }
 }
