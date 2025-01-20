@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller("userController")
 @RequestMapping("/api")
 public class UserControllerImpl implements UserController {
@@ -56,5 +58,16 @@ public class UserControllerImpl implements UserController {
     public String logout(HttpServletRequest request) {
         // 클라이언트 토큰 삭제 안내
         return "Logout successful! Please delete your token.";
+    }
+
+    // 모든 멤버 정보를 가져오는 API
+    @GetMapping("/users")
+    public ResponseEntity<List<UserVO>> getAllUsers() {
+        try {
+            List<UserVO> users = userService.getAllMembers();
+            return ResponseEntity.ok(users);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(null);
+        }
     }
 }

@@ -1,15 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
-* {
-    font-family: 'Jua', sans-serif;
-}
-
-body {
-    background-color: #f9f9f9;
-}
-
 .ranking-container {
     padding: 20px;
     text-align: center;
+    font-family: 'Jua', sans-serif;
 }
 
 .ranking-section {

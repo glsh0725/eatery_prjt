@@ -1,6 +1,8 @@
 package fs.four.eatery.user.service;
 
 import java.sql.Timestamp;
+import java.util.List;
+
 import fs.four.eatery.user.dao.UserDAO;
 import fs.four.eatery.user.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +33,12 @@ public class UserServiceImpl implements UserService {
                 throw new Exception("중복된 아이디입니다.");
             }
 
-            if (userDAO.isNicknameExist(userVO.getMem_nickname())) {
-                throw new Exception("중복된 닉네임입니다.");
-            }
-
             if (userDAO.isEmailExist(userVO.getEmail())) {
                 throw new Exception("중복된 이메일입니다.");
+            }
+
+            if (userDAO.isNicknameExist(userVO.getMem_nickname())) {
+                throw new Exception("중복된 닉네임입니다.");
             }
 
             // 비밀번호 암호화
@@ -53,5 +55,10 @@ public class UserServiceImpl implements UserService {
         } catch (Exception e) {
             throw new Exception("회원가입 중 오류가 발생했습니다: " + e.getMessage());
         }
+    }
+
+    @Override
+    public List<UserVO> getAllMembers() {
+        return userDAO.selectAllMembers();
     }
 }

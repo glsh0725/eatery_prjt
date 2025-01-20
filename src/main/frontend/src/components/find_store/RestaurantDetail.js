@@ -6,9 +6,15 @@ import "../../css/RestaurantDetail.css";
 const RestaurantDetail = () => {
     const { name } = useParams();
     const [restaurant, setRestaurant] = useState(null);
+    const [users, setUsers] = useState([]);
     const [error, setError] = useState("");
     const [showModal, setShowModal] = useState(false);
+    const [showReportModal, setShowReportModal] = useState(false);
+    const [showWriteReviewModal, setShowWriteReviewModal] = useState(false);
+    const [selectedReason, setSelectedReason] = useState("spam");
     const [reviews, setReviews] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const reviewsPerPage = 3;
 
     useEffect(() => {
         const fetchData = async () => {
@@ -20,6 +26,9 @@ const RestaurantDetail = () => {
 
                 const reviewsResponse = await axios.get(`http://localhost:18080/api/reviews/${restaurantName}`);
                 setReviews(reviewsResponse.data);
+
+                const usersResponse = await axios.get(`http://localhost:18080/api/users`);
+                setUsers(usersResponse.data);
             } catch (err) {
                 setError(err.message);
             }
@@ -34,6 +43,41 @@ const RestaurantDetail = () => {
 
     const closeModal = () => {
         setShowModal(false);
+    };
+
+    const openReportModal = () => {
+        setShowReportModal(true);
+    };
+
+    const closeReportModal = () => {
+        setShowReportModal(false);
+    };
+
+    const handleReasonChange = (event) => {
+        setSelectedReason(event.target.value);
+    };
+
+    const openWriteReviewModal = () => {
+        setShowWriteReviewModal(true);
+    };
+
+    const closeWriteReviewModal = () => {
+        setShowWriteReviewModal(false);
+    };
+
+    const startIndex = (currentPage - 1) * reviewsPerPage;
+    const currentReviews = reviews.slice(startIndex, startIndex + reviewsPerPage);
+
+    const handleNextPage = () => {
+        if (currentPage < Math.ceil(reviews.length / reviewsPerPage)) {
+            setCurrentPage((prevPage) => prevPage + 1);
+        }
+    };
+
+    const handlePrevPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage((prevPage) => prevPage - 1);
+        }
     };
 
     if (error) {
@@ -119,82 +163,109 @@ const RestaurantDetail = () => {
                 <div className="reviews-section">
                     <div className="reviews-header">
                         <h3>리뷰 ({reviews.length})</h3>
-                        <button className="review-button">리뷰 작성 ∨</button>
+                        <button className="review-button" onClick={openWriteReviewModal}>리뷰 작성 ∨</button>
                     </div>
                     <div className="review-list">
-                        {reviews.map((review, index) => (
-                            <div key={index} className="review-item">
-                                <p>
-                                    {review.memberId}{" "}
-                                    <span className="rating">{review.reviewScore}</span>
-                                </p>
-                                <div className="review-content">{review.reviewContent}</div>
-                                {review.reviewPhotoName && (
-                                    <div className="review-image">
-                                        <img
-                                            src={`/images/reviews/${review.reviewPhotoName}`}
-                                            alt="리뷰 이미지"
-                                        />
+                        {reviews
+                            .sort((a, b) => b.reviewNumber - a.reviewNumber)
+                            .slice(0, 2)
+                            .map((review, index) => {
+                                const user = users.find((user) => user.mem_id === review.memberId);
+
+                                return (
+                                    <div key={index} className="review-item">
+                                        <p>
+                                            {user ? user.mem_nickname : "알 수 없음"}{" "}
+                                            <span className="rating">{review.reviewScore.toFixed(1)}</span>
+                                        </p>
+                                        <div className="review-content">{review.reviewContent}</div>
+                                        {review.reviewPhotoName && (
+                                            <div className="review-image">
+                                                <img
+                                                    src={`/images/reviews/${review.reviewPhotoName}`}
+                                                    alt="리뷰 이미지"
+                                                />
+                                            </div>
+                                        )}
+                                        <div className="review-actions">
+                                            ❤️ 좋아요 {review.reviewLikes || 0}
+                                        </div>
                                     </div>
-                                )}
-                                <div className="review-actions">
-                                    ❤️ 좋아요 {review.reviewLikes || 0}
-                                </div>
-                            </div>
-                        ))}
+                                );
+                            })}
+                    </div>
+                    <button className="more-reviews" onClick={handleMoreReviewsClick}>
+                        리뷰 더보기 +
+                    </button>
                 </div>
-                <button className="more-reviews" onClick={handleMoreReviewsClick}>
-                    리뷰 더보기 +
-                </button>
             </div>
-        </div>
 
             {
                 showModal && (
-                    <div className="modal-overlay" onClick={closeModal}>
-                        <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                    <div className="modal-overlay">
+                        <div className="modal-content">
                             <div className="modal-header">
                                 <h2>리뷰 목록 ({reviews.length})</h2>
+                                <button className="write-review-btn" onClick={openWriteReviewModal}>리뷰 작성 ∨</button>
                                 <button className="close-modal" onClick={closeModal}>
                                     X
                                 </button>
                             </div>
                             <div className="modal-body">
                                 {reviews.length > 0 ? (
-                                    <div className="review-list">
-                                        {reviews.map((review, index) => (
-                                            <div key={index} className="review-item">
-                                                <div className="review-header">
-                                                    <div className="review-info">
-                                                        <strong>{review.memberId}</strong>{" "}
-                                                        <span
-                                                            className="rating">{parseFloat(review.reviewScore).toFixed(1)}</span>
-                                                        <span className="report">🚨 신고</span>
-                                                    </div>
-                                                    <div className="review-actions">
-                                                        <button className="edit-btn">수정</button>
-                                                        <button className="delete-btn">삭제</button>
-                                                    </div>
-                                                </div>
-                                                <div className="review-content">
-                                                    {review.reviewContent}
-                                                </div>
-                                                <div className="review-container">
-                                                    {review.reviewPhotoName && (
-                                                        <div className="review-image">
-                                                            <img
-                                                                src={`/images/reviews/${review.reviewPhotoName}`}
-                                                                alt="리뷰 이미지"
-                                                            />
+                                    <div className="review-container">
+                                        <div className="review-list">
+                                            {currentReviews.map((review, index) => {
+                                                const user = users.find((user) => user.mem_id === review.memberId);
+
+                                                return (
+                                                    <div key={index} className="review-item">
+                                                        <div className="review-header">
+                                                            <div className="review-info">
+                                                                <strong>{user ? user.mem_nickname : "알 수 없음"}</strong>{" "}
+                                                                <span className="rating">{parseFloat(review.reviewScore).toFixed(1)}</span>
+                                                                <span className="report" onClick={openReportModal}>🚨 신고</span>
+                                                            </div>
+                                                            <div className="review-actions">
+                                                                <button className="edit-btn">수정</button>
+                                                                <button className="delete-btn">삭제</button>
+                                                            </div>
                                                         </div>
-                                                    )}
-                                                    <div className="review-footer">
-                                                        <span>❤️ 좋아요 {review.reviewLikes || 0}</span>
-                                                        <span>💬 댓글 {review.commentCount || 0}</span>
+                                                        <div className="review-content">{review.reviewContent}</div>
+                                                        <div className="review-container">
+                                                            {review.reviewPhotoName && (
+                                                                <div className="review-image">
+                                                                    <a
+                                                                        href={`/images/reviews/${review.reviewPhotoName}`}
+                                                                        target="_blank"
+                                                                        rel="noopener noreferrer"
+                                                                    >
+                                                                        <img
+                                                                            src={`/images/reviews/${review.reviewPhotoName}`}
+                                                                            alt="리뷰 이미지"
+                                                                        />
+                                                                    </a>
+                                                                </div>
+                                                            )}
+                                                            <div className="review-footer">
+                                                                <span>❤️ 좋아요 {review.reviewLikes || 0}</span>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        ))}
+                                                );
+                                            })}
+                                        </div>
+                                        <div className="pagination-controls">
+                                            <button onClick={handlePrevPage} disabled={currentPage === 1}>
+                                                ∧
+                                            </button>
+                                            <button
+                                                onClick={handleNextPage}
+                                                disabled={currentPage === Math.ceil(reviews.length / reviewsPerPage)}
+                                            >
+                                                ∨
+                                            </button>
+                                        </div>
                                     </div>
                                 ) : (
                                     <p>리뷰가 없습니다.</p>
@@ -204,6 +275,136 @@ const RestaurantDetail = () => {
                     </div>
                 )
             }
+            {showReportModal && (
+                <div className="report-modal-overlay">
+                    <div className="report-modal-content" onClick={(e) => e.stopPropagation()}>
+                        <div className="report-modal-header">
+                            <h2>신고하기</h2>
+                            <button className="close-report-modal" onClick={closeReportModal}>
+                                X
+                            </button>
+                        </div>
+                        <div className="report-modal-body">
+                            <p>
+                                <strong>작성자</strong> | 닉네임1
+                            </p>
+                            <p>
+                                <strong>제목</strong> | 제목
+                            </p>
+                            <div className="report-options">
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name="reportReason"
+                                        value="spam"
+                                        checked={selectedReason === "spam"}
+                                        onChange={handleReasonChange}
+                                    />
+                                    스팸홍보/도배입니다.
+                                </label>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name="reportReason"
+                                        value="obscene"
+                                        checked={selectedReason === "obscene"}
+                                        onChange={handleReasonChange}
+                                    />
+                                    음란물입니다.
+                                </label>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name="reportReason"
+                                        value="illegal"
+                                        checked={selectedReason === "illegal"}
+                                        onChange={handleReasonChange}
+                                    />
+                                    불법정보를 포함하고 있습니다.
+                                </label>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name="reportReason"
+                                        value="harmful"
+                                        checked={selectedReason === "harmful"}
+                                        onChange={handleReasonChange}
+                                    />
+                                    청소년에게 유해한 내용입니다.
+                                </label>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name="reportReason"
+                                        value="offensive"
+                                        checked={selectedReason === "offensive"}
+                                        onChange={handleReasonChange}
+                                    />
+                                    욕설/생명경시/혐오/차별적 표현입니다.
+                                </label>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name="reportReason"
+                                        value="privacy"
+                                        checked={selectedReason === "privacy"}
+                                        onChange={handleReasonChange}
+                                    />
+                                    개인정보가 노출되었습니다.
+                                </label>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name="reportReason"
+                                        value="custom"
+                                        checked={selectedReason === "custom"}
+                                        onChange={handleReasonChange}
+                                    />
+                                    직접 입력하기.
+                                </label>
+                            </div>
+                            <textarea
+                                className="report-custom-input"
+                                placeholder="사유를 입력해주세요"
+                                disabled={selectedReason !== "custom"}
+                            ></textarea>
+                        </div>
+                        <div className="report-modal-footer">
+                            <button className="submit-btn">
+                                신고하기
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+            {showWriteReviewModal && (
+                <div className="modal-overlay">
+                    <div className="review-write-modal-content">
+                        <div className="review-write-modal-header">
+                            <h2>리뷰 작성</h2>
+                            <button className="close-review-write-modal" onClick={closeWriteReviewModal}>
+                                X
+                            </button>
+                        </div>
+                        <div className="review-write-modal-body">
+                            <div className="review-write-actions">
+                                <button className="review-write-rating-btn">별점 등록 ▼</button>
+                                <button className="review-write-image-upload-btn">이미지 첨부</button>
+                            </div>
+                            <textarea
+                                placeholder="내용을 입력해주세요"
+                                className="review-write-content-input"
+                            ></textarea>
+                            <div className="review-write-modal-footer">
+                                <button className="cancel-btn" onClick={closeWriteReviewModal}>
+                                    취소
+                                </button>
+                                <button className="submit-btn">등록</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

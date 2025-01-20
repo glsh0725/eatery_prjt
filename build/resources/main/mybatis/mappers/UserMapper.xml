@@ -4,8 +4,8 @@
 
 <mapper namespace="fs.four.eatery.user.dao.UserDAO">
     <resultMap id="loginResult" type="fs.four.eatery.user.vo.UserVO">
-        <result property="mem_id" column="member_id" />
-        <result property="mem_pw" column="member_pw" />
+        <result property="mem_id" column="mem_id" />
+        <result property="mem_pw" column="mem_pw" />
         <result property="mem_nickname" column="mem_nickname" />
         <result property="email" column="email" />
         <result property="email_status" column="email_status" />
@@ -50,6 +50,11 @@
         1  <!-- 기본 역할 값 예시: 1 -->
         )
     </insert>
+
+    <select id="selectAllMembers" resultMap="loginResult">
+        SELECT *
+        FROM member
+    </select>
 
     <!-- 중복 체크 -->
     <select id="isIdExist" parameterType="String" resultType="boolean">
