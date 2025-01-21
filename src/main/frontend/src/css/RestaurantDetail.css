@@ -2,7 +2,7 @@
     font-family: Arial, sans-serif;
     width: 95%;
     padding: 20px;
-    margin-top: 25px;
+    margin-top: 15px;
 }
 
 .top-section {
@@ -61,7 +61,7 @@
 .details {
     width: 45%;
     border: 2px solid #ffa726;
-    padding: 20px;
+    padding: 10px;
     background-color: #fff;
     border-radius: 10px;
     flex: 1;
@@ -75,10 +75,9 @@
 .reviews-section {
     position: relative;
     width: 45%;
-    height: 40%;
     min-height: 377px;
     border: 2px solid #ffa726;
-    padding: 20px;
+    padding: 10px;
     background-color: #fff;
     border-radius: 10px;
     flex: 1;

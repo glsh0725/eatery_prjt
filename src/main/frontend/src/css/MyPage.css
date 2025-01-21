@@ -65,13 +65,13 @@
 }
 
 /* 버튼 스타일 */
-.action-buttons {
+.mypage-container .action-buttons {
     display: flex;
     justify-content: center;
     gap: 20px;
 }
 
-.action-btn {
+.mypage-container .action-btn {
     padding: 10px 20px;
     background-color: #ff6600;
     color: white;
@@ -81,14 +81,14 @@
     cursor: pointer;
 }
 
-.action-btn:hover {
+.mypage-container .action-btn:hover {
     background-color: #ffa500;
 }
 
 /* 모달 스타일 */
 
 /* 모달 배경 */
-.modal-overlay {
+.mypage-container .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -102,7 +102,7 @@
 }
 
 /* 모달 내용 */
-.modal-content {
+.mypage-container .modal-content {
     background: white;
     padding: 30px; /* 여백을 더 주어 크기 키움 */
     border-radius: 10px;
@@ -115,7 +115,7 @@
 }
 
 /* 모달 닫기 버튼 */
-.modal-content button {
+.mypage-container .modal-content button {
     margin-top: 20px;
     padding: 12px 24px; /* 버튼 크기 조정 */
     background: #ff3d3d;
@@ -126,17 +126,17 @@
     font-size: 16px; /* 버튼 텍스트 크기 조정 */
 }
 
-.modal-content button:hover {
+.mypage-container .modal-content button:hover {
     background: #ff6666;
 }
 
 /* 리스트 스타일 */
-.modal-content ul {
+.mypage-container .modal-content ul {
     list-style-type: none;
     padding: 0;
 }
 
-.modal-content li {
+.mypage-container .modal-content li {
     display: flex;
     justify-content: space-between; /* 텍스트와 버튼을 양쪽에 배치 */
     align-items: center;
@@ -146,13 +146,13 @@
 }
 
 /* 바로가기 링크 스타일 */
-.go-to-review, .go-to-comment {
+.mypage-container .go-to-review, .go-to-comment {
     color: #007bff;
     text-decoration: none;
     font-weight: bold;
 }
 
-.go-to-review:hover, .go-to-comment:hover {
+.mypage-container .go-to-review:hover, .go-to-comment:hover {
     text-decoration: underline;
 }
 
