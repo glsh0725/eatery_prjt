@@ -11,6 +11,8 @@ import java.util.Map;
 @Mapper
 public interface RestaurantDAO {
     void insertRestaurantData(RestaurantVO restaurant);
+    void incrementLikeCount(@Param("name") String resName);
+    void decrementLikeCount(@Param("name") String resName);
     boolean isRestaurantExist(String name);
     List<RestaurantVO> getAllRestaurants();
     List<RestaurantVO> getAllRestaurantsWithReviews();
@@ -25,4 +27,8 @@ public interface RestaurantDAO {
     );
 
     void initializeResToUpdate(@Param("memId") String memId);
+
+    void insertReview(ReviewVO review);
+
+    Integer getMaxReviewNumber();
 }

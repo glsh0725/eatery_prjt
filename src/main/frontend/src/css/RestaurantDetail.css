@@ -471,9 +471,47 @@
     resize: none;
 }
 
+.selected-image-name {
+    font-size: 16px;
+    color: #333;
+    font-weight: bold;
+    margin: 0;
+}
+
 .review-write-actions {
     display: flex;
     gap: 10px;
+    align-items: center;
+}
+
+.review-write-rating-select {
+    padding: 10px 20px;
+    background-color: #ffa726;
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.review-write-rating-select:hover {
+    background-color: #ff8c00;
+}
+
+.review-write-image-upload-label {
+    padding: 10px 20px;
+    background-color: #ffa726;
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.review-write-image-upload-label:hover {
+    background-color: #ff8c00;
 }
 
 .review-write-actions button {

@@ -3,10 +3,11 @@ package fs.four.eatery.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class WebConfig {
+public class WebConfig implements WebMvcConfigurer {
 
     @Bean
     public WebMvcConfigurer corsConfigurer() {
@@ -16,9 +17,16 @@ public class WebConfig {
                 registry.addMapping("/api/**")
                         .allowedOrigins("http://localhost:3000")
                         .allowedMethods("GET", "POST", "PUT", "DELETE")
-                        .allowedHeaders("*") // 모든 헤더 허용
-                        .allowCredentials(true); // 자격 증명(쿠키 등) 허용
+                        .allowedHeaders("*")
+                        .allowCredentials(true);
             }
         };
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/images/reviews/**")
+                .addResourceLocations("file:src/main/resources/static/images/reviews/")
+                .setCachePeriod(3600);
     }
 }

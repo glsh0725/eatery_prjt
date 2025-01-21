@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.*;
 
@@ -71,12 +69,18 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public boolean toggleLike(String memId, String resName) {
-        ensureInitializedLikesAndFavorites(memId); // 초기화 로직 추가
+        ensureInitializedLikesAndFavorites(memId);
 
         Map<String, List<String>> data = getLikesAndFavoritesByMember(memId);
 
         List<String> likes = new ArrayList<>(data.get("likes"));
         boolean isLiked = toggleItem(likes, resName);
+
+        if (isLiked) {
+            restaurantDAO.incrementLikeCount(resName);
+        } else {
+            restaurantDAO.decrementLikeCount(resName);
+        }
 
         restaurantDAO.updateLikesAndFavorites(memId, String.join(",", likes), String.join(",", data.get("favorites")));
         return isLiked;
@@ -93,6 +97,16 @@ public class RestaurantServiceImpl implements RestaurantService {
 
         restaurantDAO.updateLikesAndFavorites(memId, String.join(",", data.get("likes")), String.join(",", favorites));
         return isFavorited;
+    }
+
+    @Override
+    public void addReview(ReviewVO review) {
+        Integer maxReviewNumber = restaurantDAO.getMaxReviewNumber();
+        int nextReviewNumber = (maxReviewNumber != null ? maxReviewNumber : 0) + 1;
+
+        review.setReviewNumber(nextReviewNumber);
+
+        restaurantDAO.insertReview(review);
     }
 
     private void ensureInitializedLikesAndFavorites(String memId) {

@@ -171,4 +171,21 @@
         VALUES (#{memId}, EMPTY_CLOB(), EMPTY_CLOB())
     </insert>
 
+    <!-- 좋아요 db count-->
+    <update id="incrementLikeCount">
+        UPDATE RESTAURANT
+        SET RES_LIKE_COUNT = RES_LIKE_COUNT + 1
+        WHERE RES_NAME = #{name}
+    </update>
+
+    <update id="decrementLikeCount">
+        UPDATE RESTAURANT
+        SET RES_LIKE_COUNT = RES_LIKE_COUNT - 1
+        WHERE RES_NAME = #{name}
+    </update>
+
+    <select id="getMaxReviewNumber" resultType="int">
+        SELECT COALESCE(MAX(REV_NUMBER), 0) AS maxReviewNumber
+        FROM REVIEW
+    </select>
 </mapper>

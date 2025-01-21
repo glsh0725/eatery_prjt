@@ -15,4 +15,5 @@ public interface RestaurantService {
     Map<String, List<String>> getLikesAndFavoritesByMember(String memId);
     boolean toggleLike(String memId, String resName);
     boolean toggleFavorite(String memId, String resName);
+    void addReview(ReviewVO review);
 }

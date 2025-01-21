@@ -1,7 +1,5 @@
 package fs.four.eatery.restaurant.dao;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import fs.four.eatery.restaurant.vo.RestaurantVO;
 import fs.four.eatery.restaurant.vo.ReviewVO;
 import org.apache.ibatis.session.SqlSession;
@@ -74,5 +72,26 @@ public class RestaurantDAOImpl implements RestaurantDAO {
     @Override
     public void initializeResToUpdate(String memId) {
         sqlSession.insert(NAMESPACE + ".initializeResToUpdate", memId);
+    }
+
+    @Override
+    public void incrementLikeCount(String resName) {
+        sqlSession.update(NAMESPACE + ".incrementLikeCount", resName);
+    }
+
+    @Override
+    public void decrementLikeCount(String resName) {
+        sqlSession.update(NAMESPACE + ".decrementLikeCount", resName);
+    }
+
+    @Override
+    public Integer getMaxReviewNumber() {
+        Integer maxNumber = sqlSession.selectOne(NAMESPACE + ".getMaxReviewNumber");
+        return maxNumber != null ? maxNumber : 0;
+    }
+
+    @Override
+    public void insertReview(ReviewVO review) {
+        sqlSession.insert(NAMESPACE + ".insertReview", review);
     }
 }

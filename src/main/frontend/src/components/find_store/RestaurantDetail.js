@@ -11,6 +11,10 @@ const RestaurantDetail = () => {
     const [error, setError] = useState("");
     const [isLiked, setIsLiked] = useState(false);
     const [isFavorited, setIsFavorited] = useState(false);
+    const [selectedRating, setSelectedRating] = useState(null);
+    const [reviewContent, setReviewContent] = useState("");
+    const [selectedImage, setSelectedImage] = useState(null);
+    const [selectedImageName, setSelectedImageName] = useState(null);
     const [userId, setUserId] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [showReportModal, setShowReportModal] = useState(false);
@@ -93,9 +97,66 @@ const RestaurantDetail = () => {
                 `http://localhost:18080/api/likes/toggle`,
                 { memId: userId, resName: name }
             );
-            setIsLiked(response.data);
+            const newIsLiked = response.data;
+            setIsLiked(newIsLiked);
+
+            const updatedRestaurant = await axios.get(`http://localhost:18080/api/restaurants/${name}`);
+            setRestaurant(updatedRestaurant.data);
         } catch (err) {
             console.error("좋아요 토글 중 오류:", err);
+        }
+    };
+
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setSelectedImage(file);
+            setSelectedImageName(file.name);
+        } else {
+            setSelectedImage(null);
+            setSelectedImageName(null);
+        }
+    };
+
+    const handleReviewSubmit = async () => {
+        if (!selectedRating) {
+            alert("별점을 선택해주세요!");
+            return;
+        }
+        if (!reviewContent.trim()) {
+            alert("리뷰 내용을 입력해주세요!");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append("reviewScore", selectedRating);
+        formData.append("reviewContent", reviewContent);
+        formData.append("memberId", userId);
+        if (selectedImage) {
+            formData.append("reviewPhoto", selectedImage);
+        }
+
+        try {
+            await axios.post(`http://localhost:18080/api/reviews/${name}`, formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+            alert("리뷰가 성공적으로 등록되었습니다!");
+
+            const updatedReviews = await axios.get(`http://localhost:18080/api/reviews/${name}`);
+            setReviews(updatedReviews.data);
+
+            const reviewsResponse = await axios.get(`http://localhost:18080/api/reviews/${name}`);
+            setReviews(reviewsResponse.data);
+
+            closeWriteReviewModal();
+            setSelectedRating(null);
+            setReviewContent("");
+            setSelectedImage(null);
+        } catch (err) {
+            console.error("리뷰 등록 중 오류:", err);
+            alert("리뷰 등록에 실패했습니다.");
         }
     };
 
@@ -301,7 +362,7 @@ const RestaurantDetail = () => {
                                         {review.reviewPhotoName && (
                                             <div className="review-image">
                                                 <img
-                                                    src={`/images/reviews/${review.reviewPhotoName}`}
+                                                    src={`/images/reviews/${review.reviewPhotoName || "default.jpg"}`}
                                                     alt="리뷰 이미지"
                                                 />
                                             </div>
@@ -357,12 +418,12 @@ const RestaurantDetail = () => {
                                                             {review.reviewPhotoName && (
                                                                 <div className="review-image">
                                                                     <a
-                                                                        href={`/images/reviews/${review.reviewPhotoName}`}
+                                                                        href={`/images/reviews/${review.reviewPhotoName || "default.jpg"}`}
                                                                         target="_blank"
                                                                         rel="noopener noreferrer"
                                                                     >
                                                                         <img
-                                                                            src={`/images/reviews/${review.reviewPhotoName}`}
+                                                                            src={`/images/reviews/${review.reviewPhotoName || "default.jpg"}`}
                                                                             alt="리뷰 이미지"
                                                                         />
                                                                     </a>
@@ -536,18 +597,46 @@ const RestaurantDetail = () => {
                         </div>
                         <div className="review-write-modal-body">
                             <div className="review-write-actions">
-                                <button className="review-write-rating-btn">별점 등록 ▼</button>
-                                <button className="review-write-image-upload-btn">이미지 첨부</button>
+                                <select
+                                    className="review-write-rating-select"
+                                    value={selectedRating}
+                                    onChange={(e) => setSelectedRating(Number(e.target.value))}
+                                >
+                                    <option value="">별점 선택</option>
+                                    {[1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5].map((rating) => (
+                                        <option key={rating} value={rating}>
+                                            {rating}
+                                        </option>
+                                    ))}
+                                </select>
+                                <label className="review-write-image-upload-label">
+                                    이미지 첨부
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        className="review-write-image-upload-input"
+                                        onChange={handleFileChange}
+                                        style={{display: "none"}}
+                                    />
+                                </label>
+                                {/* 선택된 파일 이름 표시 */}
+                                {selectedImageName && (
+                                    <p className="selected-image-name">선택된 파일: {selectedImageName}</p>
+                                )}
                             </div>
                             <textarea
                                 placeholder="내용을 입력해주세요"
                                 className="review-write-content-input"
+                                value={reviewContent}
+                                onChange={(e) => setReviewContent(e.target.value)}
                             ></textarea>
                             <div className="review-write-modal-footer">
                                 <button className="cancel-btn" onClick={closeWriteReviewModal}>
                                     취소
                                 </button>
-                                <button className="submit-btn">등록</button>
+                                <button className="submit-btn" onClick={handleReviewSubmit}>
+                                    등록
+                                </button>
                             </div>
                         </div>
                     </div>
