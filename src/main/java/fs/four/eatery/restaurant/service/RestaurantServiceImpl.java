@@ -71,6 +71,8 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public boolean toggleLike(String memId, String resName) {
+        ensureInitializedLikesAndFavorites(memId); // 초기화 로직 추가
+
         Map<String, List<String>> data = getLikesAndFavoritesByMember(memId);
 
         List<String> likes = new ArrayList<>(data.get("likes"));
@@ -82,6 +84,8 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public boolean toggleFavorite(String memId, String resName) {
+        ensureInitializedLikesAndFavorites(memId);
+
         Map<String, List<String>> data = getLikesAndFavoritesByMember(memId);
 
         List<String> favorites = new ArrayList<>(data.get("favorites"));
@@ -89,6 +93,12 @@ public class RestaurantServiceImpl implements RestaurantService {
 
         restaurantDAO.updateLikesAndFavorites(memId, String.join(",", data.get("likes")), String.join(",", favorites));
         return isFavorited;
+    }
+
+    private void ensureInitializedLikesAndFavorites(String memId) {
+        if (restaurantDAO.getLikesAndFavoritesByMember(memId) == null) {
+            restaurantDAO.initializeResToUpdate(memId);
+        }
     }
 
     private List<String> parseList(String data) {

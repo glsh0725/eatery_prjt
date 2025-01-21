@@ -167,7 +167,7 @@
 
     <!-- 좋아요/즐겨찾기 초기화 -->
     <insert id="initializeResToUpdate">
-        INSERT INTO RES_TO_UPDATE (MEM_ID, LIKES_RES_NAME, FAVORITES_RES_NAME)
+        INSERT INTO resToUpdate (MEM_ID, LIKES_RES_NAME, FAVORITES_RES_NAME)
         VALUES (#{memId}, EMPTY_CLOB(), EMPTY_CLOB())
     </insert>
 
