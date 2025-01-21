@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import regions from "../data/regions.json";
 import DiningLayout from "../layouts/DiningLayout";
 import "../css/Find_store.css";
@@ -20,6 +20,9 @@ const Find_store = () => {
     const [itemsPerPage, setItemsPerPage] = useState(8);
 
     const navigate = useNavigate();
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const searchQuery = searchParams.get("search") || "";
 
     const tags = [
         "전체", "가족모임", "데이트", "상견례", "회식", "카페", "친목모임",
@@ -136,7 +139,13 @@ const Find_store = () => {
                     .every((word) => restaurant.address.includes(word)) &&
                 restaurant.oldAddress?.includes(selectedRegion.split(" ").pop()));
 
-        return matchesTag && matchesTime && matchesRegion;
+        const matchesSearch =
+            searchQuery === "" ||
+            restaurant.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            (restaurant.address && restaurant.address.toLowerCase().includes(searchQuery.toLowerCase())) ||
+            (restaurant.tags && restaurant.tags.toLowerCase().includes(searchQuery.toLowerCase()));
+
+        return matchesTag && matchesTime && matchesRegion && matchesSearch;
     });
 
     const sortedRestaurants = filteredRestaurants.sort((a, b) => {

@@ -74,13 +74,35 @@ const TopMenu = () => {
                     <ul>
                         <li>
                             <Link className="logo" to={"/"}>
-                                <img src="/images/logo.png" alt="로고" className="logo_image" />
+                                <img src="/images/logo.png" alt="로고" className="logo_image"/>
                                 다이닝픽
                             </Link>
                         </li>
                         <li className="search_container">
-                            <input type="text" placeholder="검색창 구현예정" className="search_box" />
-                            <img src="/images/search.png" alt="검색" className="search_icon" />
+                            <input
+                                type="text"
+                                placeholder="검색창"
+                                className="search_box"
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter") {
+                                        const searchQuery = e.target.value.trim();
+                                        if (searchQuery) {
+                                            navigate(`/find_store?search=${encodeURIComponent(searchQuery)}`);
+                                        }
+                                    }
+                                }}
+                            />
+                            <img
+                                src="/images/search.png"
+                                alt="검색"
+                                className="search_icon"
+                                onClick={() => {
+                                    const searchInput = document.querySelector(".search_box").value.trim();
+                                    if (searchInput) {
+                                        navigate(`/find_store?search=${encodeURIComponent(searchInput)}`);
+                                    }
+                                }}
+                            />
                         </li>
                     </ul>
                 </div>
