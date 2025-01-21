@@ -189,21 +189,63 @@ const RestaurantDetail = () => {
                         {reviews.length > 0 && reviews.reduce((sum, review) => sum + review.reviewScore, 0) > 0
                             ? (reviews.reduce((sum, review) => sum + review.reviewScore, 0) / reviews.length).toFixed(1)
                             : restaurant.scoreNumber}
-                        </span>
+                    </span>
                 </h2>
                 <div className="actions">
-                    <span
-                        className={`favorite ${isFavorited ? "active" : ""}`}
-                        onClick={toggleFavorite}
-                    >
-                        ⭐ 즐겨찾기
+                    <span onClick={toggleFavorite} style={{cursor: "pointer", marginRight: "10px"}}>
+                        {isFavorited ? (
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="18"
+                                height="18"
+                                viewBox="0 0 24 24"
+                                fill="gold"
+                            >
+                                <path
+                                    d="M12 .587l3.668 7.431 8.332 1.151-6.064 5.884 1.457 8.272-7.393-3.884-7.393 3.884 1.457-8.272-6.064-5.884 8.332-1.151z"/>
+                            </svg>
+                        ) : (
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="18"
+                                height="18"
+                                viewBox="0 0 24 24"
+                                fill="gray"
+                            >
+                                <path
+                                    d="M12 .587l3.668 7.431 8.332 1.151-6.064 5.884 1.457 8.272-7.393-3.884-7.393 3.884 1.457-8.272-6.064-5.884 8.332-1.151z"/>
+                            </svg>
+                        )}
+                                    즐겨찾기
                     </span>
-                    <span
-                        className={`like ${isLiked ? "active" : ""}`}
-                        onClick={toggleLike}
-                    >
-                        ❤️ 좋아요 {restaurant.likeCount || 0}
+
+                                <span onClick={toggleLike} style={{cursor: "pointer", marginRight: "10px"}}>
+                        {isLiked ? (
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="18"
+                                height="18"
+                                viewBox="0 0 24 24"
+                                fill="red"
+                            >
+                                <path
+                                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                            </svg>
+                        ) : (
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="18"
+                                height="18"
+                                viewBox="0 0 24 24"
+                                fill="gray"
+                            >
+                                <path
+                                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                            </svg>
+                        )}
+                                    좋아요 {restaurant.likeCount || 0}
                     </span>
+
                     <span>👀 조회수 {restaurant.viewCount || 0}</span>
                 </div>
             </div>
@@ -300,8 +342,10 @@ const RestaurantDetail = () => {
                                                         <div className="review-header">
                                                             <div className="review-info">
                                                                 <strong>{user ? user.mem_nickname : "알 수 없음"}</strong>{" "}
-                                                                <span className="rating">{parseFloat(review.reviewScore).toFixed(1)}</span>
-                                                                <span className="report" onClick={openReportModal}>🚨 신고</span>
+                                                                <span
+                                                                    className="rating">{parseFloat(review.reviewScore).toFixed(1)}</span>
+                                                                <span className="report"
+                                                                      onClick={openReportModal}>🚨 신고</span>
                                                             </div>
                                                             <div className="review-actions">
                                                                 <button className="edit-btn">수정</button>
@@ -325,7 +369,34 @@ const RestaurantDetail = () => {
                                                                 </div>
                                                             )}
                                                             <div className="review-footer">
-                                                                <span>❤️ 좋아요 {review.reviewLikes || 0}</span>
+                                                                <span className="like" style={{cursor: "pointer"}}>
+                                                                    {review.isLiked ? (
+                                                                        <svg
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            width="18"
+                                                                            height="18"
+                                                                            viewBox="0 0 24 24"
+                                                                            fill="red"
+                                                                        >
+                                                                            <path
+                                                                                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+                                                                            />
+                                                                        </svg>
+                                                                    ) : (
+                                                                        <svg
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            width="18"
+                                                                            height="18"
+                                                                            viewBox="0 0 24 24"
+                                                                            fill="gray"
+                                                                        >
+                                                                            <path
+                                                                                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+                                                                            />
+                                                                        </svg>
+                                                                    )}
+                                                                    좋아요 {review.reviewLikes || 0}
+                                                                </span>
                                                             </div>
                                                         </div>
                                                     </div>

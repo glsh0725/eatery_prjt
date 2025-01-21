@@ -196,6 +196,11 @@
     gap: 20px;
     font-size: 14px;
     margin: 0;
+    align-items: center;
+}
+
+.actions svg {
+    vertical-align: middle;
 }
 
 .rating {
@@ -314,6 +319,10 @@
     font-size: 14px;
     align-items: flex-end;
     justify-content: flex-end;
+}
+
+.review-footer .like svg {
+    vertical-align: middle;
 }
 
 .close-modal {
@@ -619,14 +628,10 @@
     background: #ff8c00;
 }
 
-.favorite.active {
-    color: gold;
-    font-weight: bold;
-}
-
-.like.active {
-    color: red;
-    font-weight: bold;
+.actions .favorite,
+.actions .like {
+    cursor: pointer;
+    transition: transform 0.2s ease, color 0.2s ease;
 }
 
 @media screen and (max-width: 750px) {
