@@ -564,6 +564,165 @@
     background: #ff8c00;
 }
 
+
+.review-edit-modal-content {
+    background: white;
+    border-radius: 10px;
+    width: 60%;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+.review-edit-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.review-edit-modal-header h2 {
+    font-size: 22px;
+    margin: 0;
+}
+
+.review-edit-modal-header .close-review-edit-modal {
+    background: #ffe0b2;
+    border: none;
+    border-radius: 5px;
+    padding: 6px 12px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff5722;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.review-edit-modal-header .close-review-edit-modal:hover {
+    background-color: #ffa726;
+    color: #fff;
+}
+
+.review-edit-modal-body {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.review-edit-content-input {
+    width: 96%;
+    padding: 10px;
+    border: 2px solid #ffa726;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.review-edit-content-input {
+    min-height: 300px;
+    resize: none;
+}
+
+.selected-image-name {
+    font-size: 16px;
+    color: #333;
+    font-weight: bold;
+    margin: 0;
+}
+
+.review-edit-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.review-edit-rating-select {
+    padding: 10px 20px;
+    background-color: #ffa726;
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.review-edit-rating-select:hover {
+    background-color: #ff8c00;
+}
+
+.review-edit-image-upload-label {
+    padding: 10px 20px;
+    background-color: #ffa726;
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.review-edit-image-upload-label:hover {
+    background-color: #ff8c00;
+}
+
+.review-edit-actions button {
+    padding: 10px 20px;
+    background-color: #ffa726;
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.review-edit-actions button:hover {
+    background-color: #ff8c00;
+}
+
+.review-edit-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    width: 100%;
+}
+
+.review-edit-modal-footer .cancel-btn {
+    background: #ddd;
+    border: none;
+    color: black;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.review-edit-modal-footer .cancel-btn:hover {
+    background: #ccc;
+}
+
+.review-edit-modal-footer .submit-btn {
+    background: #ffa726;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.review-edit-modal-footer .submit-btn:hover {
+    background: #ff8c00;
+}
+
+
 .report-modal-overlay {
     position: fixed;
     top: 0;

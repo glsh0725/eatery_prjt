@@ -188,4 +188,10 @@
         SELECT COALESCE(MAX(REV_NUMBER), 0) AS maxReviewNumber
         FROM REVIEW
     </select>
+
+    <update id="incrementViewCount" parameterType="String">
+        UPDATE RESTAURANT
+        SET RES_VIEW_COUNT = RES_VIEW_COUNT + 1
+        WHERE RES_NAME = #{name}
+    </update>
 </mapper>

@@ -17,6 +17,8 @@ const RestaurantDetail = () => {
     const [selectedImageName, setSelectedImageName] = useState(null);
     const [userId, setUserId] = useState(null);
     const [showModal, setShowModal] = useState(false);
+    const [showEditReviewModal, setShowEditReviewModal] = useState(false);
+    const [selectedReview, setSelectedReview] = useState(null);
     const [showReportModal, setShowReportModal] = useState(false);
     const [showWriteReviewModal, setShowWriteReviewModal] = useState(false);
     const [selectedReason, setSelectedReason] = useState("spam");
@@ -70,6 +72,21 @@ const RestaurantDetail = () => {
 
         fetchData();
     }, [name, userId]);
+
+    useEffect(() => {
+        const incrementViewCount = async () => {
+            try {
+                await axios.patch(`http://localhost:18080/api/restaurants/${name}/viewCount`);
+
+                const updatedRestaurant = await axios.get(`http://localhost:18080/api/restaurants/${name}`);
+                setRestaurant(updatedRestaurant.data);
+            } catch (err) {
+                console.error("조회수 증가 중 오류:", err);
+            }
+        };
+
+        incrementViewCount();
+    }, [name]);
 
     const toggleFavorite = async () => {
         if (!userId) {
@@ -158,6 +175,76 @@ const RestaurantDetail = () => {
             console.error("리뷰 등록 중 오류:", err);
             alert("리뷰 등록에 실패했습니다.");
         }
+    };
+
+    const confirmDeleteReview = (reviewNumber) => {
+        if (window.confirm("정말로 이 리뷰를 삭제하시겠습니까?")) {
+            deleteReview(reviewNumber);
+        }
+    };
+
+    const deleteReview = async (reviewNumber) => {
+        try {
+            await axios.delete(`http://localhost:18080/api/reviews/${reviewNumber}`);
+            setReviews((prevReviews) =>
+                prevReviews.filter((review) => review.reviewNumber !== reviewNumber)
+            );
+            alert("리뷰가 삭제되었습니다.");
+        } catch (err) {
+            console.error("리뷰 삭제 중 오류:", err);
+            alert("리뷰 삭제에 실패했습니다.");
+        }
+    };
+
+    const handleUpdateReview = async () => {
+        if (!selectedRating) {
+            alert("별점을 선택해주세요!");
+            return;
+        }
+        if (!reviewContent.trim()) {
+            alert("리뷰 내용을 입력해주세요!");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append("reviewScore", selectedRating);
+        formData.append("reviewContent", reviewContent);
+        if (selectedImage) {
+            formData.append("reviewPhoto", selectedImage);
+        }
+
+        try {
+            await axios.put(
+                `http://localhost:18080/api/reviews/${selectedReview.reviewNumber}`,
+                formData
+            );
+
+            alert("리뷰가 성공적으로 수정되었습니다!");
+            const updatedReviews = await axios.get(`http://localhost:18080/api/reviews/${name}`);
+            setReviews(updatedReviews.data);
+            setShowEditReviewModal(false);
+            setSelectedReview(null);
+        } catch (err) {
+            console.error("리뷰 수정 중 오류:", err);
+            alert("리뷰 수정에 실패했습니다.");
+        }
+    };
+
+    const handleEditReview = (review) => {
+        setSelectedReview(review);
+        setSelectedRating(review.reviewScore);
+        setReviewContent(review.reviewContent);
+        setSelectedImageName(review.reviewPhotoName || null);
+        setShowEditReviewModal(true);
+    };
+
+    const closeEditReviewModal = () => {
+        setShowEditReviewModal(false);
+        setSelectedReview(null);
+        setSelectedRating(null);
+        setReviewContent("");
+        setSelectedImage(null);
+        setSelectedImageName(null);
     };
 
     const handleMoreReviewsClick = () => {
@@ -409,8 +496,15 @@ const RestaurantDetail = () => {
                                                                       onClick={openReportModal}>🚨 신고</span>
                                                             </div>
                                                             <div className="review-actions">
-                                                                <button className="edit-btn">수정</button>
-                                                                <button className="delete-btn">삭제</button>
+                                                                <button
+                                                                    className="edit-btn"
+                                                                    onClick={() => handleEditReview(review)}
+                                                                >
+                                                                    수정
+                                                                </button>
+                                                                <button className="delete-btn"
+                                                                        onClick={() => confirmDeleteReview(review.reviewNumber)}>삭제
+                                                                </button>
                                                             </div>
                                                         </div>
                                                         <div className="review-content">{review.reviewContent}</div>
@@ -636,6 +730,66 @@ const RestaurantDetail = () => {
                                 </button>
                                 <button className="submit-btn" onClick={handleReviewSubmit}>
                                     등록
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+            {showEditReviewModal && (
+                <div className="modal-overlay">
+                    <div className="review-edit-modal-content">
+                        <div className="review-edit-modal-header">
+                            <h2>리뷰 수정</h2>
+                            <button
+                                className="close-review-edit-modal"
+                                onClick={closeEditReviewModal}
+                            >
+                                X
+                            </button>
+                        </div>
+                        <div className="review-edit-modal-body">
+                            <div className="review-edit-actions">
+                                <select
+                                    className="review-edit-rating-select"
+                                    value={selectedRating}
+                                    onChange={(e) => setSelectedRating(Number(e.target.value))}
+                                >
+                                    <option value="">별점 선택</option>
+                                    {[1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5].map((rating) => (
+                                        <option key={rating} value={rating}>
+                                            {rating}
+                                        </option>
+                                    ))}
+                                </select>
+                                <label className="review-edit-image-upload-label">
+                                    이미지 변경
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        className="review-edit-image-upload-input"
+                                        onChange={handleFileChange}
+                                        style={{ display: "none" }}
+                                    />
+                                </label>
+                                {selectedImageName && (
+                                    <p className="selected-image-name">
+                                        현재 파일: {selectedImageName}
+                                    </p>
+                                )}
+                            </div>
+                            <textarea
+                                placeholder="내용을 입력해주세요"
+                                className="review-edit-content-input"
+                                value={reviewContent}
+                                onChange={(e) => setReviewContent(e.target.value)}
+                            ></textarea>
+                            <div className="review-edit-modal-footer">
+                                <button className="cancel-btn" onClick={closeEditReviewModal}>
+                                    취소
+                                </button>
+                                <button className="submit-btn" onClick={handleUpdateReview}>
+                                    수정
                                 </button>
                             </div>
                         </div>

@@ -94,4 +94,19 @@ public class RestaurantDAOImpl implements RestaurantDAO {
     public void insertReview(ReviewVO review) {
         sqlSession.insert(NAMESPACE + ".insertReview", review);
     }
+
+    @Override
+    public int deleteReviewById(int reviewNumber) {
+        return sqlSession.delete(NAMESPACE + ".deleteReviewById", reviewNumber);
+    }
+
+    @Override
+    public int updateReview(ReviewVO review) {
+        return sqlSession.update(NAMESPACE + ".updateReview", review);
+    }
+
+    @Override
+    public void incrementViewCount(String name) {
+        sqlSession.update(NAMESPACE + ".incrementViewCount", name);
+    }
 }

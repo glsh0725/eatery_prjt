@@ -109,6 +109,23 @@ public class RestaurantServiceImpl implements RestaurantService {
         restaurantDAO.insertReview(review);
     }
 
+    @Override
+    public boolean deleteReview(int reviewNumber) {
+        int rowsAffected = restaurantDAO.deleteReviewById(reviewNumber);
+        return rowsAffected > 0;
+    }
+
+    @Override
+    public boolean updateReview(ReviewVO review) {
+        int rowsAffected = restaurantDAO.updateReview(review);
+        return rowsAffected > 0;
+    }
+
+    @Override
+    public void incrementViewCount(String name) {
+        restaurantDAO.incrementViewCount(name);
+    }
+
     private void ensureInitializedLikesAndFavorites(String memId) {
         if (restaurantDAO.getLikesAndFavoritesByMember(memId) == null) {
             restaurantDAO.initializeResToUpdate(memId);

@@ -124,12 +124,86 @@ public class RestaurantControllerImpl implements RestaurantController {
         }
     }
 
+    @Override
+    @DeleteMapping("/reviews/{reviewNumber}")
+    public ResponseEntity<?> deleteReview(@PathVariable("reviewNumber") int reviewNumber) {
+        try {
+            boolean isDeleted = restaurantService.deleteReview(reviewNumber);
+            if (isDeleted) {
+                return ResponseEntity.ok("리뷰가 성공적으로 삭제되었습니다!");
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("리뷰를 찾을 수 없습니다.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("리뷰 삭제 중 오류가 발생했습니다.");
+        }
+    }
+
+    @PutMapping("/reviews/{reviewNumber}")
+    public ResponseEntity<?> updateReview(
+            @PathVariable("reviewNumber") int reviewNumber,
+            @RequestParam("reviewScore") double reviewScore,
+            @RequestParam("reviewContent") String reviewContent,
+            @RequestParam(value = "reviewPhoto", required = false) MultipartFile reviewPhoto) {
+        try {
+            String photoName = null;
+
+            if (reviewPhoto != null && !reviewPhoto.isEmpty()) {
+                String projectDir = System.getProperty("user.dir");
+                String uploadDir = projectDir + "/src/main/resources/static/images/reviews";
+
+                File directory = new File(uploadDir);
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
+
+                int fileCount = Objects.requireNonNull(directory.listFiles()).length;
+                photoName = "review" + (fileCount + 1) + ".jpg";
+                File destination = new File(directory, photoName);
+                reviewPhoto.transferTo(destination);
+            }
+
+            ReviewVO review = new ReviewVO();
+            review.setReviewNumber(reviewNumber);
+            review.setReviewScore(reviewScore);
+            review.setReviewContent(reviewContent);
+            review.setReviewPhotoName(photoName);
+
+            boolean isUpdated = restaurantService.updateReview(review);
+
+            if (isUpdated) {
+                return ResponseEntity.ok("리뷰가 성공적으로 수정되었습니다!");
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("리뷰를 찾을 수 없습니다.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("리뷰 수정 중 오류가 발생했습니다.");
+        }
+    }
+
     private void refreshStaticResources(String directoryPath) {
         File directory = new File(directoryPath);
         if (directory.exists() && directory.isDirectory()) {
             for (File file : Objects.requireNonNull(directory.listFiles())) {
                 file.setLastModified(System.currentTimeMillis());
             }
+        }
+    }
+
+    @PatchMapping("/restaurants/{name}/viewCount")
+    public ResponseEntity<?> incrementViewCount(@PathVariable String name) {
+        try {
+            restaurantService.incrementViewCount(name);
+            return ResponseEntity.ok("조회수가 증가되었습니다.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("조회수 증가 중 오류가 발생했습니다.");
         }
     }
 }

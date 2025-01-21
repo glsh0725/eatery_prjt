@@ -31,4 +31,10 @@ public interface RestaurantDAO {
     void insertReview(ReviewVO review);
 
     Integer getMaxReviewNumber();
+
+    int deleteReviewById(@Param("reviewNumber") int reviewNumber);
+
+    int updateReview(ReviewVO review);
+
+    void incrementViewCount(@Param("name") String name);
 }

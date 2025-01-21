@@ -16,4 +16,7 @@ public interface RestaurantService {
     boolean toggleLike(String memId, String resName);
     boolean toggleFavorite(String memId, String resName);
     void addReview(ReviewVO review);
+    boolean deleteReview(int reviewNumber);
+    boolean updateReview(ReviewVO review);
+    void incrementViewCount(String name);
 }
