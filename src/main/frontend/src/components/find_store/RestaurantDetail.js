@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { jwtDecode } from 'jwt-decode';
 import "../../css/RestaurantDetail.css";
 
 const RestaurantDetail = () => {
@@ -8,6 +9,9 @@ const RestaurantDetail = () => {
     const [restaurant, setRestaurant] = useState(null);
     const [users, setUsers] = useState([]);
     const [error, setError] = useState("");
+    const [isLiked, setIsLiked] = useState(false);
+    const [isFavorited, setIsFavorited] = useState(false);
+    const [userId, setUserId] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [showReportModal, setShowReportModal] = useState(false);
     const [showWriteReviewModal, setShowWriteReviewModal] = useState(false);
@@ -17,25 +21,83 @@ const RestaurantDetail = () => {
     const reviewsPerPage = 3;
 
     useEffect(() => {
+        const fetchUserIdFromToken = () => {
+            const token = localStorage.getItem("authToken");
+            if (token) {
+                try {
+                    const payload = jwtDecode(token);
+                    if (payload.exp * 1000 > Date.now()) {
+                        setUserId(payload.sub);
+                    } else {
+                        localStorage.removeItem("authToken");
+                        setUserId(null);
+                    }
+                } catch (e) {
+                    console.error("토큰 디코딩 실패:", e);
+                    setUserId(null);
+                }
+            }
+        };
+        fetchUserIdFromToken();
+    }, []);
+
+    useEffect(() => {
         const fetchData = async () => {
             try {
                 const restaurantResponse = await axios.get(`http://localhost:18080/api/restaurants/${name}`);
                 setRestaurant(restaurantResponse.data);
 
-                const restaurantName = name;
-
-                const reviewsResponse = await axios.get(`http://localhost:18080/api/reviews/${restaurantName}`);
+                const reviewsResponse = await axios.get(`http://localhost:18080/api/reviews/${name}`);
                 setReviews(reviewsResponse.data);
 
                 const usersResponse = await axios.get(`http://localhost:18080/api/users`);
                 setUsers(usersResponse.data);
+
+                if (userId) {
+                    const response = await axios.get(`http://localhost:18080/api/likes-and-favorites/${userId}`);
+                    const { likes = [], favorites = [] } = response.data;
+                    setIsLiked(likes.includes(name));
+                    setIsFavorited(favorites.includes(name));
+                }
             } catch (err) {
                 setError(err.message);
             }
         };
 
         fetchData();
-    }, [name]);
+    }, [name, userId]);
+
+    const toggleFavorite = async () => {
+        if (!userId) {
+            console.warn("로그인이 필요합니다.");
+            return;
+        }
+        try {
+            const response = await axios.post(
+                `http://localhost:18080/api/favorites/toggle`,
+                { memId: userId, resName: name }
+            );
+            setIsFavorited(response.data);
+        } catch (err) {
+            console.error("즐겨찾기 토글 중 오류:", err);
+        }
+    };
+
+    const toggleLike = async () => {
+        if (!userId) {
+            console.warn("로그인이 필요합니다.");
+            return;
+        }
+        try {
+            const response = await axios.post(
+                `http://localhost:18080/api/likes/toggle`,
+                { memId: userId, resName: name }
+            );
+            setIsLiked(response.data);
+        } catch (err) {
+            console.error("좋아요 토글 중 오류:", err);
+        }
+    };
 
     const handleMoreReviewsClick = () => {
         setShowModal(true);
@@ -130,8 +192,18 @@ const RestaurantDetail = () => {
                         </span>
                 </h2>
                 <div className="actions">
-                    <span>⭐ 즐겨찾기</span>
-                    <span>❤️ 좋아요 {restaurant.likeCount || 0}</span>
+                    <span
+                        className={`favorite ${isFavorited ? "active" : ""}`}
+                        onClick={toggleFavorite}
+                    >
+                        ⭐ 즐겨찾기
+                    </span>
+                    <span
+                        className={`like ${isLiked ? "active" : ""}`}
+                        onClick={toggleLike}
+                    >
+                        ❤️ 좋아요 {restaurant.likeCount || 0}
+                    </span>
                     <span>👀 조회수 {restaurant.viewCount || 0}</span>
                 </div>
             </div>

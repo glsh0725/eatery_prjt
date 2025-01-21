@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface RestaurantDAO {
@@ -15,4 +16,13 @@ public interface RestaurantDAO {
     List<RestaurantVO> getAllRestaurantsWithReviews();
     RestaurantVO findRestaurantByName(@Param("name") String name);
     List<ReviewVO> findReviewsByRestaurantName(@Param("restaurantName") String restaurantName);
+    Map<String, String> getLikesAndFavoritesByMember(@Param("memId") String memId);
+
+    void updateLikesAndFavorites(
+            @Param("memId") String memId,
+            @Param("likes") String likes,
+            @Param("favorites") String favorites
+    );
+
+    void initializeResToUpdate(@Param("memId") String memId);
 }

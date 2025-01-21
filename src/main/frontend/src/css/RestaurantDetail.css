@@ -620,6 +620,16 @@
     background: #ff8c00;
 }
 
+.favorite.active {
+    color: gold;
+    font-weight: bold;
+}
+
+.like.active {
+    color: red;
+    font-weight: bold;
+}
+
 @media screen and (max-width: 750px) {
     .image-box,
     .map-box {

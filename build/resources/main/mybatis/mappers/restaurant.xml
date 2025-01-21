@@ -146,4 +146,29 @@
             r.RES_SCORE_NUMBER DESC, rv.REV_NUMBER ASC
     </select>
 
+    <!-- 좋아요와 즐겨찾기 조회 -->
+    <select id="getLikesAndFavoritesByMember" parameterType="String" resultType="map">
+        SELECT
+            MEM_ID AS memId,
+            COALESCE(TO_CHAR(LIKES_RES_NAME), '') AS likes,
+            COALESCE(TO_CHAR(FAVORITES_RES_NAME), '') AS favorites
+        FROM resToUpdate
+        WHERE MEM_ID = #{memId}
+    </select>
+
+    <!-- 좋아요와 즐겨찾기 업데이트 -->
+    <update id="updateLikesAndFavorites" parameterType="map">
+        UPDATE resToUpdate
+        SET
+            LIKES_RES_NAME = #{likes, jdbcType=CLOB},
+            FAVORITES_RES_NAME = #{favorites, jdbcType=CLOB}
+        WHERE MEM_ID = #{memId}
+    </update>
+
+    <!-- 좋아요/즐겨찾기 초기화 -->
+    <insert id="initializeResToUpdate">
+        INSERT INTO RES_TO_UPDATE (MEM_ID, LIKES_RES_NAME, FAVORITES_RES_NAME)
+        VALUES (#{memId}, EMPTY_CLOB(), EMPTY_CLOB())
+    </insert>
+
 </mapper>

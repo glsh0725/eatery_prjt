@@ -1,12 +1,14 @@
 package fs.four.eatery.restaurant.dao;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import fs.four.eatery.restaurant.vo.RestaurantVO;
 import fs.four.eatery.restaurant.vo.ReviewVO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import java.util.*;
 
 @Repository
 public class RestaurantDAOImpl implements RestaurantDAO {
@@ -44,5 +46,33 @@ public class RestaurantDAOImpl implements RestaurantDAO {
     @Override
     public List<RestaurantVO> getAllRestaurantsWithReviews() {
         return sqlSession.selectList(NAMESPACE + ".getAllRestaurantsWithReviews");
+    }
+
+    @Override
+    public Map<String, String> getLikesAndFavoritesByMember(String memId) {
+        Map<String, String> result = sqlSession.selectOne(NAMESPACE + ".getLikesAndFavoritesByMember", memId);
+
+        if (result == null) {
+            initializeResToUpdate(memId);
+            result = new HashMap<>();
+            result.put("likes", "");
+            result.put("favorites", "");
+        }
+        return result;
+    }
+
+    @Override
+    public void updateLikesAndFavorites(String memId, String likes, String favorites) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("memId", memId);
+        params.put("likes", likes);
+        params.put("favorites", favorites);
+
+        sqlSession.update(NAMESPACE + ".updateLikesAndFavorites", params);
+    }
+
+    @Override
+    public void initializeResToUpdate(String memId) {
+        sqlSession.insert(NAMESPACE + ".initializeResToUpdate", memId);
     }
 }
