@@ -15,7 +15,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post("http://localhost:18080/api/login", {
+            const response = await axios.post("http://192.168.0.61:18080/api/login", {
                 mem_id,
                 mem_pw,
             });
@@ -53,7 +53,7 @@ const Login = () => {
 
     const kakaoLogin = () => {
         const REST_API_KEY = '키값 필요함';
-        const REDIRECT_URI = 'http://localhost:18080/kakao';
+        const REDIRECT_URI = 'http://192.168.0.61:18080/kakao';
         window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
     };
 

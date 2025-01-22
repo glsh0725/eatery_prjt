@@ -14,7 +14,7 @@ const Main = () => {
 
     useEffect(() => {
         axios
-            .get("http://localhost:18080/api/restaurants-with-reviews")
+            .get("http://192.168.0.61:18080/api/restaurants-with-reviews")
             .then((response) => {
                 setRestaurants(response.data);
             })

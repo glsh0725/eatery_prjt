@@ -50,17 +50,17 @@ const RestaurantDetail = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const restaurantResponse = await axios.get(`http://localhost:18080/api/restaurants/${name}`);
+                const restaurantResponse = await axios.get(`http://192.168.0.61:18080/api/restaurants/${name}`);
                 setRestaurant(restaurantResponse.data);
 
-                const reviewsResponse = await axios.get(`http://localhost:18080/api/reviews/${name}`);
+                const reviewsResponse = await axios.get(`http://192.168.0.61:18080/api/reviews/${name}`);
                 setReviews(reviewsResponse.data);
 
-                const usersResponse = await axios.get(`http://localhost:18080/api/users`);
+                const usersResponse = await axios.get(`http://192.168.0.61:18080/api/users`);
                 setUsers(usersResponse.data);
 
                 if (userId) {
-                    const response = await axios.get(`http://localhost:18080/api/likes-and-favorites/${userId}`);
+                    const response = await axios.get(`http://192.168.0.61:18080/api/likes-and-favorites/${userId}`);
                     const { likes = [], favorites = [] } = response.data;
                     setIsLiked(likes.includes(name));
                     setIsFavorited(favorites.includes(name));
@@ -76,9 +76,9 @@ const RestaurantDetail = () => {
     useEffect(() => {
         const incrementViewCount = async () => {
             try {
-                await axios.patch(`http://localhost:18080/api/restaurants/${name}/viewCount`);
+                await axios.patch(`http://192.168.0.61:18080/api/restaurants/${name}/viewCount`);
 
-                const updatedRestaurant = await axios.get(`http://localhost:18080/api/restaurants/${name}`);
+                const updatedRestaurant = await axios.get(`http://192.168.0.61:18080/api/restaurants/${name}`);
                 setRestaurant(updatedRestaurant.data);
             } catch (err) {
                 console.error("조회수 증가 중 오류:", err);
@@ -95,7 +95,7 @@ const RestaurantDetail = () => {
         }
         try {
             const response = await axios.post(
-                `http://localhost:18080/api/favorites/toggle`,
+                `http://192.168.0.61:18080/api/favorites/toggle`,
                 { memId: userId, resName: name }
             );
             setIsFavorited(response.data);
@@ -111,13 +111,13 @@ const RestaurantDetail = () => {
         }
         try {
             const response = await axios.post(
-                `http://localhost:18080/api/likes/toggle`,
+                `http://192.168.0.61:18080/api/likes/toggle`,
                 { memId: userId, resName: name }
             );
             const newIsLiked = response.data;
             setIsLiked(newIsLiked);
 
-            const updatedRestaurant = await axios.get(`http://localhost:18080/api/restaurants/${name}`);
+            const updatedRestaurant = await axios.get(`http://192.168.0.61:18080/api/restaurants/${name}`);
             setRestaurant(updatedRestaurant.data);
         } catch (err) {
             console.error("좋아요 토글 중 오류:", err);
@@ -154,17 +154,17 @@ const RestaurantDetail = () => {
         }
 
         try {
-            await axios.post(`http://localhost:18080/api/reviews/${name}`, formData, {
+            await axios.post(`http://192.168.0.61:18080/api/reviews/${name}`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
             });
             alert("리뷰가 성공적으로 등록되었습니다!");
 
-            const updatedReviews = await axios.get(`http://localhost:18080/api/reviews/${name}`);
+            const updatedReviews = await axios.get(`http://192.168.0.61:18080/api/reviews/${name}`);
             setReviews(updatedReviews.data);
 
-            const reviewsResponse = await axios.get(`http://localhost:18080/api/reviews/${name}`);
+            const reviewsResponse = await axios.get(`http://192.168.0.61:18080/api/reviews/${name}`);
             setReviews(reviewsResponse.data);
 
             closeWriteReviewModal();
@@ -185,7 +185,7 @@ const RestaurantDetail = () => {
 
     const deleteReview = async (reviewNumber) => {
         try {
-            await axios.delete(`http://localhost:18080/api/reviews/${reviewNumber}`);
+            await axios.delete(`http://192.168.0.61:18080/api/reviews/${reviewNumber}`);
             setReviews((prevReviews) =>
                 prevReviews.filter((review) => review.reviewNumber !== reviewNumber)
             );
@@ -215,12 +215,12 @@ const RestaurantDetail = () => {
 
         try {
             await axios.put(
-                `http://localhost:18080/api/reviews/${selectedReview.reviewNumber}`,
+                `http://192.168.0.61:18080/api/reviews/${selectedReview.reviewNumber}`,
                 formData
             );
 
             alert("리뷰가 성공적으로 수정되었습니다!");
-            const updatedReviews = await axios.get(`http://localhost:18080/api/reviews/${name}`);
+            const updatedReviews = await axios.get(`http://192.168.0.61:18080/api/reviews/${name}`);
             setReviews(updatedReviews.data);
             setShowEditReviewModal(false);
             setSelectedReview(null);

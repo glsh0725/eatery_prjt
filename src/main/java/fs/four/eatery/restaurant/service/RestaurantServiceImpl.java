@@ -19,7 +19,6 @@ public class RestaurantServiceImpl implements RestaurantService {
     private RestaurantDAO restaurantDAO;
 
     @Override
-    @Cacheable(value = "restaurants")
     public List<RestaurantVO> getAllRestaurants() {
         return restaurantDAO.getAllRestaurants();
     }
@@ -37,7 +36,6 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    @Cacheable(value = "restaurantsWithReviews")
     public List<RestaurantVO> getAllRestaurantsWithReviews() {
         return restaurantDAO.getAllRestaurantsWithReviews();
     }

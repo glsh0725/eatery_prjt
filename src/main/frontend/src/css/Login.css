@@ -133,7 +133,7 @@
 }
 
 .login-form .display .kakao_btn .kakao_auth {
-  background-image: url('http://localhost:18080/images/login/kakao_login.png');
+  background-image: url('http://192.168.0.61:18080/images/login/kakao_login.png');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

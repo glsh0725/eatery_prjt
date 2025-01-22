@@ -7,7 +7,7 @@ function App() {
     const [hello, setHello] = useState('');
     const [error, setError] = useState('');
     useEffect(() => {
-    axios.get('http://localhost:18080/api/main')
+    axios.get('http://192.168.0.61:18080/api/main')
         .then((res) => {
             setHello(res.data);
         })

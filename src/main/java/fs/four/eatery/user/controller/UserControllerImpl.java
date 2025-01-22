@@ -26,7 +26,7 @@ public class UserControllerImpl implements UserController {
     public ResponseEntity<String> signup(@ModelAttribute UserVO userVO) {
         try {
             userService.registerUser(userVO);
-            return ResponseEntity.ok("http://localhost:18080/login");
+            return ResponseEntity.ok("http://192.168.0.61:18080/login");
         } catch (Exception e) {
             return ResponseEntity.status(400).body("회원가입 중 오류가 발생했습니다: " + e.getMessage());
         }

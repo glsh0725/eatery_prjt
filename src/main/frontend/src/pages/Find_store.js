@@ -32,7 +32,7 @@ const Find_store = () => {
     const times = ["전체", ...Array.from({ length: 24 }, (_, i) => `${i + 1}시`)];
 
     useEffect(() => {
-        axios.get("http://localhost:18080/api/restaurants-with-reviews")
+        axios.get("http://192.168.0.61:18080/api/restaurants-with-reviews")
             .then((response) => {
                 setRestaurants(response.data);
             })

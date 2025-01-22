@@ -19,7 +19,7 @@ const Sign_up = () => {
     const [modalContent, setModalContent] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const [pwInfoMessage, setPwInfoMessage] = useState("");
-    const contextPath = "http://localhost:18080";
+    const contextPath = "http://192.168.0.61:18080";
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
