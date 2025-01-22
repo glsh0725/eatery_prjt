@@ -14,10 +14,10 @@ export const Modal = ({ openModal, setOpenModal }) => {
 
 
     return (
-        <div class="modal_contact">
-            <div class="modal_container">
-                <p class="modal_title">CONTACT</p>
-                <div class="modal_input">
+        <div class="m-modal_contact">
+            <div class="m-modal_container">
+                <p class="m-modal_title">CONTACT</p>
+                <div class="m-modal_input">
                     <input type="text" class="m_input" placeholder="제목" maxLength={30}/>
                     <input type="text" class="m_input" placeholder="휴대폰 번호" maxLength={11}/>
                     <textarea onChange={onInputHandler} class="m_textarea" placeholder="내용" maxLength={200}/>

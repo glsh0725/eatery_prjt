@@ -232,14 +232,20 @@ const Sign_up = () => {
                         />{" "}
                         <span
                             className="link"
-                            onClick={(e) => openModal("terms", e)}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                openModal("terms", e);
+                            }}
                         >
                             <u>이용약관</u>
                         </span>
                         및{" "}
                         <span
                             className="link"
-                            onClick={(e) => openModal("privacy", e)}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                openModal("privacy", e);
+                            }}
                         >
                             <u>개인정보 취급방침</u>
                         </span>{" "}

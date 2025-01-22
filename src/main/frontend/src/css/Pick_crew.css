@@ -2,7 +2,7 @@
     margin: 0px 25px;
     border: 1px solid #1b1b1b;
     border-radius: 20px;
-    height: 300px;
+    height: 180px;
 }
 .myc_container .my_top {
     display: flex;
@@ -14,7 +14,7 @@
     margin: 0;
     top: 15px;
     left: 15px;
-    font-size: 35px;
+    font-size: 38px;
 }
 .myc_container .my_top .crew_btn {
     position: relative;
@@ -26,7 +26,7 @@
     margin-left: 5px;
     padding: 7px 20px;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 16px;
     color: #c49c18;
     background-color: #e9edab;
     border: solid 1px #c49c18;
@@ -34,8 +34,8 @@
 }
 .myc_container .mc_img {
     position: relative;
-    width: 200px;
-    height: 200px;
+    width: 80px;
+    height: 80px;
     top: 10px;
     left: 20px;
     border: solid 2px #c49c18;
@@ -62,7 +62,7 @@
     margin-right: 30px;
 }
 .bottom_menu .bm_con .bm_title {
-    font-size: 35px;
+    font-size: 38px;
     margin-left: 30px;
     text-align: center;
 }
@@ -79,38 +79,41 @@
 .bottom_menu .bm_cardlist .cl_card {
     display: flex;
     flex-direction: row;
-    margin: 0px 20px;
+    margin: 0px 10px;
     padding: 20px;
     border: solid 1px;
     border-radius: 20px;
 }
 .bottom_menu .bm_cardlist .cl_card img{
-    width: 160px;
-    height: 160px;
+    width: 80px;
+    height: 80px;
     border: solid 2px #c49c18;
     border-radius: 10px;
 }
 .bottom_menu .bm_cardlist .cl_card .txt_right {
     display: flex;
     flex-direction: column;
-    margin-left: 20px;
+    margin-left: 30px;
 }
 .bottom_menu .bm_cardlist .cl_card .txt_right .txt_title {
-    font-size: 50px;
+    font-size: 36px;
     display: flex;
+    margin-bottom: 15px;
 }
 .bottom_menu .bm_cardlist .cl_card .txt_right .txt_elem {
     list-style:none;
     position: relative;
-    margin: 0px;
+    margin: 0;
+    padding: 0;
 }
 .bottom_menu .bm_cardlist .cl_card .txt_right .txt_elem li {
     float: left;
     margin-right: 20px;
+    font-size: 26px;
 }
 .bottom_menu .bm_con .bm_btn {
     padding: 0px 20px;
-    font-size: 17px;
+    font-size: 20px;
     margin-left: 20px;
     border: solid 1px #ba870f;
     border-radius: 5px;
@@ -125,5 +128,5 @@
     color: #fff;
 }
 .bottom_menu .bm_cardlist .cl_card {
-    margin: 20px;
+    margin: 10px 20px;
 }

@@ -3,7 +3,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
+    padding: 0px 20px 0 20px;
+    height: 81vh;
 }
 
 .container .intro {
@@ -12,6 +13,7 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 40px;
+    height: 450px;
 }
 
 .container .intro .intro_img {
@@ -19,16 +21,17 @@
 }
 
 .container .intro .intro_img img {
-    width: 100%;
-    max-height: 370px;
+    width: 90%;
+    max-height: 440px;
     border-radius: 20px;
 }
 
 .container .intro .intro_text {
     width: 50%;
-    padding: 10px;
+    padding: 150px 10px 10px 10px;
     font-size: 16px;
     color: #333;
+    align-items: flex-end;
 }
 
 .container .contacts {
@@ -37,6 +40,8 @@
     padding: 20px;
     text-align: center;
     width: 100%;
+    height: 200px;
+    overflow: hidden;
 }
 
 .container .contacts h2 {

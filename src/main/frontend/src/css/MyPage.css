@@ -2,16 +2,19 @@
 
 /* 컨테이너 스타일 */
 .mypage-container {
-    width: 50%;
+    position: relative;
+    width: 60%;
+    height: 500px;
     margin: 0 auto;
     text-align: center;
+    align-items: center;
     padding-top: 20px;
     font-family: 'Jua', cursive;
 }
 
 /* 제목 스타일 */
 .mypage-title {
-    font-size: 28px;
+    font-size: 40px;
     font-weight: bold;
     margin-bottom: 30px;
 }
@@ -30,45 +33,69 @@
 
 /* 프로필 사진 스타일 */
 .profile-picture {
-    width: 200px;
-    height: 200px;
-    border: 4px solid #ccc;
+    width: 300px;
+    height: 333px;
+    border: 1px solid #ccc;
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 0 auto;
-    font-size: 16px;
+    font-size: 28px;
     font-weight: bold;
     color: #666;
     border-radius: 10px;
-    background-color: #f9f9f9;
+    background-image: url('../../../resources/static/images/silverbg.png');
+    background-size: cover;
+}
+
+.profile-picture span {
+    display: inline-block;
+    width: 86%;
+    height: 86%;
+    background-image: url('../../../resources/static/images/chillguy.JPG');
+    background-size: cover;
+    background-position: center;
+    text-indent: -9999px; /* 텍스트 숨기기 */
+    overflow: hidden;
 }
 
 /* 티어 스타일 */
 .profile-tier {
+    display: flex;
     margin-top: 10px;
-    font-size: 16px;
+    font-size: 28px;
     font-weight: bold;
-    color: #666;
+    color: #a7c2e6;
+    align-items: center;
+    justify-content: center;
+}
+
+.silver_image {
+    height: 30px;
+    margin-right: 15px;
 }
 
 /* 프로필 오른쪽 정보 스타일 */
 .profile-right p {
     margin: 10px 0;
-    font-size: 16px;
+    font-size: 36px;
     text-align: left;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .profile-right select {
-    padding: 5px;
-    font-size: 14px;
+    margin-left: 15px;
+    font-size: 24px;
+    border: 1px solid orange;
+    border-radius: 4px;
 }
 
 /* 버튼 스타일 */
 .mypage-container .action-buttons {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 30px;
 }
 
 .mypage-container .action-btn {
@@ -106,28 +133,32 @@
     background: white;
     padding: 30px; /* 여백을 더 주어 크기 키움 */
     border-radius: 10px;
-    width: 500px; /* 너비를 크게 설정 */
-    max-height: 80%;
+    width: 600px; /* 너비를 크게 설정 */
+    height: 65%;
     overflow-y: auto;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     text-align: left; /* 텍스트 왼쪽 정렬 */
     font-size: 16px; /* 전체 폰트 크기 증가 */
 }
 
+.mypage-container .modal-content span {
+    font-size: 32px;
+}
+
 /* 모달 닫기 버튼 */
 .mypage-container .modal-content button {
-    margin-top: 20px;
-    padding: 12px 24px; /* 버튼 크기 조정 */
-    background: #ff3d3d;
+    padding: 8px 16px; /* 버튼 크기 조정 */
+    background-color: #ff6600;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16px; /* 버튼 텍스트 크기 조정 */
+    font-size: 18px; /* 버튼 텍스트 크기 조정 */
+    float: right;
 }
 
 .mypage-container .modal-content button:hover {
-    background: #ff6666;
+    background-color: #ffa500;
 }
 
 /* 리스트 스타일 */

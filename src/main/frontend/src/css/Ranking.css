@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
 .ranking-container {
-    padding: 20px;
+    padding: 15px 20px;
     text-align: center;
     font-family: 'Jua', sans-serif;
 }
@@ -16,7 +16,7 @@
     border: 1px solid #ddd;
     border-radius: 10px;
     background-color: #fff;
-    height: 600px;
+    height: 701px;
     overflow-y: auto; /* 내용만 스크롤 */
     position: relative;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -26,7 +26,7 @@
 .ranking-box h2 {
     margin: 0;
     padding: 10px;
-    font-size: 20px;
+    font-size: 24px;
     font-weight: bold;
     color: #1b1b1b;
     background-color: #f8d859; /* 부드러운 노란색 */
@@ -40,15 +40,14 @@
 .ranking-list {
     display: flex;
     flex-direction: column;
-    gap: 5px;
-    padding: 10px 0;
+    padding: 0;
 }
 
 .ranking-item {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    padding: 10px;
+    padding: 5px 10px;
     border-bottom: 1px solid #f0f0f0;
     background-color: #fafafa; /* 항목 배경 */
     transition: background-color 0.3s ease; /* 호버 애니메이션 */
@@ -60,7 +59,7 @@
 
 .ranking-rank {
     font-weight: bold;
-    font-size: 18px;
+    font-size: 24px;
     margin-right: 10px;
     width: 30px;
     text-align: center;
@@ -68,8 +67,8 @@
 }
 
 .profile-image {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%; /* 동그란 프로필 이미지 */
     margin-right: 10px;
     object-fit: cover; /* 이미지를 동그란 영역에 맞추기 */
@@ -79,6 +78,7 @@
 .ranking-user {
     flex-grow: 1;
     text-align: left;
+    font-size: 26px;
     color: #555;
 }
 
@@ -107,4 +107,159 @@
 .load-more-btn:disabled {
     background-color: #ddd;
     cursor: not-allowed;
+}
+
+/* 모달 배경 */
+.ranking-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* 모달 창 */
+.ranking-modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 600px;
+    height: 600px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* 닫기 버튼 */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #f57224;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.close-btn:hover {
+    background-color: #ffa500;
+}
+
+.profile-title {
+    font-size: 40px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+/* 프로필 섹션 */
+.profile-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.profile-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 10px;
+}
+
+.profile-picture {
+    width: 300px;
+    height: 333px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    overflow: hidden;
+    margin-bottom: 10px;
+    background-image: url('../../../resources/static/images/silverbg.png');
+    background-size: cover;
+}
+
+.profile-picture img {
+    width: 86%;
+    height: 86%;
+    object-fit: cover;
+    background-position: center;
+    text-indent: -9999px;
+    overflow: hidden;
+}
+
+.profile-tier {
+    display: flex;
+    margin-top: 10px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #a7c2e6;
+    align-items: center;
+    justify-content: center;
+}
+
+.silver_image {
+    height: 30px;
+    margin-right: 15px;
+}
+
+/* 오른쪽 정보 */
+.profile-right {
+    flex: 1;
+    text-align: left;
+    margin: 0 10px;
+    min-height: 383px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.profile-right p {
+    margin: 5px 0;
+    font-size: 36px;
+    text-align: left;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.profile-right select {
+    margin-left: 10px;
+    font-size: 14px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* 버튼 스타일 */
+.action-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+}
+
+.action-btn {
+    padding: 10px 20px;
+    background-color: #f57224;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.action-btn:hover {
+    background-color: #ffa500;
 }

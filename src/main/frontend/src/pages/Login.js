@@ -90,9 +90,6 @@ const Login = () => {
                     <button type="button" className="kakao_btn" onClick={kakaoLogin}>
                         <img src={'/images/login/kakao_login.png'} className="kakao_auth" />
                     </button>
-                    <button type="button" className="signup-button">
-                        구글계정으로 로그인
-                    </button>
                 </div>
             </form>
         </DiningLayout>

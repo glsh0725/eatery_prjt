@@ -192,14 +192,14 @@ const Userinfo = () => {
                         </label>
                     </div>
 
-                    <div className="form_item delete_account" onClick={handleDeleteAccount}>
-                        회원탈퇴
-                    </div>
-
                     <div className="form_item">
                         <button type="submit" className="btn_save_button">
                             저장
                         </button>
+                    </div>
+
+                    <div className="form_item delete_account" onClick={handleDeleteAccount}>
+                        회원탈퇴
                     </div>
                 </form>
             </div>
