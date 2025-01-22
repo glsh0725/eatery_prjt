@@ -52,6 +52,7 @@ const Admin = () => {
         { id: 2, text: "크루 2", link: "#" },
     ];
     const itemsPerPage = 20;
+    const pagesPerGroup = 10;
 
     const handleControlButtonClick = (action) => {
         alert(`"${action}" 버튼이 준비중입니다.`);
@@ -110,6 +111,9 @@ const Admin = () => {
     );
 
     const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+    const currentGroup = Math.ceil(currentPage / pagesPerGroup);
+    const startPage = (currentGroup - 1) * pagesPerGroup + 1;
+    const endPage = Math.min(currentGroup * pagesPerGroup, totalPages);
 
     return (
         <DiningLayout>
@@ -203,7 +207,7 @@ const Admin = () => {
                         {currentData.map((item) => (
                             <tr key={item.id}>
                                 <td>
-                                    <input type="checkbox" />
+                                    <input type="checkbox"/>
                                 </td>
                                 <td>{item.id}</td>
                                 {activeTab === "members" ? (
@@ -258,6 +262,30 @@ const Admin = () => {
                         ))}
                         </tbody>
                     </table>
+                </div>
+
+                <div className="pagination">
+                    <button
+                        onClick={() => setCurrentPage(startPage - 1)}
+                        disabled={startPage === 1}
+                    >
+                        이전
+                    </button>
+                    {Array.from({length: endPage - startPage + 1}, (_, i) => startPage + i).map((page) => (
+                        <button
+                            key={page}
+                            className={currentPage === page ? "active" : ""}
+                            onClick={() => setCurrentPage(page)}
+                        >
+                            {page}
+                        </button>
+                    ))}
+                    <button
+                        onClick={() => setCurrentPage(endPage + 1)}
+                        disabled={endPage === totalPages}
+                    >
+                        다음
+                    </button>
                 </div>
 
                 {/* 리뷰 작성 내역 모달 */}
