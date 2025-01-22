@@ -1,7 +1,5 @@
 import { Suspense, lazy } from 'react';
 import UserProfile from "../pages/UserProfile";
-import Admin_Report from "../pages/Admin_Report";
-import Admin_UserList from "../pages/Admin_UserList";
 const { createBrowserRouter } = require('react-router-dom');
 
 const Loading = <div>Loading....</div>;
@@ -18,6 +16,7 @@ const Find_userinfo = lazy(() => import('../pages/Find_userinfo'));
 const MyPage = lazy(() => import('../pages/MyPage'));
 const KakaoAuth = lazy(() => import('../pages/KakaoCallback'));
 const RestaurantDetail = lazy(() => import('../components/find_store/RestaurantDetail'));
+const Admin = lazy(() => import('../pages/Admin'));
 
 const root = createBrowserRouter([
     {
@@ -125,18 +124,10 @@ const root = createBrowserRouter([
         ),
     },
     {
-        path: '/admin_report',
+        path: '/admin',
         element: (
             <Suspense fallback={Loading}>
-                <Admin_Report />
-            </Suspense>
-        ),
-    },
-    {
-        path: '/admin_userlist',
-        element: (
-            <Suspense fallback={Loading}>
-                <Admin_UserList />
+                <Admin />
             </Suspense>
         ),
     },

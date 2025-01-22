@@ -6,7 +6,7 @@ import "../css/Find_userinfo.css";
 const Find_userinfo = () => {
     const sendCode = async (email, actionType) => {
         try {
-            const response = await fetch("/api/send-code", {
+            const response = await fetch("/api/users", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

@@ -10,7 +10,7 @@ public class FrontendController {
             "/", "/login", "/about", "/find_store/**",
             "/ranking", "/pick_crew", "/sign_up",
             "/userinfo", "/find_userinfo", "/myPage",
-            "/userprofile", "/admin_report", "/admin_userlist"
+            "/userprofile", "/admin"
     })
     public String forward() {
         // 모든 경로를 React의 index.html로 포워딩
