@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import DiningLayout from "../layouts/DiningLayout";
 import "../css/Main.css";
 
@@ -8,6 +9,8 @@ const Main = () => {
     const [hotIndex, setHotIndex] = useState(0);
     const [soloIndex, setSoloIndex] = useState(0);
     const [safeIndex, setSafeIndex] = useState(0);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios
@@ -32,6 +35,10 @@ const Main = () => {
         }
     };
 
+    const handleCardClick = (restaurantName) => {
+        navigate(`/find_store/${restaurantName}`);
+    };
+
     const renderCategory = (title, filteredRestaurants, index, setIndex) => {
         return (
             <div className="main-category-section">
@@ -48,7 +55,11 @@ const Main = () => {
                         {filteredRestaurants
                             .slice(index, index + 4)
                             .map((restaurant) => (
-                                <div key={restaurant.id} className="main-card">
+                                <div
+                                    key={restaurant.id}
+                                    className="main-card"
+                                    onClick={() => handleCardClick(restaurant.name)}
+                                >
                                     <img
                                         src={
                                             restaurant.photoName === "default.jpg"
