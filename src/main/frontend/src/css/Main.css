@@ -1,8 +1,7 @@
 .main-container {
     display: flex;
     flex-direction: column;
-    gap: 5px;
-    padding: 0 20px;
+    padding: 0 5%;
     justify-content: center;
     align-items: center;
 }
@@ -16,7 +15,7 @@
 
 .main-category-title {
     width: 90%;
-    font-size: 24px;
+    font-size: 18px;
     font-weight: bold;
     color: #ff5722;
     margin: 0;
@@ -40,7 +39,7 @@
 }
 
 .main-card {
-    width: 200px;
+    width: 20%;
     background-color: #fff2e9;
     border: 1px solid #ffccbc;
     border-radius: 8px;
@@ -66,25 +65,22 @@
 }
 
 .main-card-title {
-    margin-top: 0;
-    margin-bottom: 5px;
-    font-size: 20px;
+    margin: 0;
+    font-size: 16px;
     color: #ec9705;
     text-align: left;
 }
 
 .main-card-menu {
-    margin-top: 0;
-    margin-bottom: 5px;
-    font-size: 17px;
+    margin: 0;
+    font-size: 14px;
     color: #757575;
     text-align: left;
 }
 
 .main-card-rating {
-    margin-top: 0;
-    margin-bottom: 5px;
-    font-size: 18px;
+    margin: 0;
+    font-size: 15px;
     color: #ff5722;
     text-align: left;
     font-weight: bold;
