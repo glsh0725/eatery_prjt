@@ -261,6 +261,7 @@ const RestaurantDetail = () => {
 
     const closeReportModal = () => {
         setShowReportModal(false);
+        setSelectedReason("spam");
     };
 
     const handleReasonChange = (event) => {
@@ -273,6 +274,10 @@ const RestaurantDetail = () => {
 
     const closeWriteReviewModal = () => {
         setShowWriteReviewModal(false);
+        setSelectedRating(null);
+        setReviewContent("");
+        setSelectedImage(null);
+        setSelectedImageName(null);
     };
 
     const startIndex = (currentPage - 1) * reviewsPerPage;
