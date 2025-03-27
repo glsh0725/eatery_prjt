@@ -10,8 +10,11 @@
    - [주제 및 목표](#-주제-및-목표)
    - [팀 구성 및 사용기술](#-팀-구성-및-사용기술)
 <br/>
+
+[__2. 시연 영상__](#-시연-영상)
+<br/>
     
-[__2. 프로젝트 후기 및 발표자료__](#-후기)
+[__3. 프로젝트 후기 및 발표자료__](#-후기)
 <br/>
 🔗 [프레젠테이션 자료](https://docs.google.com/presentation/d/1ic-61jR-pBXPeYd2Gsu2JA53bQtMiSgLP3EG6p6a5Xw/edit?slide=id.p1#slide=id.p1)
 <br/>
